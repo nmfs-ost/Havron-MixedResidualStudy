@@ -1,0 +1,31 @@
+navbar:
+  structure:
+    left:
+    - home
+    - articles
+    - issue
+
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+
+    github:
+      text: Source Code
+      icon: fab fa-github fa-lg
+      href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
+
+    issue:
+      text: Issues
+      icon: fas fa-question-circle fa-lg
+      href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy/issues
+
+    articles:
+      text: Vignettes
+      icon: fas fa-file-contract fa-lg
+      menu:
+      - text: Tables and Figures
+        href: TMB-validation-tables-figures-pdf
+
+
+
