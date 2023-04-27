@@ -2,7 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-docs
+docs/*
+
 
 !docs/index.html
-!docs/articles
+!docs/articles/
+
