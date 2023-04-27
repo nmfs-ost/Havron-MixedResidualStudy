@@ -13,8 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# MixedResidualStudy
-
 <!-- badges: start -->
 <!-- badges: end -->
 

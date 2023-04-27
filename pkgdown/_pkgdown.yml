@@ -25,7 +25,7 @@ navbar:
       icon: fas fa-file-contract fa-lg
       menu:
       - text: Tables and Figures
-        href: TMB-validation-tables-figures-pdf
+        href: articles/TMB-validation-tables-figures.html
 
 
 
