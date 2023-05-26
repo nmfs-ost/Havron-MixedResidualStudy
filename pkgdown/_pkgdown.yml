@@ -13,7 +13,11 @@ navbar:
     github:
       text: Source Code
       icon: fab fa-github fa-lg
-      href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
+      menu:
+      - text: Project
+        href: https://github.com/Cole-Monnahan-NOAA/mixed_resids
+      - text: Manuscript
+        href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
 
     issue:
       text: Issues

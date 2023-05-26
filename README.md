@@ -10,8 +10,8 @@ projects can be found on
 Manuscript:
 
 - [Draft](https://docs.google.com/document/d/19Y39GqVRAmoIEegxgzyf6HXVWYgWGyr5x8cyHe3qHK8/edit)
-- [Tables](https:://andrea-havron-github-io/tables/TMB-validation-tables.pdf)
-- [Figures](https:://andrea-havron-github-io/articles/TMB-validation-figure.html)
+- [Tables](https://andrea-havron-noaa.github.io/MixedResidualStudy/tables/TMB-validation-tables.pdf)
+- [Figures](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures.html)
 
 Project Repo Structure:
 
