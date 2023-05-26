@@ -1,19 +1,19 @@
 ---
-title: Figure and Table Placeholders
+title: Figure Placeholders
 output: html_document
 ---
 
 # Methods
 ```{r quant-res, echo=FALSE, fig.height = 4, fig.cap="Bottom left: An observation, y, plotted against its distribution, Gamma(alpha = 1, beta = 2). Top left: The cdf value of the observation y given the distribution parameters. Top right: The same cdf value plotted on a standard normal cdf curve. Bottom right: The inverse cdf of the value is plotted on a standard normal distribution."}
-knitr::include_graphics("figs-tables/figures/dgamma2dnorm.png")
+knitr::include_graphics("figures/dgamma2dnorm.png")
 ```
 
 ```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Overview of Simulation Study. Data were first simulated under the Operating, or True Model. Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model."}
-knitr::include_graphics("figs-tables/figures/study-overview.png")
+knitr::include_graphics("figures/study-overview.png")
 ```
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE }
-source("figs-tables/results-setup.R")
+source("../results/results-setup.R")
 ```
 
 ```{r pears-quant-comp, echo = FALSE, results = "hide"}
@@ -107,32 +107,18 @@ hist(y8);
 
 ```{r chol-demo-1, echo=FALSE, out.width = "90%", fig.cap="Given zero-centered multivariate data with a covariance matrix, Sigma. Pairs plo=ts visualize the correlation structure of the data. Blue and red indicate points tracked in transformation. The red points correspond with the marginal percentile in the histogram."}
 
-knitr::include_graphics("figs-tables/figures/demo_pairs1.png")
+knitr::include_graphics("figures/demo_pairs1.png")
 ```
 
 ```{r chol-demo-2, echo=FALSE, out.width = "90%", fig.cap="When observations are scaled to a unit variance, data are transformed to standardized normal space, yet correlation structure is retained."}
 
-knitr::include_graphics("figs-tables/figures/demo_pairs2.png")
+knitr::include_graphics("figures/demo_pairs2.png")
 ```
 
   
 ```{r chol-demo-3, echo=FALSE, out.width = "90%", fig.cap="In order to properly decorrelate the data, we need to apply a decoorelation method, such as the cholesky transformation. In this approach, we calculate the cholesky decomposition of the covariance matrix, Sigma, with which we use to transform the data to iid standardized normal space via both a scaling and a rotaion."}
-knitr::include_graphics("figs-tables/figures/demo_pairs3.png")
+knitr::include_graphics("figures/demo_pairs3.png")
 ```
-
-\clearpage
-\newpage
-
-\input{"figs-tables/tables/linmod-specs.tex"}
-
-\input{"figs-tables/tables/simpleGLMM-specs.tex"}
-
-\input{"figs-tables/tables/randomwalk-specs.tex"}
-
-\input{"figs-tables/tables/spatial-specs.tex"}
-
-\clearpage
-\newpage
 
 # Results
 

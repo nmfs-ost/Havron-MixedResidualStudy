@@ -24,8 +24,10 @@ navbar:
       text: Vignettes
       icon: fas fa-file-contract fa-lg
       menu:
-      - text: Tables and Figures
-        href: articles/TMB-validation-tables-figures.html
+      - text: Tables
+        href: tables/TMB-validation-tables.pdf
+      - text: Figures
+        href: articles/TMB-validation-figures.html
 
 
 

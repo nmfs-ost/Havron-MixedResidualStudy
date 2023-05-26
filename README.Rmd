@@ -18,11 +18,16 @@ knitr::opts_chunk$set(
 
 Residual analysis for mixed effects models. Code to implement this projects can be found on [Github](https://github.com/Cole-Monnahan-NOAA/mixed_resids)
 
+Manuscript:
+
+- [Draft](https://docs.google.com/document/d/19Y39GqVRAmoIEegxgzyf6HXVWYgWGyr5x8cyHe3qHK8/edit)
+- [Tables](https:://andrea-havron-github-io/tables/TMB-validation-tables.pdf)
+- [Figures](https:://andrea-havron-github-io/articles/TMB-validation-figure.html)
+
+
 Project Repo Structure:
 
 - [code](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/code): Demo code and test snippets
-
-- [docs](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/docs): Rmarkdown file containing [Placeholder Figures and Tables](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/docs/TMB-validation-tables-figures.pdf) document
 
 - [R](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/R): R scripts used to run models
 

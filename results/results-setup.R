@@ -8,9 +8,10 @@ library(ggh4x)
 library(ggsci)
 library(mvtnorm)
 library(moments)
+library(here)
 
 ## Define path to results files
-path <- "../results"
+path <- paste0(here(), "/results")
 
 ## Read in pvalue results
 pvals <- lapply(list.files(path, pattern='_pvals.RDS',
@@ -167,6 +168,49 @@ plot.err.pow <- function(df.true, df.est){
     scale_color_viridis_d() +
     theme_bw() + theme(legend.position="bottom")
   print(p)
+}
+
+tbl.err.pow <- function(df, caption = NULL){
+
+
+  pvals.err <- df %>% filter(version == "correct") %>%
+    group_by(misp, method, type) %>%
+    summarize('Type I Error' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+
+  pvals.power <-df %>% filter(version == "mis-specified") %>%
+    group_by(misp, method, type) %>%
+    summarize(Power = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+
+  pvals.est <- left_join(pvals.err, pvals.power)
+  misp.names <- as.character(unique(pvals.est$misp))
+  nmisp <- length(misp.names)
+  misp.header = c(1, rep(2, nmisp))
+  names(misp.header) <- c(" ", misp.names)
+
+  if(nmisp == 1){
+    tbl <- pvals.est %>%
+      as.data.frame() %>% dplyr::select(method, 'Type I Error', Power)  %>%
+      kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
+        kableExtra::kable_styling(., "striped", "HOLD_position") %>%
+      kableExtra::add_header_above(., misp.header)
+  }
+
+  if(nmisp > 1){
+
+    tbl <- pvals.est %>%
+      tidyr::pivot_longer(., cols = 4:5, names_to = "metric", values_to = "pvalue") %>%
+      dplyr::select(misp, method, metric, pvalue) %>%
+      tidyr::pivot_wider(., names_from = c(misp, metric), values_from = pvalue) %>%
+      as.data.frame()
+    colnames(tbl) <- c("method", rep(c("Type I Error", "Power"), nmisp))
+    tbl <- tbl %>%
+      kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
+      kableExtra::kable_styling(., "striped", "HOLD_position") %>%
+      kableExtra::add_header_above(., misp.header)
+  }
+
+  tbl
+
 }
 
 ### Type I error and Power

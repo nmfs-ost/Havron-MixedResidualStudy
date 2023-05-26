@@ -1,0 +1,162 @@
+---
+title: Table Placeholders
+output: pdf_document
+---
+
+# Methods
+
+```{r, include = FALSE, warning = FALSE, message = FALSE }
+source("../../results/results-setup.R")
+```
+
+
+\input{"tables/linmod-specs.tex"}
+
+\input{"tables/simpleGLMM-specs.tex"}
+
+\input{"tables/randomwalk-specs.tex"}
+
+\input{"tables/spatial-specs.tex"}
+
+```{=tex}
+\clearpage
+\newpage
+```
+# Results
+
+## Simple Linear Model
+
+```{r, linmod-results-theor, echo = FALSE, message = FALSE, fig.width = 8, warning = FALSE}
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'cdf',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',
+   'Pearson'
+)
+
+pval.df.true <- filter.true(pvals, "linmod",
+                       res.methods)
+pval.df.est <- filter.est(pvals, "linmod",
+                       res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = "overdispersion",
+         labels = "Overdispersion")
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = "overdispersion",
+         labels = "Overdispersion")
+  
+
+tbl.err.pow(pval.df.true, 
+        caption = "Simple Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by residual type (top to bottom).")
+```
+
+```{r, linmod-results-est, echo = FALSE, message = FALSE, fig.width = 8, warning = FALSE}
+
+tbl.err.pow(pval.df.est, 
+        caption = "Simple Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by residual type (top to bottom).")
+```
+
+```{=tex}
+\clearpage
+\newpage
+```
+
+## Simple Mixed Model
+
+```{r, simpleGLMM-results-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+pval.df.true <- filter.true(pvals, "simpleGLMM",
+                       res.methods)
+pval.df.est <- filter.est(pvals, "simpleGLMM",
+                       res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c("dropRE", "missnormcov", "missunifcov"),
+         labels = c("GLMM - Drop RE", 
+                    "LMM - Missing X Normal",
+                    "LMM - Missing X Uniform"))
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c("dropRE", "missnormcov", "missunifcov"),
+         labels = c("GLMM - Drop RE", 
+                    "LMM - Missing X Normal",
+                    "LMM - Missing X Uniform"))
+  
+
+tbl.err.pow(pval.df.true, 
+        caption = "Simple Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est, 
+        caption = "Simple Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+
+```{=tex}
+\clearpage
+\newpage
+```
+
+## Randomwalk
+
+```{r, rw-results-theor osa-true, echo = FALSE, message = FALSE}
+
+pval.df.true <- filter.true(pvals, "randomwalk",
+                       res.methods)
+pval.df.est <- filter.est(pvals, "randomwalk",
+                       res.methods)
+
+tbl.err.pow(pval.df.true, 
+        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, rw-results-est osa-true, echo = FALSE, message = FALSE}
+
+tbl.err.pow(pval.df.est, 
+        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+
+
+```{=tex}
+\clearpage
+\newpage
+```
+
+## Spatial
+
+```{r, spatial-results-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+pval.df.true <- filter.true(pvals, "spatial",
+                       res.methods)
+pval.df.est <- filter.est(pvals, "spatial",
+                       res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+                     levels = c("dropRE", "mispomega"),
+                     labels = c("GLMM - Drop RE",
+                                "LMM - Lognormal RE"))
+pval.df.est$misp <- factor(pval.df.est$misp,
+                     levels = c("dropRE", "mispomega"),
+                     labels = c("GLMM - Drop RE",
+                                "LMM - Lognormal RE"))
+  
+
+tbl.err.pow(pval.df.true, 
+        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, spatial-results-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est, 
+        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+
