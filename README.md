@@ -13,7 +13,8 @@ Manuscript:
 - [Tables](https://andrea-havron-noaa.github.io/MixedResidualStudy/tables/TMB-validation-tables.pdf)
 - [Figures](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures.html)
 
-Project Repo Structure:
+[Project Repo](https://github.com/Cole-Monnahan-NOAA/mixed_resids)
+Structure:
 
 - [code](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/code):
   Demo code and test snippets
