@@ -13,7 +13,10 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
 
       - name: Install packages
-        run: Rscript -e 'install.packages(c("pkgdown", "roxygen2", "knitr", "rmarkdown"))'
+        run: Rscript -e 'install.packages(c("pkgdown", "roxygen2", "knitr",
+        "dplyr", "viridis", "ggplot2", "tidyr", "kableExtra", "ggh4x", "ggsci",
+        "mvtnorm", "moments", "here", "httr"
+        ))'
 
       - name: Update R function documentation
         run: Rscript -e 'roxygen2::roxygenize()'
