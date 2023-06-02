@@ -1,0 +1,45 @@
+---
+title: Results - Model Runtimes
+output: html_document
+---
+
+<br>
+
+```{r, include = FALSE, warning = FALSE, message = FALSE }
+source("../R/update-results.R")
+#Set update = TRUE to update results from source code
+update_results(update = FALSE)
+source("../results/results-setup.R")
+```
+
+```{r runtimes-log-scale, echo = FALSE, message = FALSE}
+runtimes.all$model <-
+  factor(runtimes.all$model,
+         levels = c("simpleGLMM.vary.nobs",
+                    "randomwalk",
+                    "spatial"),
+         labels = c("LMM - Missing X Uniform",
+                    "Randomwalk - Missing Drift",
+                    "Spatial - Lognormal RE"))
+p <- runtimes.all %>%
+  ggplot(.,aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
+  geom_line()+
+  facet_wrap(~model, labeller = label_wrap_gen(14)) +
+  geom_pointrange(fatten=2) + scale_y_log10()+ scale_x_log10()+
+  labs(y='runtime, log10(s)') +
+  theme_bw() +
+  scale_color_jco()
+p
+```
+
+```{r runtimes, echo = FALSE, message = FALSE}
+p <- runtimes.all %>%
+  ggplot(.,aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
+  geom_line()+
+  facet_wrap(~model, labeller = label_wrap_gen(14)) +
+  geom_pointrange(fatten=2) +
+  labs(y='runtime, s') +
+  theme_bw() +
+  scale_color_jco()
+p
+```
