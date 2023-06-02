@@ -9,18 +9,18 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.4)
 Imports: 
-  dplyr
-  viridis
-  ggplot2
-  tidyr
-  kableExtra
-  ggh4x
-  ggsci
-  mvtnorm
-  moments
-  here
-  httr
-  knitr
+  dplyr,
+  viridis,
+  ggplot2,
+  tidyr,
+  kableExtra,
+  ggh4x,
+  ggsci,
+  mvtnorm,
+  moments,
+  here,
+  httr,
+  knitr,
   magrittr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
