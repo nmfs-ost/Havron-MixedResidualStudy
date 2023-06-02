@@ -10,6 +10,7 @@ library(mvtnorm)
 library(moments)
 library(here)
 
+
 ## Define path to results files
 path <- paste0(here(), "/results")
 
@@ -22,8 +23,8 @@ pvals <- lapply(list.files(path, pattern='_pvals.RDS',
 ### p-values
 pvals$version <- factor(pvals$version,
                         levels = c('h0', 'h1'),
-                        labels = c('correct',
-                                   'mis-specified'))
+                        labels = c('Correct',
+                                   'Mis-specified'))
 pvals$type[which(pvals$method == "pears")] <- "pears"
 pvals$type[which(pvals$method == "mcmc")] <- "sim"
 pvals$type <- factor(pvals$type,
@@ -108,15 +109,15 @@ filter.est <- function(df, mod, method.vec){
                   do.true == FALSE)
 }
 
-plot.fun <- function(df, type, doTrue){
+plot.pval.hist <- function(df, doTrue){
   no.misp <- length(unique(df$misp))
   p <- ggplot(df, aes(pvalue, fill = version, color=version))
   if(no.misp == 1){
-    p <- p + facet_grid2(version ~ method, labeller = label_wrap_gen(12),
+    p <- p + facet_grid2(method ~ version, labeller = label_wrap_gen(12),
                          scales = "free_y", independent = "y")
   }
   if(no.misp > 1){
-    p <- p + facet_nested(version+misp ~ method, labeller = label_wrap_gen(14),
+    p <- p + facet_nested(method ~ version+misp, labeller = label_wrap_gen(12),
                          scales = "free_y", independent = "y")
   }
   p <- p +  geom_histogram(position ='identity', bins = 50,
@@ -214,27 +215,27 @@ tbl.err.pow <- function(df, caption = NULL){
 }
 
 ### Type I error and Power
-results.simpleGLMM.obs <- readRDS(paste0(path, '/simpleGLMM_missunifcov_obs_sample_sizes.RDS'))
+results.simpleGLMM.grps <- readRDS(paste0(path, '/simpleGLMM_missunifcov_obs_sample_sizes.RDS'))
 results.simpleGLMM.grps <- readRDS(paste0(path, '/simpleGLMM_missunifcov_grps_sample_sizes.RDS'))
 results.simpleGLMM.grps$pvals$model <-
   results.simpleGLMM.grps$runtimes$model <-
-  "simpleGLMM.vary.nobs"
+  "simpleGLMM.vary.ngrps"
 
 results.simpleGLMM.obs <- readRDS(paste0(path, '/simpleGLMM_missunifcov_grps_sample_sizes.RDS'))
 results.simpleGLMM.obs$pvals$model <-
   results.simpleGLMM.obs$runtimes$model <-
-  "simpleGLMM.vary.ngrps"
+  "simpleGLMM.vary.nobs"
 
-#results.randomwalk <- readRDS(paste0(path, '/randomwalk_mu0_sample_sizes.RDS'))
+results.randomwalk <- readRDS(paste0(path, '/randomwalk_mu0_sample_sizes.RDS'))
 results.spatial <- readRDS(paste0(path, '/spatial_mispomega_sample_sizes.RDS'))
 runtimes.all <- rbind(results.simpleGLMM.obs$runtimes,
-                      results.simpleGLMM.grps$runtimes,
-                    #  results.randomwalk$runtimes,
+                     # results.simpleGLMM.grps$runtimes,
+                      results.randomwalk$runtimes,
                       results.spatial$runtimes)
 runtimes.all <- runtimes.all %>% filter(!is.na(med))
 pvals.all <- rbind(results.simpleGLMM.obs$pvals,
-                      results.simpleGLMM.grps$pvals,
-                    #  results.randomwalk$pvals,
+                    #  results.simpleGLMM.grps$pvals,
+                      results.randomwalk$pvals,
                       results.spatial$pvals)
 
 runtimes.all$level <- factor(runtimes.all$type,
@@ -260,29 +261,6 @@ runtimes.all$level <- factor(runtimes.all$type,
                                "Unconditional",
                                "Conditional",
                                "Conditional"))
-pvals.all$level <- factor(pvals.all$method,
-                          level = c(
-                            'fg',
-                            'osg',
-                            'gen',
-                            'cdf',
-                            'mcmc',
-                            'pears',
-                            'uncond',
-                            'uncond_nrot',
-                            'cond',
-                            'cond_nrot'),
-                          label = c(
-                            "Unconditional",
-                            "Unconditional",
-                            "Unconditional",
-                            "Unconditional",
-                            "Unconditional",
-                            "Conditional",
-                            "Unconditional",
-                            "Unconditional",
-                            "Conditional",
-                            "Conditional"))
 
 runtimes.all$method <- factor(runtimes.all$type,
                               level = c(
@@ -309,29 +287,29 @@ runtimes.all$method <- factor(runtimes.all$type,
                                 "Conditional ecdf, Not Rotated"
                               ))
 pvals.all$method <- factor(pvals.all$method,
-                            level = c(
-                              'fg',
-                              'osg',
-                              'gen',
-                              'cdf',
-                              'mcmc',
-                              'pears',
-                              'uncond',
-                              'uncond_nrot',
-                              'cond',
-                              'cond_nrot'),
-                            label = c(
-                              'full Gaussian',
-                              'one-step Gaussian',
-                              'one-step Generic',
-                              'cdf',
-                              'MCMC',
-                              'Pearson',
-                              "ecdf, Rotated",
-                              "ecdf, Not Rotated",
-                              "ecdf, Rotated",
-                              "ecdf, Not Rotated"
-                            ))
+                           level = c(
+                             'pears',
+                             'gen',
+                             'osg',
+                             'fg',
+                             'cdf',
+                             'mcmc',
+                             'uncond',
+                             'uncond_nrot',
+                             'cond',
+                             'cond_nrot'),
+                           label = c(
+                             'Pearson',
+                             'one-step Generic',
+                             'one-step Gaussian',
+                             'full Gaussian',
+                             'cdf',
+                             'MCMC',
+                             "Unconditional ecdf, Rotated",
+                             "Unconditional ecdf, Not Rotated",
+                             "Conditional ecdf, Rotated",
+                             "Conditional ecdf, Not Rotated"
+                           ))
 
 
 t1.err.plot <- function(df){
@@ -342,13 +320,13 @@ t1.err.plot <- function(df){
   }
   p <- df %>%
     filter(version == "h0") %>%
-    group_by(nobs, method, level) %>%
+    group_by(nobs, method) %>%
     summarise(t1_err = sum(pvalue<0.05)/sum(pvalue>=0)) %>%
     ggplot(aes(x = nobs, y = t1_err)) +
     ylab("Type I Error Rate") +
     xlab(x.name) +
     geom_point() + geom_line() +
-    facet_grid(method~level, labeller = label_wrap_gen(14)) +
+    facet_wrap(~method, labeller = label_wrap_gen(14)) +
     theme_bw()
 
   print(p)
@@ -362,13 +340,13 @@ pow.plot <- function(df){
   }
   p <- df %>%
     filter(version == "h1") %>%
-    group_by(nobs, method, level) %>%
+    group_by(nobs, method) %>%
     summarise(power = sum(pvalue<=0.05)/sum(pvalue>=0)) %>%
     ggplot(aes(x = nobs, y = power)) +
       ylab("Power") +
       xlab(x.name)  +
       geom_point() + geom_line() +
-      facet_grid(method~level, labeller = label_wrap_gen(14)) +
+      facet_wrap(~method, labeller = label_wrap_gen(14)) +
       theme_bw()
 
   print(p)
