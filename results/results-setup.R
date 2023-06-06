@@ -95,14 +95,14 @@ pvals$method <- factor(pvals$method,
                       ))
 
 ## Functions
-filter.true <- function(df, mod, method.vec){
+filter.true <- function(df, mod, test = "GOF.ks", method.vec){
   dplyr::filter(df, model == mod &
                   test == "GOF.ks" &
                   method %in% method.vec &
                   do.true == TRUE)
 }
 
-filter.est <- function(df, mod, method.vec){
+filter.est <- function(df, mod, test = "GOF.ks", method.vec){
   dplyr::filter(df, model == mod &
                   test == "GOF.ks" &
                   method %in% method.vec &

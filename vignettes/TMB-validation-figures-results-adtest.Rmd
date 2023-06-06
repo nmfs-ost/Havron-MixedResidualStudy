@@ -30,6 +30,7 @@ res.methods <- c(
 )
 
 pval.df <- filter.true(pvals, "linmod", 
+                       test = "GOF.ad",
                        res.methods)
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -41,6 +42,7 @@ plot.pval.hist(pval.df, TRUE)
 ```{r, linmod-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Model. Distribution of estimated p-values under the correct (top) and mis-specified (bottom) models evaluated for each method when parameters are estimated"}
 
 pval.df <- filter.est(pvals, "linmod", 
+                      test = "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -54,6 +56,7 @@ plot.pval.hist(pval.df, FALSE)
 ```{r, simpleGLMM-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 9, fig.cap = "Mixed Model.Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson.**"}
 
 pval.df <- filter.true(pvals, "simpleGLMM", 
+                       test = "GOF.ad",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -72,6 +75,7 @@ plot.pval.hist(pval.df, TRUE)
 ```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of estimated p-values evaluated for each method when parameters are estimated under the correct (left) and mis-specified (right) models."}
 
 pval.df <- filter.est(pvals, "simpleGLMM", 
+                      test = "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -102,6 +106,7 @@ pow.plot(df)
 ```{r, rw-results-true, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson.**"}
 
 pval.df <- filter.true(pvals, "randomwalk", 
+                       test = "GOF.ad",
                        res.methods)
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -113,6 +118,7 @@ plot.pval.hist(pval.df, TRUE)
 ```{r, rw-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of estimated p-values evaluated for each analytical method when parameters are estimated under the correct (top) and mis-specified (bottom) models. **Take home: Pearson rejects the correct model more than expected, MCMC fails to detect mis-specification.**"}
 
 pval.df <- filter.est(pvals, "randomwalk", 
+                      test = "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -126,6 +132,7 @@ plot.pval.hist(pval.df, FALSE)
 ```{r, spatial-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 7, fig.cap = "Simple Mixed Model. Distribution of theoretical p-values under the correct model evaluated for each analytical method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson."}
 
 pval.df <- filter.true(pvals, "spatial", 
+                       test = "GOF.ad",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -144,6 +151,7 @@ plot.pval.hist(pval.df, TRUE)
 ```{r, spatial-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Simple Mixed Model. Distribution of estimated p-values evaluated for each analytical method when parameters are estimated under the correct (top) and mis-specified (bottom) models."}
 
 pval.df <- filter.est(pvals, "spatial", 
+                      test = "GOF.ad",
                       res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
