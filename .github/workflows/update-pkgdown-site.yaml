@@ -3,7 +3,7 @@ on:
   name: update-pkgdown-site
 
 jobs:
-  update-pkgdown-site:
+  pkgdown:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
