@@ -14,10 +14,10 @@ navbar:
       text: Source Code
       icon: fab fa-github fa-lg
       menu:
+      - text: This Repo
+        href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
       - text: Project
         href: https://github.com/Cole-Monnahan-NOAA/mixed_resids
-      - text: Manuscript
-        href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
 
     issue:
       text: Issues
@@ -30,8 +30,12 @@ navbar:
       menu:
       - text: Tables
         href: tables/TMB-validation-tables.pdf
-      - text: Figures
-        href: articles/TMB-validation-figures.html
+      - text: Figures-Methods
+        href: articles/TMB-validation-figures-methods.html
+      - text: Figures-Results-KSTest
+        href: articles/TMB-validation-figures-results-kstest.html
+      - text: Figures-Results-Runtimes
+        href: articles/TMB-validation-figures-results-runtimes.html
 
 
 
