@@ -11,6 +11,7 @@ library(moments)
 library(here)
 library(gridExtra)
 library(ellipse)
+library(rWishart)
 
 ## Functions for methods
 
