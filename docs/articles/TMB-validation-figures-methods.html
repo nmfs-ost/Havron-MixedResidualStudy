@@ -65,6 +65,9 @@
       <a href="../articles/TMB-validation-figures-results-kstest.html">Figures-Results-KSTest</a>
     </li>
     <li>
+      <a href="../articles/TMB-validation-figures-results-adtest.html">Figures-Results-ADTest</a>
+    </li>
+    <li>
       <a href="../articles/TMB-validation-figures-results-runtimes.html">Figures-Results-Runtimes</a>
     </li>
   </ul>
@@ -129,22 +132,32 @@ Fig. 2. Overview of Simulation Study. Data were first simulated under the Operat
 </p>
 </div>
 <p><br></p>
-<p><img src="TMB-validation-figures-methods_files/figure-html/pears-quant-comp-1.png" width="700"><img src="TMB-validation-figures-methods_files/figure-html/pears-quant-comp-2.png" width="700"></p>
-<p><br></p>
 <div class="figure">
-<img src="figures/demo_pairs1.png" alt="Given zero-centered multivariate data with a covariance matrix, Sigma. Pairs plo=ts visualize the correlation structure of the data. Blue and red indicate points tracked in transformation. The red points correspond with the marginal percentile in the histogram." width="90%"><p class="caption">
-Given zero-centered multivariate data with a covariance matrix, Sigma. Pairs plo=ts visualize the correlation structure of the data. Blue and red indicate points tracked in transformation. The red points correspond with the marginal percentile in the histogram.
+<img src="TMB-validation-figures-methods_files/figure-html/pears-quant-comp-1.png" alt="Fig. 3. Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals. " width="700"><p class="caption">
+Fig. 3. Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals.
 </p>
 </div>
 <p><br></p>
 <div class="figure">
-<img src="figures/demo_pairs2.png" alt="When observations are scaled to a unit variance, data are transformed to standardized normal space, yet correlation structure is retained." width="90%"><p class="caption">
+<img src="TMB-validation-figures-methods_files/figure-html/mvn-demo-1-1.png" alt="Pairs plots visualize the correlation structure of mulivariate data (gray) and after their decorrelation (red). The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Points do not retain the same marginal percentage and do not always end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling." width="700"><p class="caption">
+Pairs plots visualize the correlation structure of mulivariate data (gray) and after their decorrelation (red). The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Points do not retain the same marginal percentage and do not always end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling.
+</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="figures/demo_pairs1.png" alt="Given zero-centered multivariate data with a covariance matrix, Sigma. Pairs plots visualize the correlation structure of the data. Blue and red indicate points tracked in transformation. The red points correspond with the marginal percentile in the histogram." width="75%"><p class="caption">
+Given zero-centered multivariate data with a covariance matrix, Sigma. Pairs plots visualize the correlation structure of the data. Blue and red indicate points tracked in transformation. The red points correspond with the marginal percentile in the histogram.
+</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="figures/demo_pairs2.png" alt="When observations are scaled to a unit variance, data are transformed to standardized normal space, yet correlation structure is retained." width="75%"><p class="caption">
 When observations are scaled to a unit variance, data are transformed to standardized normal space, yet correlation structure is retained.
 </p>
 </div>
 <p><br></p>
 <div class="figure">
-<img src="figures/demo_pairs3.png" alt="In order to properly decorrelate the data, we need to apply a decoorelation method, such as the cholesky transformation. In this approach, we calculate the cholesky decomposition of the covariance matrix, Sigma, with which we use to transform the data to iid standardized normal space via both a scaling and a rotaion." width="90%"><p class="caption">
+<img src="figures/demo_pairs3.png" alt="In order to properly decorrelate the data, we need to apply a decoorelation method, such as the cholesky transformation. In this approach, we calculate the cholesky decomposition of the covariance matrix, Sigma, with which we use to transform the data to iid standardized normal space via both a scaling and a rotaion." width="75%"><p class="caption">
 In order to properly decorrelate the data, we need to apply a decoorelation method, such as the cholesky transformation. In this approach, we calculate the cholesky decomposition of the covariance matrix, Sigma, with which we use to transform the data to iid standardized normal space via both a scaling and a rotaion.
 </p>
 </div>
