@@ -10,6 +10,7 @@ library(mvtnorm)
 library(moments)
 library(here)
 library(gridExtra)
+library(ellipse)
 
 ## Functions for methods
 
@@ -69,8 +70,8 @@ qqex.plot <- function(sim.y, out.y, title){
     geom_text(
       data=axis_titles,
       aes(label=axis_title), hjust=0.5,
-      x=0,
-      y=-3, color='red'
+      x=-0.5,
+      y=max(df$Residual)-0.25, color='red'
     ) +
     coord_cartesian(clip="off") +
     theme(
@@ -87,6 +88,68 @@ qqex.plot <- function(sim.y, out.y, title){
  # out <- grid.arrange(h, qq, ncol=2)
   return(out)
 
+}
+
+mvn.demo <- function(){
+  set.seed(1) # 1 is good
+  n <- 3
+  N <- 5000
+  S <- toeplitz((n:1)/n)
+  C <- rWishart::rWishart(1,n,Sigma=S)[,,1]
+  L <- t(chol(C))
+  mean <- rep(0,n)
+  obs <- as.numeric(rmvnorm(1, mean=mean, sigma=C))
+  draws <- rmvnorm(n=N, mean=mean,sigma=C)
+  ## Correctly rotated space
+  draws.rotated <- t(solve(L, t(draws)) )
+  obs.rotated <- solve(L, obs)
+  cols <- c(rgb(0,0,0,.5), rgb(1,0,0,.5))
+  par(mfcol=c(n,n), mar=0*c(.65,.65,.65,.65), oma=c(.5,.5,.5,0),
+      mgp=c(.5,.1,0), tck=-.01, cex.axis=.6 )
+  for(i in 1:n){
+    for(j in 1:n){
+      xlim <- range(c(draws[, c(i,j)], draws.rotated[,c(i,j)]))
+      ylim <- range(c(draws[, c(i,j)], draws.rotated[,c(i,j)]))
+      if(i==j){
+        x <- seq(xlim[1], xlim[2], len=500)
+        y1 <- dnorm(x, 0, sd=sqrt(C[i,i]))
+        y2 <- dnorm(x,0,sd=1)
+        plot(x,y1, ylim=c(0, max(c(y1,y2))*1.4), type='l',
+             col=cols[1], axes=FALSE)
+        lines(x,y2, col=cols[2])
+        ## hist(draws[,j], xlab='', main='', ylab='', col=cols[1], border=cols[1],
+        ##      ylim=c(0,.5), xlim=xlim, freq=FALSE)
+        ## abline(v=obs[j], col=cols[1])
+        points(c(obs[j], obs[j])[2],
+               c(0,dnorm(obs[j],0,sqrt(C[j,j])))[2], col=cols[1], pch=15)
+        lines(c(obs[j], obs[j]), c(0,dnorm(obs[j],0,sqrt(C[j,j]))), col=cols[1])
+        mtext(line=-1, col=cols[1], paste("Marginal percentile=", round(mean(obs[j] > draws[,j]),3)), cex=.7)
+        ## hist(draws.rotated[,j], xlab='', main='', ylab='',
+        ##      add=TRUE, col=cols[2], freq=FALSE, border=cols[2])
+        ## abline(v=obs.rotated[j], col=cols[2])
+        points(c(obs.rotated[j], obs.rotated[j])[2],
+               c(0,dnorm(obs.rotated[j],0,sqrt(C[j,j])))[2], col=cols[2], pch=15)
+        lines(c(obs.rotated[j], obs.rotated[j]), c(0,dnorm(obs.rotated[j],0,sqrt(C[j,j]))), col=cols[2])
+        mtext(line=-2, col=cols[2], paste("Marginal percentile=", round(mean(obs.rotated[j] > draws.rotated[,j]),3)), cex=.7)
+        box()
+      }
+      if(i<j){
+        ## plot(draws[,i], draws[,j], ann=FALSE, pch=16, cex=.25,
+        ##      col=cols[1])
+        plot(obs[i], obs[j],col=4, cex=1, pch=16, xlim=xlim,
+             ylim=ylim, axes=FALSE)
+        ## points(draws.rotated[,i], draws.rotated[,j], ann=FALSE,
+        ##        pch=16, cex=.25,  col=cols[2])
+        ## points(obs[i], obs[j],col=3, cex=2, pch=16)
+        arrows(obs[i], obs[j], obs.rotated[i], obs.rotated[j],
+               length=.05, lwd=1.5, col=4)
+        lines(ellipse(C[c(i,j),c(i,j)], centre=mean[c(i,j)]), col=cols[1])
+        lines(ellipse(diag(2), centre=mean[c(i,j)]),  col=cols[2])
+        box()
+      }
+      if(i>j) {plot(1,1, type='n', axes=FALSE, ann=FALSE)}
+    }
+  }
 }
 
 
