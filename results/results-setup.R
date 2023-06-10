@@ -9,7 +9,88 @@ library(ggsci)
 library(mvtnorm)
 library(moments)
 library(here)
+library(gridExtra)
 
+## Functions for methods
+
+output.iid <- function(y){
+  mu.y <- mean(y)
+  var.y <- var(y)
+
+  mode <- y - mu.y
+  pear.res <- mode/sqrt(var.y)
+
+  Fx <- pgamma(y, shape = mu.y^2/var.y, scale = var.y/mu.y)
+  quant.res <- qnorm(Fx)
+
+  out <- list(pears = pear.res, quant = quant.res)
+  return(out)
+}
+
+output.mvn <- function(y, M, distribution){
+  mu.y <- mean(y)
+  var.y <- var(y)
+
+  mode <- y - mu.y
+  pear.res <- mode/sqrt(var.y)
+
+  L <- t(chol(M))
+  if(distribution == "normal"){
+    quant.res <- t(solve(L, mode))
+  }
+  if(distribution == "gamma"){
+    r <- qnorm(pgamma(y, mu.y^2/var.y, scale = var.y/mu.y))
+    quant.res <- t(solve(L, r))
+  }
+  out <- list(pears = pear.res, quant = as.vector(quant.res))
+  return(out)
+}
+
+qqex.plot <- function(sim.y, out.y, title){
+  df <- data.frame(Residual = c(out.y$pears, out.y$quant),
+                   Type = c(
+                     rep("Pearson", length(sim.y)),
+                     rep("Quantile", length(sim.y))
+                   ))
+  axis_titles <- data.frame(
+    Residual = c("Pearson", "Quantile"),
+    Type = c("Pearson", "Quantile"),
+    axis_title = c(
+      paste("KS Test:",
+            round(ks.test(df$Residual[df$Type=="Pearson"], "pnorm")$p.value,4)),
+      paste("KS Test:",
+            round(ks.test(df$Residual[df$Type=="Quantile"], "pnorm")$p.value,4))
+    )
+  )
+  qq <- ggplot(df, mapping = aes(sample = Residual)) +
+    stat_qq() +
+    geom_abline(intercept = 0, slope = 1) +
+    facet_wrap(~Type) + labs(x=NULL) +
+    geom_text(
+      data=axis_titles,
+      aes(label=axis_title), hjust=0.5,
+      x=0,
+      y=-3, color='red'
+    ) +
+    coord_cartesian(clip="off") +
+    theme(
+      plot.margin= margin(b=30)
+    ) +
+    theme_bw()
+
+  h <- ggplot(data.frame(y = sim.y), aes(y)) +
+    geom_histogram() + theme_bw() +
+    ggtitle(title)
+
+  out <- list(h = h, qq = qq)
+
+ # out <- grid.arrange(h, qq, ncol=2)
+  return(out)
+
+}
+
+
+## Functions for results
 
 ## Define path to results files
 path <- paste0(here(), "/results")
