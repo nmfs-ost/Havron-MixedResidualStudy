@@ -91,10 +91,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://github.com/Andrea-Havron-NOAA/MixedResidualStudy" class="external-link">This Repo</a>
+      <a href="https://github.com/Andrea-Havron-NOAA/MixedResidualStudy" class="external-link">This Pkgdown Repo</a>
     </li>
     <li>
-      <a href="https://github.com/Cole-Monnahan-NOAA/mixed_resids" class="external-link">Project</a>
+      <a href="https://github.com/Cole-Monnahan-NOAA/mixed_resids" class="external-link">Mixed Residual Project Repo</a>
     </li>
   </ul>
 </li>
@@ -123,12 +123,12 @@
     
 <p><br></p>
 <div class="figure">
-<img src="figures/dgamma2dnorm.png" alt=""><p class="caption">Fig. 1. Bottom left: An observation, y, plotted against its distribution, Gamma(alpha = 1, beta = 2). Top left: The cdf value of the observation y given the distribution parameters. Top right: The same cdf value plotted on a standard normal cdf curve. Bottom right: The inverse cdf of the value is plotted on a standard normal distribution.</p>
+<img src="figures/dgamma2dnorm.png" alt=""><p class="caption">Fig. 1. Bottom left: Gamma distributed data, Gamma(alpha = 1, beta = 2) and a single observation (y = 1.758), indicated by the red line. Top left: The cdf value of the observation y given the distribution parameters. Top right: The same cdf value plotted on a standard normal cdf curve. Bottom right: The inverse cdf of the value is plotted on a standard normal distribution.</p>
 </div>
 <p><br></p>
 <div class="figure">
-<img src="figures/study-overview.png" alt="Fig. 2. Overview of Simulation Study. Data were first simulated under the Operating, or True Model. Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model." width="100%"><p class="caption">
-Fig. 2. Overview of Simulation Study. Data were first simulated under the Operating, or True Model. Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model.
+<img src="figures/study-overview.png" alt="Fig. 2. Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model." width="100%"><p class="caption">
+Fig. 2. Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model.
 </p>
 </div>
 <p><br></p>
@@ -137,10 +137,10 @@ Fig. 2. Overview of Simulation Study. Data were first simulated under the Operat
 Fig. 3. Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals.
 </p>
 </div>
-<p><br></p>
+<p><br> Extra Plots <br></p>
 <div class="figure">
-<img src="TMB-validation-figures-methods_files/figure-html/mvn-demo-1-1.png" alt="Pairs plots visualize the correlation structure of mulivariate data (gray) and after their decorrelation (red). The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Points do not retain the same marginal percentage and do not always end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling." width="700"><p class="caption">
-Pairs plots visualize the correlation structure of mulivariate data (gray) and after their decorrelation (red). The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Points do not retain the same marginal percentage and do not always end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling.
+<img src="TMB-validation-figures-methods_files/figure-html/mvn-demo-1-1.png" alt="Fig. 4. Multivariate normal data from a 3x3 corvariance matrix. Off diagonal plots display correlation structure between each data column prior to (grey) and after (red) the decorrlation transformation. The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Not all points retain the same marginal percentage nor do they all end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling." width="700"><p class="caption">
+Fig. 4. Multivariate normal data from a 3x3 corvariance matrix. Off diagonal plots display correlation structure between each data column prior to (grey) and after (red) the decorrlation transformation. The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Not all points retain the same marginal percentage nor do they all end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling.
 </p>
 </div>
 <p><br></p>
