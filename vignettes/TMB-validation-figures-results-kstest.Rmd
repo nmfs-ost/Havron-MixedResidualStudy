@@ -15,7 +15,7 @@ source("../results/results-setup.R")
 ## Linear Model
 ### Theoretical Residuals
 
-```{r, linmod-results-true, echo = FALSE, message = FALSE, fig.height = 7, warning = FALSE, fig.cap = "Linear Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known.}
+```{r, linmod-results-true, echo = FALSE, message = FALSE, fig.height = 7, warning = FALSE, fig.cap = "Linear Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known."}
 res.methods <- c(
    'full Gaussian',
    'one-step Gaussian',
