@@ -15,7 +15,7 @@ source("../results/results-setup.R")
 ## Linear Model
 ### Theoretical Residuals
 
-```{r, linmod-results-true, echo = FALSE, message = FALSE, fig.height = 7, warning = FALSE, fig.cap = "Linear Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson."}
+```{r, linmod-results-true, echo = FALSE, message = FALSE, fig.height = 7, warning = FALSE, fig.cap = "Linear Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known.}
 res.methods <- c(
    'full Gaussian',
    'one-step Gaussian',
@@ -29,8 +29,7 @@ res.methods <- c(
    "Conditional ecdf, Rotated"
 )
 
-pval.df <- filter.true(pvals, "linmod", 
-                       test = "GOF.ad",
+pval.df <- filter.true(pvals, "linmod", "GOF.ad",
                        res.methods)
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -39,10 +38,9 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, linmod-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Model. Distribution of estimated p-values under the correct (top) and mis-specified (bottom) models evaluated for each method when parameters are estimated"}
+```{r, linmod-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated."}
 
-pval.df <- filter.est(pvals, "linmod", 
-                      test = "GOF.ad",
+pval.df <- filter.est(pvals, "linmod",  "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -53,17 +51,16 @@ plot.pval.hist(pval.df, FALSE)
 ## Mixed Model
 ### Theoretical Residuals
 
-```{r, simpleGLMM-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 9, fig.cap = "Mixed Model.Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson.**"}
+```{r, simpleGLMM-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: Tweedie GLMM with missing random effects as the mis-specification; B: LMM based on a Normal covariate with a missing covariate term as the mis-specification; C: LMM based on a Normal covariate with a missing covariate term as the mis-specification."}
 
-pval.df <- filter.true(pvals, "simpleGLMM", 
-                       test = "GOF.ad",
+pval.df <- filter.true(pvals, "simpleGLMM",  "GOF.ad",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
          levels = c("dropRE", "missnormcov", "missunifcov"),
-         labels = c("GLMM - Drop RE", 
-                    "LMM - Missing X Normal",
-                    "LMM - Missing X Uniform"))
+         labels = c("A: Tweedie GLMM", 
+                    "B: LMM - Normal X",
+                    "C: LMM - Uniform X"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -72,10 +69,9 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of estimated p-values evaluated for each method when parameters are estimated under the correct (left) and mis-specified (right) models."}
+```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: Tweedie GLMM with missing random effects as the mis-specification; B: LMM based on a Normal covariate with a missing covariate term as the mis-specification; C: LMM based on a Normal covariate with a missing covariate term as the mis-specification."}
 
-pval.df <- filter.est(pvals, "simpleGLMM", 
-                      test = "GOF.ad",
+pval.df <- filter.est(pvals, "simpleGLMM",  "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -84,7 +80,7 @@ plot.pval.hist(pval.df, FALSE)
 
 ### Type I Error Rate by Sample Size
 
-```{r, simpleGLMM-vary-nobs-TypeIError, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Mixed Model, mispecification = missing normally distributed coviariate. Type I Error rates for different residual methods as within group sample size increases, number of groups were fixed at 4. "}
+```{r, simpleGLMM-vary-nobs-TypeIError, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Mixed Model based on a Normal covariate. Type I Error rates under the correct model for different quantile residual methods as within group sample size increases and number of groups are fixed at 4. "}
 df <- pvals.all %>% dplyr::filter(model == "simpleGLMM.vary.nobs")
 t1.err.plot(df)
 ```
@@ -93,7 +89,7 @@ t1.err.plot(df)
 
 ### Power by Sample Size
 
-```{r, simpleGLMM-vary-nobs-Power, echo = FALSE, message = FALSE, fig.height = 8, fig.cap = "Linear Mixed Model, mispecification = missing normally distributed coviariate. Power to detect mis-specification for different quantile residual methods as between group sample size increases, number of groups were fixed at 4. **Take home: Results same as above with varying within group sample size.**"}
+```{r, simpleGLMM-vary-nobs-Power, echo = FALSE, message = FALSE, fig.height = 8, fig.cap = "Linear Mixed Model based on a Normal covariate with a missing covariate term as the mis-specification. Power to detect mis-specification for different quantile residual methods as within group sample size increases and number of groups are fixed at 4."}
 df <- pvals.all %>% dplyr::filter(model == "simpleGLMM.vary.nobs")
 pow.plot(df)
 ```
@@ -103,10 +99,9 @@ pow.plot(df)
 ## Randomwalk
 ### Theoretical Residuals
 
-```{r, rw-results-true, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson.**"}
+```{r, rw-results-true, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known."}
 
-pval.df <- filter.true(pvals, "randomwalk", 
-                       test = "GOF.ad",
+pval.df <- filter.true(pvals, "randomwalk",  "GOF.ad",
                        res.methods)
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -115,10 +110,9 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, rw-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of estimated p-values evaluated for each analytical method when parameters are estimated under the correct (top) and mis-specified (bottom) models. **Take home: Pearson rejects the correct model more than expected, MCMC fails to detect mis-specification.**"}
+```{r, rw-results-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Randomwalk. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated."}
 
-pval.df <- filter.est(pvals, "randomwalk", 
-                      test = "GOF.ad",
+pval.df <- filter.est(pvals, "randomwalk",  "GOF.ad",
                       res.methods)
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -129,17 +123,16 @@ plot.pval.hist(pval.df, FALSE)
 ## Spatial
 ### Theoretical Residuals
 
-```{r, spatial-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 7, fig.cap = "Simple Mixed Model. Distribution of theoretical p-values under the correct model evaluated for each analytical method when true parameters are known. **Take home: all return approx uniform p-value distributions, including Pearson."}
+```{r, spatial-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 7, fig.cap = "Spatial Model.Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: Poisson GLMM with missing random effects as the mis-specification; B: LMM with lognormal random effects as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
 
-pval.df <- filter.true(pvals, "spatial", 
-                       test = "GOF.ad",
+pval.df <- filter.true(pvals, "spatial",  "GOF.ad",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
                      levels = c("dropRE", "mispomega", "misscov"),
-                     labels = c("GLMM - Drop RE",
-                                "LMM - Lognormal RE",
-                                "LMM - Missing X Uniform"))
+                     labels = c("A: Poisson GLMM",
+                                "B: LMM",
+                                "C: LMM - Uniform X"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -148,17 +141,16 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, spatial-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Simple Mixed Model. Distribution of estimated p-values evaluated for each analytical method when parameters are estimated under the correct (top) and mis-specified (bottom) models."}
+```{r, spatial-est, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Spatial Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: Poisson GLMM with missing random effects as the mis-specification; B: LMM with lognormal random effects as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
 
-pval.df <- filter.est(pvals, "spatial", 
-                      test = "GOF.ad",
+pval.df <- filter.est(pvals, "spatial",  "GOF.ad",
                       res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
                      levels = c("dropRE", "mispomega", "misscov"),
-                     labels = c("GLMM - Drop RE",
-                                "LMM - Lognormal RE",
-                                "LMM - Missing X Uniform"))
+                     labels = c("A: Poisson GLMM",
+                                "B: LMM",
+                                "C: LMM - Uniform X"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
