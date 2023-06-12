@@ -16,16 +16,22 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-Residual analysis for mixed effects models. Code to implement this projects can be found on [Github](https://github.com/Cole-Monnahan-NOAA/mixed_resids)
+Pkgdown site for organizing figures and tables for the residual analysis of mixed effects models project.
+
 
 Manuscript:
 
-- [Draft](https://docs.google.com/document/d/19Y39GqVRAmoIEegxgzyf6HXVWYgWGyr5x8cyHe3qHK8/edit)
+- [Google Doc Draft](https://docs.google.com/document/d/19Y39GqVRAmoIEegxgzyf6HXVWYgWGyr5x8cyHe3qHK8/edit)(co-authors only)
 - [Tables](https://andrea-havron-noaa.github.io/MixedResidualStudy/tables/TMB-validation-tables.pdf)
-- [Figures](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures.html)
+- Figures:
+  - [Methods](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-methods.html)
+  - Results
+    - [KS Test Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-kstest.html)
+    - [AD Test Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-adtest.html)
+    - [Run Times Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-runtimes.html)
 
 
-[Project Repo](https://github.com/Cole-Monnahan-NOAA/mixed_resids) Structure:
+[mixed_resids project repo](https://github.com/Cole-Monnahan-NOAA/mixed_resids) Structure:
 
 - [code](https://github.com/Cole-Monnahan-NOAA/mixed_resids/tree/main/code): Demo code and test snippets
 

@@ -14,9 +14,9 @@ navbar:
       text: Source Code
       icon: fab fa-github fa-lg
       menu:
-      - text: This Repo
+      - text: This Pkgdown Repo
         href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
-      - text: Project
+      - text: Mixed Residual Project Repo
         href: https://github.com/Cole-Monnahan-NOAA/mixed_resids
 
     issue:
