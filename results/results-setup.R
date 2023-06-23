@@ -162,6 +162,21 @@ path <- paste0(here(), "/results")
 ## Read in pvalue results
 pvals <- lapply(list.files(path, pattern='_pvals.RDS',
                            full.names=TRUE), readRDS) %>% bind_rows
+## Read in MLEs
+mles <- lapply(list.files(path, pattern='_mles.RDS',
+                           full.names=TRUE), readRDS) %>% bind_rows
+## Read in stats
+Stats <- lapply(list.files(path, pattern='_stats.RDS',
+                          full.names=TRUE), readRDS) %>% bind_rows
+
+## Models with non-convergence
+nc <- Stats[!is.na(Stats$converge) & (Stats$converge==1|Stats$maxgrad>0.1),]
+nc.h0 <- nc[nc$version == "h0",]
+nc.h1 <- nc[nc$version == "h1",]
+
+table(nc.h0$model, nc.h0$misp, nc.h0$do.true)
+table(nc.h1$model, nc.h1$misp, nc.h1$do.true)
+
 
 ## Data Pre-processing
 
@@ -238,6 +253,14 @@ pvals$method <- factor(pvals$method,
                         "Conditional ecdf, Rotated",
                         "Conditional ecdf, Not Rotated"
                       ))
+
+#Only filter out non-converging models if model is correctly specified
+nc.id <- dplyr::filter(nc, version == "h0")$id
+
+if(length(nc.id) > 0){
+  nc.idx <- which(pvals$id %in% nc.id)
+  pvals <- pvals[-nc.idx,]
+}
 
 ## Functions
 filter.true <- function(df, mod, test = "GOF.ks", method.vec){
