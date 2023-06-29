@@ -258,11 +258,22 @@ pvals$method <- factor(pvals$method,
 nc.id <- dplyr::filter(nc, version == "h0")$id
 
 if(length(nc.id) > 0){
-  nc.idx <- which(pvals$id %in% nc.id)
+  nc.pvals.idx <- which(pvals$id %in% nc.id)
+  nc.mles.idx <- which(mles$id %in% nc.id)
   pvals <- pvals[-nc.idx,]
+  mles <- mles[-nc.idx,]
 }
 
 ## Functions
+plot.mles <- function(mod){
+  df <- dplyr::filter(mles, model == mod & h == 0)
+  df %>% ggplot() +
+      geom_violin(aes(x = model, y = bias)) +
+      facet_grid(misp~par) +
+      theme_bw()
+}
+
+
 filter.true <- function(df, mod, test = "GOF.ks", method.vec){
   dplyr::filter(df, model == mod &
                   test == "GOF.ks" &
