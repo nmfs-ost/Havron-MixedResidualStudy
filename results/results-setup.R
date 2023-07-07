@@ -260,17 +260,17 @@ nc.id <- dplyr::filter(nc, version == "h0")$id
 if(length(nc.id) > 0){
   nc.pvals.idx <- which(pvals$id %in% nc.id)
   nc.mles.idx <- which(mles$id %in% nc.id)
-  pvals <- pvals[-nc.idx,]
-  mles <- mles[-nc.idx,]
+  pvals <- pvals[-nc.pvals.idx,]
+  mles <- mles[-nc.mles.idx,]
 }
 
 ## Functions
-plot.mles <- function(mod){
-  df <- dplyr::filter(mles, model == mod & h == 0)
-  df %>% ggplot() +
-      geom_violin(aes(x = model, y = bias)) +
-      facet_grid(misp~par) +
+plot.mles <- function(Mod, Misp){
+  df <- dplyr::filter(mles, model == Mod & misp == Misp & h == 0)
+  p <- df %>% ggplot() +
+      geom_violin(aes(x = par, y = bias)) +
       theme_bw()
+  return(p)
 }
 
 
