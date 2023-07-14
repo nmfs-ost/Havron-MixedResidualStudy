@@ -274,16 +274,16 @@ plot.mles <- function(Mod, Misp){
 }
 
 
-filter.true <- function(df, mod, test = "GOF.ks", method.vec){
+filter.true <- function(df, mod, test_ = "GOF.ks", method.vec){
   dplyr::filter(df, model == mod &
-                  test == "GOF.ks" &
+                  test == test_ &
                   method %in% method.vec &
                   do.true == TRUE)
 }
 
-filter.est <- function(df, mod, test = "GOF.ks", method.vec){
+filter.est <- function(df, mod, test_ = "GOF.ks", method.vec){
   dplyr::filter(df, model == mod &
-                  test == "GOF.ks" &
+                  test == test_ &
                   method %in% method.vec &
                   do.true == FALSE)
 }
