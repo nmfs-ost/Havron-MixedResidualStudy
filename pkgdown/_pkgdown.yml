@@ -36,6 +36,8 @@ navbar:
         href: articles/TMB-validation-figures-results-mles.html
       - text: Figures-Results-KSTest
         href: articles/TMB-validation-figures-results-kstest.html
+      - text: Figures-Results-ADTest
+        href: articles/TMB-validation-figures-results-adtest.html
       - text: Figures-Results-Runtimes
         href: articles/TMB-validation-figures-results-runtimes.html
 

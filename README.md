@@ -20,6 +20,8 @@ Residual Project
       results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-mles.html)
     - [KS Test
       Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-kstest.html)
+    - [AD Test
+      Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-adtest.html)
     - [Run Times
       Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-runtimes.html)
 
