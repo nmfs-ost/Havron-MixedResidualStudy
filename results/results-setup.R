@@ -82,6 +82,7 @@ qqex.plot <- function(sim.y, out.y, title){
 
   h <- ggplot(data.frame(y = sim.y), aes(y)) +
     geom_histogram() + theme_bw() +
+    geom_vline(xintercept = mean(sim.y), color = "red")
     ggtitle(title)
 
   out <- list(h = h, qq = qq)
