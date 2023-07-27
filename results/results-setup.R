@@ -354,13 +354,13 @@ plot.err.pow <- function(df.true, df.est){
 tbl.err.pow <- function(df, caption = NULL){
 
 
-  pvals.err <- df %>% filter(version == "correct") %>%
+  pvals.err <- df %>% filter(version == "Correct") %>%
     group_by(misp, method, type) %>%
-    summarize('Type I Error' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+    summarize('Type I Error' = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
-  pvals.power <-df %>% filter(version == "mis-specified") %>%
+  pvals.power <-df %>% filter(version == "Mis-specified") %>%
     group_by(misp, method, type) %>%
-    summarize(Power = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+    summarize(Power = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
   pvals.est <- left_join(pvals.err, pvals.power)
   misp.names <- as.character(unique(pvals.est$misp))
@@ -369,7 +369,7 @@ tbl.err.pow <- function(df, caption = NULL){
   names(misp.header) <- c(" ", misp.names)
 
   if(nmisp == 1){
-    tbl <- pvals.est %>%
+    out <- pvals.est %>%
       as.data.frame() %>% dplyr::select(method, 'Type I Error', Power)  %>%
       kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
         kableExtra::kable_styling(., "striped", "HOLD_position") %>%
@@ -378,19 +378,19 @@ tbl.err.pow <- function(df, caption = NULL){
 
   if(nmisp > 1){
 
-    tbl <- pvals.est %>%
+    out <- pvals.est %>%
       tidyr::pivot_longer(., cols = 4:5, names_to = "metric", values_to = "pvalue") %>%
       dplyr::select(misp, method, metric, pvalue) %>%
       tidyr::pivot_wider(., names_from = c(misp, metric), values_from = pvalue) %>%
       as.data.frame()
-    colnames(tbl) <- c("method", rep(c("Type I Error", "Power"), nmisp))
-    tbl <- tbl %>%
+    colnames(out) <- c("method", rep(c("Type I Error", "Power"), nmisp))
+    out <- out %>%
       kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
       kableExtra::kable_styling(., "striped", "HOLD_position") %>%
       kableExtra::add_header_above(., misp.header)
   }
 
-  tbl
+  out
 
 }
 
