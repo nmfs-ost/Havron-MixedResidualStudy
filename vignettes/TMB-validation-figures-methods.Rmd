@@ -19,13 +19,8 @@ knitr::include_graphics("figures/dgamma2dnorm.png")
 
 <br>
 
-```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Fig. 2. Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model."}
-knitr::include_graphics("figures/study-overview.png")
-```
 
-<br>
-
-```{r pears-quant-comp, echo = FALSE, results = "hide", warning = FALSE, message = FALSE, fig.height = 10, fig.cap = "Fig. 3. Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals. "}
+```{r pears-quant-comp, echo = FALSE, results = "hide", warning = FALSE, message = FALSE, fig.height = 10, fig.cap = "Fig. 2. Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals. "}
 ## IID =======================================================================
 set.seed(1)
 # Approx. normal gamma
@@ -70,12 +65,20 @@ grid.arrange(p1$h, p1$qq,
 ```
 
 <br>
-Extra Plots 
-<br>
 
-```{r mvn-demo-1, echo = FALSE, fig.cap = "Fig. 4. Multivariate normal data from a 3x3 corvariance matrix. Off diagonal plots display correlation structure between each data column prior to (grey) and after (red) the decorrlation transformation. The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Not all points retain the same marginal percentage nor do they all end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling."}
+```{r mvn-demo-1, echo = FALSE, fig.cap = "Fig. 3. Multivariate normal data from a 3x3 corvariance matrix. Off diagonal plots display correlation structure between each data column prior to (grey) and after (red) the decorrlation transformation. The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Not all points retain the same marginal percentage nor do they all end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling."}
 mvn.demo()
 ```
+
+<br>
+
+```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Fig. 4. Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model."}
+knitr::include_graphics("figures/study-overview.png")
+```
+
+<br>
+
+# Extra Plots 
 
 <br>
 
