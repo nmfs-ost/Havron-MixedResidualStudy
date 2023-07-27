@@ -69,15 +69,6 @@ scale_x_discrete(
              expression("ln("~sigma[y]~")")))
 ```
 
-### LMM, Normal Covariate
-```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial model with a normal covariate when the model is correctly specified across 1000 simulations."}
-plot.mles("spatial", "misscov") +
-scale_x_discrete(
-  breaks = c("beta_1", "beta_2", "ln_kappa", "ln_tau", "theta"),
-  labels = c(expression(beta[0]), expression(beta[1]), 
-             expression("ln("~kappa~")"), expression("ln("~tau~")"), 
-             expression("ln("~sigma[y]~")")))
-```
 
 ### GLMM, Poisson
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial Poisson model when the model is correctly specified across 1000 simulations."}
