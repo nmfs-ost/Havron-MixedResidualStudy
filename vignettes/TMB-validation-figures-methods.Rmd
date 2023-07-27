@@ -12,13 +12,14 @@ update_results(update = FALSE)
 source("../results/results-setup.R")
 ```
 
-
+### Figure 1
 ```{r quant-res, echo=FALSE, fig.height = 4, fig.cap="Bottom left: Gamma distributed data, Gamma(alpha = 1, beta = 2) and a single observation (y = 1.758), indicated by the red line. Top left: The cdf value of the observation y given the distribution parameters. Top right: The same cdf value plotted on a standard normal cdf curve. Bottom right: The inverse cdf of the value is plotted on a standard normal distribution."}
 knitr::include_graphics("figures/dgamma2dnorm.png")
 ```
 
 <br>
 
+### Figure 2
 ```{r pears-quant-comp, echo = FALSE, results = "hide", warning = FALSE, message = FALSE, fig.height = 10, fig.cap = "Pearson versus Quantile residuals for the correct model under four different scenarios (top to bottom): Approximately Normal Gamma, Skewed Gamma, Correlated Normal with rotated residuals, and Gamma with rotated residuals. "}
 ## IID =======================================================================
 set.seed(1)
@@ -65,19 +66,21 @@ grid.arrange(p1$h, p1$qq,
 
 <br>
 
+### Figure 3
 ```{r mvn-demo-1, echo = FALSE, fig.cap = "Multivariate normal data from a 3x3 corvariance matrix. Off diagonal plots display correlation structure between each data column prior to (grey) and after (red) the decorrlation transformation. The blue arrow tracks points during the decorrelation step. All points move toward the center, indicating a scaling step. Not all points retain the same marginal percentage nor do they all end on the red spehere, demonstrating that a rotation is being applied in addition to the scaling."}
 mvn.demo()
 ```
 
 <br>
 
+### Figure 4
 ```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent goodness-of-fit (GOF) p-values were calculated for each method using both a Kolmogorov-Smirnov (KS) and Anderson-Darling (AD) normality test. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model. Type I error was calculated as the proportion of correctly specified simulations that resulted in a p-value of less than 0.05. Power was calculated as the the proportion of mis-specified simulations that resulted in a p-value of less than 0.05. Correctly specified models should result in a p-value less than 0.05 5% of the time while mis-specified models should result in a p-value less than 0.05 96% of the time."}
 knitr::include_graphics("figures/study-overview.png")
 ```
 
 <br>
 
-# Extra Plots 
+### Extra Plots 
 
 <br>
 
