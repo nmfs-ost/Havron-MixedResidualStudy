@@ -9,6 +9,7 @@ output: pdf_document
 source("../../results/results-setup.R")
 ```
 
+\input{"tables/tbl-1.tex"}
 
 \input{"tables/linmod-specs.tex"}
 
