@@ -1,10 +1,10 @@
 ---
-title:  
+title: Figures for Methods Section
 output: 
   bookdown::html_document2
 ---
 
-# Figures for Methods Section
+# Methods
 
 <br>
 
@@ -77,7 +77,7 @@ mvn.demo()
 <br>
 
 Figure \@ref(fig:studyoverview)
-```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent GOF p-values were calculated for each method. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model."}
+```{r studyoverview, echo=FALSE,  out.width = "100%", fig.cap = "Overview of Simulation Study. Data were first simulated under the Operating (Correct Model). Data were then fit to two separate models: the same operating model and the mis-specified model. For each model fit, quantile residuals and subsequent goodness-of-fit (GOF) p-values were calculated for each method using both a Kolmogorov-Smirnov (KS) and Anderson-Darling (AD) normality test. This simulation was repeated 500 times and resulted in a distribution of p-values for each method under the correct and mis-specified model. Type I error was calculated as the proportion of correctly specified simulations that resulted in a p-value of less than 0.05. Power was calculated as the the proportion of mis-specified simulations that resulted in a p-value of less than 0.05. Correctly specified models should result in a p-value less than 0.05 5% of the time while mis-specified models should result in a p-value less than 0.05 96% of the time."}
 knitr::include_graphics("figures/study-overview.png")
 ```
 
