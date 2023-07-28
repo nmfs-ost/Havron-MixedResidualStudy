@@ -55,13 +55,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by residual type (top to bottom).")
+        caption = "Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by residual type (top to bottom).")
 ```
 
 ```{r, linmod-results-est, echo = FALSE, message = FALSE, fig.width = 8, warning = FALSE}
 
 tbl.err.pow(pval.df.est, 
-        caption = "Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by residual type (top to bottom).")
+        caption = "Linear Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by residual type (top to bottom).")
 ```
 
 ```{=tex}
@@ -91,13 +91,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 ```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Mixed Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 
@@ -116,13 +116,13 @@ pval.df.est <- filter.est(pvals, "randomwalk",
                        method.vec = res.methods)
 
 tbl.err.pow(pval.df.true, 
-        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 ```{r, rw-results-est osa-true, echo = FALSE, message = FALSE}
 
 tbl.err.pow(pval.df.est, 
-        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 
@@ -152,13 +152,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 ```{r, spatial-results-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
 

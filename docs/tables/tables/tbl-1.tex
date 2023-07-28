@@ -6,16 +6,17 @@
     \hline
     Linear model & Linear model & No issues & Pearson residuals \\
     Generalized linear model (GLM) &
-    Skewed Gamma, Non-normality caused by response variable. &
-    Quantile residuals are needed if not approximately normal. &
-    Conditional simulation residuals or OSA CDF \\
-    Linear mixed model (LMM) &
-    Random walk, spatial LMM &
-    Random effects cause linear correlation in predicted data. &
+    Skewed Gamma &
+    Non-normality caused by response variable. Quantile residuals are needed if not approximately normal. &
+    Quantile residual \\
+    Linear mixed model (LMM), Multivariate model
+ &
+    Random walk, Spatial LMM, Multinomial &
+    Non-linear correlations caused by non-independence  in observations. &
     Use a method that linearly decorrelates in order to scale to a unit iid normal. OSA Full Gaussian  or simulation residuals with rotation. \\
     Generalized linear mixed model (GLMM) &
-    Spatial Poisson, Repeated measures gamma &
-    Non-normality and non-linear correlations caused by random effect structure and non-normal response variable. &
+    Spatial Poisson, Repeated measures Gamma &
+    Non-normality and non-linear correlations caused by response variable and non-independence in observations.&
     Needs non-linear decorrelation and quantiles. OSA is only viable option.\\
     \bottomrule
     \end{tabular}
