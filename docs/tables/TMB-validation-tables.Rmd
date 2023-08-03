@@ -9,7 +9,6 @@ output: pdf_document
 source("../../results/results-setup.R")
 ```
 
-\input{"tables/tbl-1.tex"}
 
 \input{"tables/linmod-specs.tex"}
 
@@ -79,15 +78,17 @@ pval.df.est <- filter.est(pvals, "simpleGLMM",
                        method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c("dropRE", "missnormcov", "missunifcov"),
-         labels = c("GLMM - Drop RE", 
-                    "LMM - Missing X Normal",
-                    "LMM - Missing X Uniform"))
+         levels = c( "missnormcov", "missunifcov", "dropRE"),
+         labels = c("A: LMM - Normal X",
+                    "B: LMM - Uniform X",
+                    "C: Tweedie GLMM" ))
+
+
 pval.df.est$misp <- factor(pval.df.est$misp,
-         levels = c("dropRE", "missnormcov", "missunifcov"),
-         labels = c("GLMM - Drop RE", 
-                    "LMM - Missing X Normal",
-                    "LMM - Missing X Uniform"))
+         levels = c( "missnormcov", "missunifcov", "dropRE"),
+         labels = c("A: LMM - Normal X",
+                    "B: LMM - Uniform X",
+                    "C: Tweedie GLMM" ))
   
 
 tbl.err.pow(pval.df.true, 
@@ -142,13 +143,14 @@ pval.df.est <- filter.est(pvals, "spatial",
                        method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
-                     levels = c("dropRE", "mispomega"),
-                     labels = c("GLMM - Drop RE",
-                                "LMM - Lognormal RE"))
+                     levels = c("mispomega", "dropRE"),
+                     labels = c("A: LMM",
+                                "B: Poisson GLMM"))
+
 pval.df.est$misp <- factor(pval.df.est$misp,
-                     levels = c("dropRE", "mispomega"),
-                     labels = c("GLMM - Drop RE",
-                                "LMM - Lognormal RE"))
+                      levels = c("mispomega", "dropRE"),
+                     labels = c("A: LMM",
+                                "B: Poisson GLMM"))
   
 
 tbl.err.pow(pval.df.true, 
@@ -161,4 +163,6 @@ tbl.err.pow(pval.df.est,
         caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
+
+\input{"tables/tbl-1.tex"}
 

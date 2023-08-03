@@ -51,16 +51,16 @@ plot.pval.hist(pval.df, FALSE)
 ## Mixed Model
 ### Theoretical Residuals
 
-```{r, simpleGLMM-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Mixed Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: Tweedie GLMM with missing random effects as the mis-specification; B: LMM based on a Normal covariate with a missing covariate term as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
+```{r, simpleGLMM-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Mixed Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: LMM based on a Normal covariate with a missing covariate term as the mis-specification; B: LMM based on a Uniform covariate with a missing covariate term as the mis-specification; C: Tweedie GLMM with missing random effects as the mis-specification."}
 
 pval.df <- filter.true(pvals, "simpleGLMM",  "GOF.ks",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c("dropRE", "missnormcov", "missunifcov"),
-         labels = c("A: Tweedie GLMM", 
-                    "B: LMM - Normal X",
-                    "C: LMM - Uniform X"))
+         levels = c( "missnormcov", "missunifcov", "dropRE"),
+         labels = c("A: LMM - Normal X",
+                    "B: LMM - Uniform X",
+                    "C: Tweedie GLMM" ))
 
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -69,16 +69,16 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: Tweedie GLMM with missing random effects as the mis-specification; B: LMM based on a Normal covariate with a missing covariate term as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
+```{r, simpleGLMM-results-est, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Mixed Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: LMM based on a Normal covariate with a missing covariate term as the mis-specification; B: LMM based on a Uniform covariate with a missing covariate term as the mis-specification; C: Tweedie GLMM with missing random effects as the mis-specification."}
 
 pval.df <- filter.est(pvals, "simpleGLMM",  "GOF.ks",
                       res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c("dropRE", "missnormcov", "missunifcov"),
-         labels = c("A: Tweedie GLMM", 
-                    "B: LMM - Normal X",
-                    "C: LMM - Uniform X"))
+         levels = c( "missnormcov", "missunifcov", "dropRE"),
+         labels = c("A: LMM - Normal X",
+                    "B: LMM - Uniform X",
+                    "C: Tweedie GLMM" ))
 
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -87,7 +87,7 @@ plot.pval.hist(pval.df, FALSE)
 
 ### Type I Error Rate by Sample Size
 
-```{r, simpleGLMM-vary-nobs-TypeIError, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Mixed Model based on a Normal covariate. Type I Error rates under the correct model for different quantile residual methods as within group sample size increases and number of groups are fixed at 4. "}
+```{r, simpleGLMM-vary-nobs-TypeIError, echo = FALSE, message = FALSE, fig.height = 7, fig.cap = "Linear Mixed Model based on a Uniform covariate. Type I Error rates under the correct model for different quantile residual methods as within group sample size increases and number of groups are fixed at 4. "}
 df <- pvals.all %>% dplyr::filter(model == "simpleGLMM.vary.nobs")
 t1.err.plot(df)
 ```
@@ -96,7 +96,7 @@ t1.err.plot(df)
 
 ### Power by Sample Size
 
-```{r, simpleGLMM-vary-nobs-Power, echo = FALSE, message = FALSE, fig.height = 8, fig.cap = "Linear Mixed Model based on a Normal covariate with a missing covariate term as the mis-specification. Power to detect mis-specification for different quantile residual methods as within group sample size increases and number of groups are fixed at 4."}
+```{r, simpleGLMM-vary-nobs-Power, echo = FALSE, message = FALSE, fig.height = 8, fig.cap = "Linear Mixed Model based on a Uniform covariate with a missing covariate term as the mis-specification. Power to detect mis-specification for different quantile residual methods as within group sample size increases and number of groups are fixed at 4."}
 df <- pvals.all %>% dplyr::filter(model == "simpleGLMM.vary.nobs")
 pow.plot(df)
 ```
@@ -130,16 +130,15 @@ plot.pval.hist(pval.df, FALSE)
 ## Spatial
 ### Theoretical Residuals
 
-```{r, spatial-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Spatial Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: Poisson GLMM with missing random effects as the mis-specification; B: LMM with lognormal random effects as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
+```{r, spatial-results-true, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Spatial Model. Distribution of theoretical p-values under the correct (left) and mis-specified (right) models evaluated for each method when true parameters are known. Correct and mis-specified models are additionally subsetted by case study, A: LMM with lognormal random effects as the mis-specification; B: Poisson GLMM with missing random effects as the mis-specification."}
 
 pval.df <- filter.true(pvals, "spatial",  "GOF.ks",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-                     levels = c("dropRE", "mispomega", "misscov"),
-                     labels = c("A: Poisson GLMM",
-                                "B: LMM",
-                                "C: LMM - Uniform X"))
+                     levels = c("mispomega", "dropRE"),
+                     labels = c("A: LMM",
+                                "B: Poisson GLMM"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
@@ -148,16 +147,15 @@ plot.pval.hist(pval.df, TRUE)
 
 ### Estimated Residuals
 
-```{r, spatial-est, echo = FALSE, message = FALSE, fig.height = 10, fig.cap = "Spatial Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: Poisson GLMM with missing random effects as the mis-specification; B: LMM with lognormal random effects as the mis-specification; C: LMM based on a Uniform covariate with a missing covariate term as the mis-specification."}
+```{r, spatial-est, echo = FALSE, message = FALSE, fig.height = 10, fig.cap = "Spatial Model. Distribution of estimated p-values under the correct (left) and mis-specified (right) models evaluated for each method when parameters are estimated. Correct and mis-specified models are additionally subsetted by case study, A: LMM with lognormal random effects as the mis-specification; B: Poisson GLMM with missing random effects as the mis-specification."}
 
 pval.df <- filter.est(pvals, "spatial",  "GOF.ks",
                       res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-                     levels = c("dropRE", "mispomega", "misscov"),
-                     labels = c("A: Poisson GLMM",
-                                "B: LMM",
-                                "C: LMM - Uniform X"))
+                     levels = c("mispomega", "dropRE"),
+                     labels = c("A: LMM",
+                                "B: Poisson GLMM"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
