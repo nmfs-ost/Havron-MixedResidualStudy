@@ -26,10 +26,9 @@ Pkgdown site for organizing figures and tables for the Mixed Effects Residual Pr
   - [Tables](https://andrea-havron-noaa.github.io/MixedResidualStudy/tables/TMB-validation-tables.pdf)
   - Figures:
     - [Methods](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-methods.html)
-    - [MLE results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-mles.html)
-    - [KS Test Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-kstest.html)
-    - [AD Test Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-adtest.html)
-    - [Run Times Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-runtimes.html)
+    - [Compound Symmetry results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-simpleGLMM.html)
+    - [Temporal Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-randomwalk.html)
+    - [Spatial Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-spatial.html)
 
 
 **Mixed Effects Residual Project**
