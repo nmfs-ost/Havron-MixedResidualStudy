@@ -1,0 +1,236 @@
+---
+title: Results - KS Test
+output: html_document
+---
+
+<br>
+
+```{r, include = FALSE, warning = FALSE, message = FALSE }
+source("../R/update-results.R")
+#Set update = TRUE to update results from source code
+update_results(update = FALSE)
+source("../results/results-setup.R")
+```
+
+\clearpage
+\newpage
+# Compound Symmetry Covariance Structure
+## Linear Mixed Model
+### Theoretical Residuals
+
+#### Kolmogorov-Smirnov Test
+
+```{r, simpleGLMM-results-LMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'cdf',
+   'MCMC',
+   'Pearson',
+   "Unconditional ecdf, Not Rotated", 
+   "Conditional ecdf, Not Rotated",
+   "Unconditional ecdf, Rotated", 
+   "Conditional ecdf, Rotated"
+)
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Miss Uniform X",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
+#### Anderson-Darling Test
+
+```{r, simpleGLMM-results-LMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "GOF.ad",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("Correct",
+                    "Miss RE",
+                    "Miss Uniform X",
+                    "Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
+
+<br>
+
+### Estimated Residuals
+
+#### Kolmogorov-Smirnov
+
+```{r, simpleGLMM-results-LMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Miss Uniform X",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+<br>
+
+#### Anderson-Darling Test
+
+```{r, simpleGLMM-results-LMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "GOF.ad",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Miss Uniform X",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+<br>
+
+## Generalized Linear Mixed Model
+### Theoretical Residuals
+
+#### Kolmogorov-Smirnov Test
+
+```{r, simpleGLMM-results-GLMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
+#### Anderson-Darling Test
+
+```{r, simpleGLMM-results-GLMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "GOF.ad",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
+
+<br>
+
+### Estimated Residuals
+
+#### Kolmogorov-Smirnov
+
+```{r, simpleGLMM-results-GLMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+<br>
+
+#### Anderson-Darling Test
+
+```{r, simpleGLMM-results-GLMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "GOF.ad",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+

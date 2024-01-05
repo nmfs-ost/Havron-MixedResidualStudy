@@ -1,0 +1,79 @@
+---
+title: "Results - MLEs"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE, warning = FALSE, message = FALSE }
+source("../R/update-results.R")
+#Set update = TRUE to update results from source code
+update_results(update = FALSE)
+source("../results/results-setup.R")
+```
+
+
+## Linear Model
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear model when the model is correctly specified across 1000 simulations."}
+plot.mles("linmod", "overdispersion") + 
+  scale_x_discrete(
+    breaks = c("beta_1", "beta_2", "ln_sig"),
+    labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma~")")))
+```
+
+## Mixed Model
+
+### LMM, Normal Covariate
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear mixed model with a normal covariate when the model is correctly specified across 1000 simulations."}
+plot.mles("simpleGLMM", "missnormcov") +
+scale_x_discrete(
+  breaks = c("beta_1", "beta_2", "ln_sig_u", "ln_sig_y"),
+  labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma[u]~")"), expression("ln("~sigma[y]~")")))
+```
+
+### LMM, Uniform Covariate
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear mixed model with a normal covariate when the model is correctly specified across 1000 simulations."}
+plot.mles("simpleGLMM", "missunifcov") +
+scale_x_discrete(
+  breaks = c("beta_1", "beta_2", "ln_sig_u", "ln_sig_y"),
+  labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma[u]~")"), expression("ln("~sigma[y]~")")))
+```
+
+### GLMM, Tweedie
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the Tweedie generalized linear mixed model when the model is correctly specified across 1000 simulations."}
+plot.mles("simpleGLMM", "dropRE") +
+scale_x_discrete(
+  breaks = c("beta", "ln_sig_u", "ln_sig_y_1", "ln_sig_y_2"),
+  labels = c(expression(beta[0]), expression("ln("~sigma[u]~")"), expression(phi), "power"))
+```
+
+
+## Randomwalk
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the randomwalk model with a drift term when the model is correctly specified across 1000 simulations."}
+plot.mles("randomwalk", "mu0") +
+scale_x_discrete(
+  breaks = c("ln_sig", "ln_tau", "mu"),
+  labels = c(expression("ln("~sigma[y]~")"), expression("ln("~sigma[u]~")"), expression(mu)))
+```
+
+## Spatial
+### Linear Mixed Model
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial linear mixed model when the model is correctly specified across 1000 simulations."}
+plot.mles("spatial", "mispomega") +
+scale_x_discrete(
+  breaks = c("beta", "ln_kappa", "ln_tau", "theta"),
+  labels = c(expression(beta[0]), 
+             expression("ln("~kappa~")"), expression("ln("~tau~")"), 
+             expression("ln("~sigma[y]~")")))
+```
+
+
+### GLMM, Poisson
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial Poisson model when the model is correctly specified across 1000 simulations."}
+plot.mles("spatial", "dropRE") +
+scale_x_discrete(
+  breaks = c("beta", "ln_kappa", "ln_tau"),
+  labels = c(expression(beta[0]), expression("ln("~kappa~")"), expression("ln("~tau~")")))
+```
