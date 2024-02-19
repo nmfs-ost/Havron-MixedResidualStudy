@@ -268,8 +268,8 @@ if(length(nc.id) > 0){
 
 
 ## Functions
-plot.mles <- function(Mod, Misp){
-  df <- dplyr::filter(mles, model == Mod & misp == Misp)
+plot.mles <- function(Mod, Type){
+  df <- dplyr::filter(mles, model == Mod & type == Type)
   p <- df %>% ggplot() +
       geom_violin(aes(x = par, y = bias)) +
       facet_wrap(~type) +
@@ -293,7 +293,7 @@ filter.est <- function(df, mod, type_, test_ = "GOF.ks", method.vec){
 }
 
 plot.pval.hist <- function(df, doTrue){
-  no.misp <- sum(unique(df$misp) != "Correct")
+  no.misp <- sum(unique(df$misp) != "A: Correct")
   p <- ggplot(df, aes(pvalue, fill = misp, color=misp))
   if(no.misp == 1){
     p <- p + facet_grid2(method ~ misp, labeller = label_wrap_gen(12),
@@ -309,6 +309,10 @@ plot.pval.hist <- function(df, doTrue){
     scale_color_viridis_d(begin = 0, end = 0.9)  +  theme_bw() +
     scale_x_continuous(breaks=c(0,0.5, 1))
   print(p)
+}
+
+plot.ecdf <- function(df, doTrue){
+  ggplot(pval.df, aes(pvalue, color = method)) + stat_ecdf(geom = "step") + facet_grid(method~misp)
 }
 
 plot.err.pow <- function(df.true, df.est){
@@ -358,11 +362,11 @@ tbl.err.pow <- function(df, caption = NULL){
 
 
   pvals.err <- df %>% filter(misp == "correct") %>%
-    group_by(misp, method, type) %>%
+    group_by(type, method, res.type) %>%
     summarize('Type I Error' = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
   pvals.power <-df %>% filter(misp != "correct") %>%
-    group_by(misp, method, type) %>%
+    group_by(type, misp, method, res.type) %>%
     summarize(Power = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
   pvals.est <- left_join(pvals.err, pvals.power)
