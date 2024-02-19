@@ -20,7 +20,7 @@ source("../results/results-setup.R")
 
 #### Kolmogorov-Smirnov Test
 
-```{r, randomwalk-results-LMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Normal data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-LMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 res.methods <- c(
    'full Gaussian',
@@ -44,19 +44,21 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "normal-lognorm", 
-                     "mu0"),
+                     "hsk",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Normal-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
 
 #### Anderson-Darling Test
 
-```{r, randomwalk-results-LMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Normal data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-LMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.true(df = pvals, 
                        mod = "randomwalk", 
@@ -67,16 +69,43 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "normal-lognorm", 
-                     "mu0"),
+                     "hsk",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Normal-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
 
+
+#### Autocorrelation Test
+
+```{r, randomwalk-results-LMM-true-auto, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "randomwalk", 
+                       type = "LMM", 
+                       test_ = "Auto",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "hsk",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
+
+plot.pval.hist(pval.df, TRUE)
+```
 
 <br>
 
@@ -84,7 +113,7 @@ plot.pval.hist(pval.df, TRUE)
 
 #### Kolmogorov-Smirnov
 
-```{r, randomwalk-results-LMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Normal data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-LMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "randomwalk", 
@@ -95,12 +124,14 @@ pval.df <- filter.est(pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "normal-lognorm", 
-                     "mu0"),
+                     "hsk",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Normal-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -109,7 +140,7 @@ plot.pval.hist(pval.df, FALSE)
 
 #### Anderson-Darling Test
 
-```{r, randomwalk-results-LMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Normal data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-LMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "randomwalk", 
@@ -120,16 +151,42 @@ pval.df <- filter.est(pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "normal-lognorm", 
-                     "mu0"),
+                     "hsk",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Normal-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Autocorrelation Test
+
+```{r, randomwalk-results-LMM-est-auto, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "randomwalk", 
+                       type = "LMM", 
+                       test_ = "Auto",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "hsk",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
+
+plot.pval.hist(pval.df, TRUE)
+```
 <br>
 
 ## Generalized Linear Mixed Model
@@ -137,7 +194,7 @@ plot.pval.hist(pval.df, FALSE)
 
 #### Kolmogorov-Smirnov Test
 
-```{r, randomwalk-results-GLMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Gamma data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-GLMM-true-ks, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.true(df = pvals, 
                        mod = "randomwalk", 
@@ -148,19 +205,21 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-lognorm", 
-                     "mu0"),
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
 
 plot.pval.hist(pval.df, TRUE)
 ```
 
 #### Anderson-Darling Test
 
-```{r, randomwalk-results-GLMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Gamma data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-GLMM-true-ad, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.true(df = pvals, 
                        mod = "randomwalk", 
@@ -171,13 +230,37 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-lognorm", 
-                     "mu0"),
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
 
+plot.pval.hist(pval.df, TRUE)
+```
+
+```{r, randomwalk-results-GLMM-true-auto, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "randomwalk", 
+                       type = "GLMM", 
+                       test_ = "Auto",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
 plot.pval.hist(pval.df, TRUE)
 ```
 
@@ -188,7 +271,7 @@ plot.pval.hist(pval.df, TRUE)
 
 #### Kolmogorov-Smirnov
 
-```{r, randomwalk-results-GLMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Gamma data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-GLMM-est-ks, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "randomwalk", 
@@ -199,12 +282,14 @@ pval.df <- filter.est(pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-lognorm", 
-                     "mu0"),
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
@@ -213,7 +298,7 @@ plot.pval.hist(pval.df, FALSE)
 
 #### Anderson-Darling Test
 
-```{r, randomwalk-results-GLMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Gamma data fit to Lognormal (C), Missing Drift Term (D)."}
+```{r, randomwalk-results-GLMM-est-ad, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "randomwalk", 
@@ -224,13 +309,39 @@ pval.df <- filter.est(pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-lognorm", 
-                     "mu0"),
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Lognormal",
-                    "D: Miss Drift" ))
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
 
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Autocorrelation Test
+
+```{r, randomwalk-results-GLMM-est-auto, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "randomwalk", 
+                       type = "GLMM", 
+                       test_ = "Auto",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Gamma-Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
+
+plot.pval.hist(pval.df, TRUE)
+```

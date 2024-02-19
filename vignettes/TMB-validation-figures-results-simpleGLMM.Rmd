@@ -77,6 +77,29 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, TRUE)
 ```
 
+#### Categorical Test
+
+```{r, simpleGLMM-results-LMM-true-cat, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "Cat",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("Correct",
+                    "Miss RE",
+                    "Miss Uniform X",
+                    "Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
 
 <br>
 
@@ -130,6 +153,28 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Categorical Test
+
+```{r, simpleGLMM-results-LMM-est-cat, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "Cat",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Miss Uniform X",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
 <br>
 
 ## Generalized Linear Mixed Model
@@ -181,6 +226,28 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, TRUE)
 ```
 
+#### Categorical Test
+
+```{r, simpleGLMM-results-GLMM-true-cat, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "Cat",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
 
 <br>
 
@@ -234,3 +301,49 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Categorical Test
+
+```{r, simpleGLMM-results-GLMM-est-cat, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "Cat",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+
+#### Outlier Test
+
+```{r, simpleGLMM-results-GLMM-est-outlier, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "disp",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
