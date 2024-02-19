@@ -1,0 +1,15 @@
+---
+title: Table Placeholders
+output: pdf_document
+---
+
+# Methods
+
+
+\input{"tables/linmod-specs.tex"}
+
+\input{"tables/simpleGLMM-specs.tex"}
+
+\input{"tables/randomwalk-specs.tex"}
+
+\input{"tables/spatial-specs.tex"}

@@ -41,9 +41,13 @@ res.methods <- c(
 )
 
 pval.df.true <- filter.true(pvals, "linmod",
-                       method.vec = res.methods)
+                            type_ = "LMM",
+                            test_ = "GOF.ks",
+                            method.vec = res.methods)
 pval.df.est <- filter.est(pvals, "linmod",
-                       method.vec = res.methods)
+                          type_ = "LMM",
+                          test_ = "GOF.ks",
+                          method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
          levels = "overdispersion",
