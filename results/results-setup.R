@@ -269,7 +269,11 @@ if(length(nc.id) > 0){
 
 ## Functions
 plot.mles <- function(Mod, Type){
-  df <- dplyr::filter(mles, model == Mod & type == Type)
+  if(Mod == 'linmod'){
+    df <- dplyr::filter(mles, model == Mod & misp == 'correct')
+  } else {
+    df <- dplyr::filter(mles, model == Mod & type == Type & misp == 'correct')
+  }
   p <- df %>% ggplot() +
       geom_violin(aes(x = par, y = bias)) +
       facet_wrap(~type) +
