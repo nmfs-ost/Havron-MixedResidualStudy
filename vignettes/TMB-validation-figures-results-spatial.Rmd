@@ -195,11 +195,11 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
         levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -216,13 +216,13 @@ pval.df <- filter.true(df = pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+           levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -239,13 +239,13 @@ pval.df <- filter.true(df = pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+           levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -266,13 +266,13 @@ pval.df <- filter.est(pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-        levels = c( "correct", 
+         levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -291,13 +291,13 @@ pval.df <- filter.est(pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-        levels = c( "correct", 
+         levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -314,13 +314,13 @@ pval.df <- filter.est(pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+          levels = c( "correct", 
                      "missre", 
-                     "ln-error", 
+                     "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Lognormal Error",
+                    "C: NB-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
