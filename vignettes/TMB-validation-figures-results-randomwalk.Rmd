@@ -205,12 +205,12 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 
@@ -228,14 +228,14 @@ pval.df <- filter.true(df = pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 
@@ -253,12 +253,12 @@ pval.df <- filter.true(df = pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 plot.pval.hist(pval.df, TRUE)
@@ -280,14 +280,14 @@ pval.df <- filter.est(pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 
@@ -307,14 +307,14 @@ pval.df <- filter.est(pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 
@@ -332,14 +332,14 @@ pval.df <- filter.true(df = pvals,
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-         levels = c( "correct", 
+          levels = c( "correct", 
                      "missre", 
-                     "gamma-normal",
+                     "hsk",
                      "mu0",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: Gamma-Normal",
+                    "C: Heteroscedasticity",
                     "C: Miss Drift",
                     "D: Misp. RE"))
 
