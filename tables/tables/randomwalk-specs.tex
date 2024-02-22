@@ -1,0 +1,169 @@
+\begin{landscape}
+\begin{table}[h]
+    \caption{Linear Mixed Model Simulation: data generating models, parameter values, and mis-specifications.}
+    \begin{tabular}{llll|llll}
+    \toprule
+    & Data Generating Model & Parameters & Data Fitting Model &
+    &  Data Generating Model & Parameters & Data Fitting Model\\
+    \hline
+    \multicolumn{4}{l}{Linear Mixed Model}&\multicolumn{4}{|l}{Generalized Linear Mixed Model}\\
+  \hline
+    \multicolumn{4}{l}{Correct}&\multicolumn{4}{l}{Correct}\\
+  &
+    {$\!\begin{aligned}
+    \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim N(u_{i}, \sigma_{y})
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    a &= 2 \\
+    u[1] &= 0 \\
+    \sigma_{u} &= 1 \\
+    \sigma_{y} &= 1
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+     \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim N(u_{i}, \sigma_{y})
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+    \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim Gamma(\frac{1}{CV}^{2}, e^{u_{i}}CV^{2})\\
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    a &= .01 \\
+    u[1] &= 0 \\
+    \sigma_{u} &= 0.05 \\
+    CV &= 0.5
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+     \mu_{i} &= u_{i-1} + a \\
+     u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+     y_{i} &\sim Gamma(\frac{1}{CV}^{2},e^{u_{i}}CV^{2})\\
+    \end{aligned}$}
+  \\~\\
+  \hline
+  \multicolumn{4}{l}{Mis-specified}&\multicolumn{4}{l}{Mis-specified}\\
+  &
+     {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+     \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim N(u_{i}, \sigma_{y})
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+     \text{Mis}&\text{sing}\\
+     \text{Ran}&\text{dom Effect}\\
+    y_{i} &\sim N(a(1:n), \sigma_{y})
+    \\
+    \\
+     \text{Mis}&\text{sing Drift Term}\\
+     \mu_{i} &= u_{i-1}  \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim N(u_{i}, \sigma_{y})
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+    \\~\\~\\~\\~\\
+    \text{Cor}&\text{rect}\\
+     \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i} &\sim Gamma(\frac{1}{CV}^{2},e^{u_{i}}CV^{2})\\
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+      \text{Mis}&\text{ing}\\
+      \text{Ran}&\text{dom Effect}\\
+      y_{i} &\sim Gamma(\frac{1}{CV}^{2},e^{a}CV^{2})
+      \\
+      \\
+       \text{Mis}&\text{sing Drift Term}\\
+       \mu_{i} &= u_{i-1}  \\
+      u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+      y_{i} &\sim  Gamma(\frac{1}{CV}^{2},e^{u_{i}}CV^{2})\\
+      \end{aligned}$}
+  \\~\\
+  \cline{2-2}
+  \cline{4-4}
+  &
+     {$\!\begin{aligned}\\
+     \text{Hete}&\text{roscedasticity}\\
+     \mu_{i} &= u_{i-1} + a \\
+     u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+     \sigma_{y} &= \sqrt{(1:\frac{n}{2}}^{1.3}\\
+     y_{i}^{'} &\sim N(u_{i}, \sigma_{y})\\
+     \\
+     \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+    \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y^{'}_{i} &\sim N(u_{i}, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+  &
+  &
+      {$\!\begin{aligned}
+      \text{Mis-}&\text{specified Distribution}\\
+       \text{Nor}&\text{mal}\\
+       \mu_{i} &= u_{i-1} + a \\
+        u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+        y_{i} &\sim N(u_{i}, \sigma_{y})\\
+      \end{aligned}$}
+  \\
+  \cline{2-2}
+  \cline{4-4}
+  \cline{6-6}
+  \cline{8-8}
+  &
+     {$\!\begin{aligned}\\
+     \text{Log}&\text{normal}\\
+     \text{Ran}&\text{dom Effect}\\
+     \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y_{i}^{'} &\sim N(e^{u_{i}}, \sigma_{y})\\
+    \\
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+    \mu_{i} &= u_{i-1} + a \\
+    u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+    y^{'}_{i} &\sim N(u_{i}, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}\\
+     \text{Gam}&\text{ma}\\
+     \text{Ran}&\text{dom Effect}\\
+     u_{i} &= u_{i-1} + Gamma(0.5, 20) \\
+     y_{i}^{'} &\sim  Gamma(\frac{1}{CV}^{2},e^{u_{i}}CV^{2})\\
+     \\
+     \end{aligned}$}
+  &
+  &
+     {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+     \mu_{i} &= u_{i-1} + a \\
+     u_{i} &\sim N(\mu_{i},\sigma_{u}) \\
+     y_{i} &\sim Gamma(\frac{1}{CV}^{2},e^{u_{i}}CV^{2})\\
+    \end{aligned}$}\\
+  \bottomrule
+    \end{tabular}
+    \end{table}
+\end{landscape}

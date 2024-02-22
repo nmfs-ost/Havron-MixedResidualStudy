@@ -1,0 +1,150 @@
+\begin{landscape}
+\begin{table}[h]
+    \caption{Mixed Model Simulation: data generating models, parameter values, and mis-specifications.}
+    \begin{tabular}{llll|llll}
+    \toprule
+    & Data Generating Model & Parameters & Data Fitting Model &
+    &  Data Generating Model & Parameters & Data Fitting Model\\
+    \hline
+    \multicolumn{4}{l}{Linear Mixed Model}&\multicolumn{4}{|l}{Generalized Linear Mixed Model}\\
+    \hline
+    \multicolumn{4}{l}{Correct}&\multicolumn{4}{l}{Correct}\\
+    &
+    {$\!\begin{aligned}
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= X_{i}\beta + u_{j} \\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
+    \end{aligned}$}
+    &
+    {$\!\begin{aligned}
+    \beta &= (4, -8) \\
+    &\sigma_{u} = 2 \\
+    &\sigma_{y} =  0.5
+    \end{aligned}$}
+    &
+    {$\!\begin{aligned}
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= X_{i}\beta + u_{j} \\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
+    \end{aligned}$}
+    &
+    &
+     {$\!\begin{aligned}
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= exp(\beta + u_{j}) \\
+    y_{i,j} &\sim NBinom(\mu_{i,j}, size)
+    \end{aligned}$}
+    &
+    {$\!\begin{aligned}
+    \beta &= log(2) \\
+    &size = 1 \\
+    &\sigma_{u} = 1
+    \end{aligned}$}
+    &
+    {$\!\begin{aligned}
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= exp(\beta + u_{j}) \\
+    y_{i,j} &\sim NBinom(\mu_{i,j}, size)
+    \end{aligned}$}\\~\\
+    \hline
+   \multicolumn{4}{l}{Mis-specified}&\multicolumn{4}{l}{Mis-specified}\\
+    &
+    {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= X_{i}\beta + u_{j} \\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
+    \end{aligned}$}
+    &
+    &
+    {$\!\begin{aligned}
+    \text{Mis}&\text{sing Random Effect} \\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \mu_{i, j} &= X_{i}\beta \\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})\\
+    \\
+    \text{Mis}&\text{sing Covariate} \\
+     u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= \beta + u_{j} \\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
+    \end{aligned}$}
+     &
+     &
+    {$\!\begin{aligned}
+    \text{Cor}&\text{rect}\\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= exp(\beta + u_{j}) \\
+    y_{i,j} &\sim NBinom(\mu_{i,j}, size)
+    \end{aligned}$}
+    &
+    &
+    {$\!\begin{aligned}
+    \text{Mis}&\text{sing Random Effect} \\
+    \mu_{i, j} &= exp(\beta) \\
+    y_{i,j} &\sim NBinom(\mu_{i,j}, size)\\
+    \\
+    \text{Mis-}&\text{specified Distribution}\\
+    &\text{(Poisson)} \\
+     u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= exp(\beta + u_{j}) \\
+    y_{i,j} &\sim Poisson(\mu_{i,j}) \\
+    \\
+     \end{aligned}$} \\
+     \cline{2-2}\cline{4-4}\cline{6-6}\cline{8-8}
+     &
+     {$\!\begin{aligned}
+     \\
+    \text{Log}&\text{normal}\\
+    \text{Ran}&\text{dom Effect} \\
+     X_{i} &\sim Unif(-0.5, 0.5) \\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu^{'}_{i, j} &= X_{i}\beta + e^{u_{j}} \\
+    y^{'}_{i,j} &\sim N(\mu^{'}_{i,j}, \sigma_{y})\\
+    \end{aligned}$}
+    &
+    &
+    {$\!\begin{aligned}\\
+    \text{Cor}&\text{rect}\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \mu_{i, j} &= X_{i}\beta + u_{j} \\
+    y^{'}_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})\\
+    \end{aligned}$}
+    &
+    &
+    {$\!\begin{aligned}
+     \\
+    \text{Gam}&\text{ma}\\
+    \text{Ran}&\text{dom Effect} \\
+    u_{j} &\sim Gamma(1, 1) \\
+    \mu^{'}_{i, j} &= exp(\beta + u_{j}) \\
+    y^{'}_{i,j} &\sim NBinom(\mu_{i,j}, size)\\
+    \end{aligned}$}
+    &
+    &{$\!\begin{aligned}\\
+    \text{Cor}&\text{rect}\\
+    u_{j} &\sim N(0, \sigma_{u}) \\
+    \mu_{i, j} &= exp(\beta + u_{j}) \\
+    y_{i,j} &\sim NBinom(\mu_{i,j}, size)
+    \end{aligned}$} \\~\\
+    \hline
+    \end{tabular}
+  \end{table}
+\end{landscape}
+
+
+%    &
+%    {$\!\begin{aligned}
+%    \beta &= 1.5 \\
+%    \sigma_{u} &= 1.4 \\
+%    \phi &= 1.4 \\
+%    p &= 1.2
+%    \end{aligned}$}
+%    &
+%    Data simulated with random effect term \newline
+%    Data fit to model without random effect term\\
+%    \hline
+%    \end{tabular}
+%    \end{table}

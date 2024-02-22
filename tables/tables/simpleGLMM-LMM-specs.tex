@@ -1,13 +1,10 @@
 \begin{table}[h]
-    \caption{Mixed Model Simulation: data generating models, parameter values, and mis-specifications.}
+    \caption{Linear Mixed Model Simulation: data generating models, parameter values, and mis-specifications.}
     \begin{tabular}{llll}
     \hline
     & Data Generating Model & Parameters & Data Fitting Model \\
     \hline
-    %\rotatebox[origin=c]{90}{
-    %~\quad Correct \quad ~
-    %}
-    \multicolumn{4}{l}{Correct}//
+    \multicolumn{4}{l}{Correct}\\
     &
     {$\!\begin{aligned}
     X_{i} &\sim Uniform(-0.5, 0.5) \\
@@ -27,57 +24,47 @@
     u_{j} &\sim N(0, \sigma_{u}) \\
     \mu_{i, j} &= X_{i}\beta + u_{j} \\
     y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
-    \end{aligned}$} \\
+    \end{aligned}$} \\~\\
     \hline
-    \rotatebox[origin=c]{90}{
-    Mis-specified
-    }
+    \multicolumn{4}{l}{Mis-specified}\\
     &
     {$\!\begin{aligned}
-    \\
-    \\
     X_{i} &\sim Uniform(-0.5, 0.5) \\
     u_{j} &\sim N(0, \sigma_{u}) \\
     \mu_{i, j} &= X_{i}\beta + u_{j} \\
-    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})\\
-    \\
-    \\
-    \\
-     X_{i} &\sim Uniform(-0.5, 0.5) \\
-    u_{j} &\sim N(0, \sigma_{u}) \\
-    \mu^{'}_{i, j} &= X_{i}\beta + exp(u_{j}) \\
-    y^{'}_{i,j} &\sim N(\mu^{'}_{i,j}, \sigma_{y})\\
+    y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
     \end{aligned}$}
     &
     &
     {$\!\begin{aligned}
+    \text{Mis}&\text{sing Random Effect} \\
     X_{i} &\sim Uniform(-0.5, 0.5) \\
     \mu_{i, j} &= X_{i}\beta \\
     y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})\\
     \\
+    \text{Mis}&\text{sing Covariate} \\
      u_{j} &\sim N(0, \sigma_{u}) \\
     \mu_{i, j} &= \beta + u_{j} \\
     y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y}) \\
     \\
-    \\
+     \end{aligned}$} \\
+     \cline{2-2}\cline{4-4}
+     &
+     {$\!\begin{aligned}
+     \\
+    \text{Mis}&\text{-specified Random Effect} \\
      X_{i} &\sim Uniform(-0.5, 0.5) \\
+    u_{j} &\sim Gamma(1, 1) \\
+    \mu^{'}_{i, j} &= X_{i}\beta + u_{j} \\
+    y^{'}_{i,j} &\sim N(\mu^{'}_{i,j}, \sigma_{y})\\
+    \end{aligned}$}
+    &
+    &
+    {$\!\begin{aligned}\\
+    X_{i} &\sim Uniform(-0.5, 0.5) \\
     \mu_{i, j} &= X_{i}\beta + u_{j} \\
     y^{'}_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})\\
-    \end{aligned}$} \\
-  \\%  &
-  %   {$\!\begin{aligned}
-  %  X_{i} &\sim Uniform(-0.5, 0.5) \\
-  %  u_{j} &\sim N(0, \sigma_{u}) \\
-  %  \mu_{i, j} &= X_{i}\beta + u_{j} \\
-  %  y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
-  %  \end{aligned}$}
-  %  &
-  %  &
-  %  {$\!\begin{aligned}
-  %  u_{j} &\sim N(0, \sigma_{u}) \\
-  %  \mu_{i, j} &= \beta + u_{j} \\
-  %  y_{i,j} &\sim N(\mu_{i,j}, \sigma_{y})
-  %  \end{aligned}$} \\
+    \end{aligned}$} \\~\\
     \hline
     \end{tabular}
   \end{table}
