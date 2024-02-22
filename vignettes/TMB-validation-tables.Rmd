@@ -2,6 +2,7 @@
 title: Table Placeholders
 pkgdown:
    as_is: true
+   extension: pdf
 output: 
   pdf_document:
     extra_dependencies: ["booktabs", "pdflscape"]
