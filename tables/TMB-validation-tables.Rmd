@@ -1,5 +1,5 @@
 ---
-title: Table Placeholders
+title: 
 output: 
   pdf_document:
     extra_dependencies: ["booktabs", "pdflscape"]

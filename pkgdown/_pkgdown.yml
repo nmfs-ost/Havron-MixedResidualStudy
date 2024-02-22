@@ -29,7 +29,7 @@ navbar:
       icon: fas fa-file-contract fa-lg
       menu:
       - text: Tables
-        href: tables/TMB-validation-tables.pdf
+        href: articles/TMB-validation-tables.html
       - text: Figures-Methods
         href: articles/TMB-validation-figures-methods.html
       - text: Figures-Results-Compound-Symmetry

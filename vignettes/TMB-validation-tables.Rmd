@@ -3,4 +3,13 @@ title: Tables
 output: html_document
 ---
 
-![](../tables/TMB-validation-tables.pdf){width=100%}
+
+![](../tables/TMB-validation-tables_Page_1.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_2.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_3.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_4.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_5.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_6.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_7.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_8.jpg){width=100%}
+![](../tables/TMB-validation-tables_Page_9.jpg){width=100%}
