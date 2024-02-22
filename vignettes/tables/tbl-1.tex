@@ -1,0 +1,23 @@
+\begin{table}[h]
+    \caption{Overview of issues and recommendations for common classes of models. Correlation and distributions refer to predicted data from a fitted model, against which observed points are compared. A linear rotation refers to a multiplication of the simulated and observed data by a Cholesky decomposition of the estimated covariance matrix of the observed data, z’=Lz, as available in DHARMa.}
+    \begin{tabular}{p{0.18\linewidth} p{0.18\linewidth}p{0.33\linewidth}p{0.33\linewidth}}
+    \toprule
+    Model class & Case studies & Issues and causes & Recommendation\\
+    \hline
+    Linear model & Linear model & No issues & Pearson residuals \\
+    Generalized linear model (GLM) &
+    Skewed Gamma &
+    Non-normality resulting from response variable. Quantile residuals are needed if not approximately normal. &
+    Quantile residual \\
+    Linear mixed model (LMM), Multivariate model
+ &
+    Random walk, Spatial LMM, Multinomial &
+    Linear correlations caused by non-independence in observations. &
+    Use a method that linearly decorrelates in order to transform to a unit iid normal. OSA Full Gaussian, OSA one-step Gaussian, or simulation residuals with rotation. \\
+    Generalized linear mixed model (GLMM) &
+    Spatial Poisson, Repeated measures Tweedie &
+    Non-normality and non-linear correlations caused by response variable and non-independence in observations.&
+    Needs non-linear decorrelation and quantiles. Needs non-linear decorrelation and quantiles. Best approach depends on case study and sample size.\\
+    \bottomrule
+    \end{tabular}
+    \end{table}
