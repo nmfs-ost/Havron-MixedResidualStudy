@@ -8,7 +8,7 @@ output:
 # Methods
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE }
-source("../../results/results-setup.R")
+source("../results/results-setup.R")
 ```
 
 
