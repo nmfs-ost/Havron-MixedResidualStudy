@@ -171,7 +171,9 @@ Stats <- lapply(list.files(path, pattern='_stats.RDS',
                           full.names=TRUE), readRDS) %>% bind_rows
 
 ## Models with non-convergence
-nc <- Stats[!is.na(Stats$converge) & (Stats$converge==1|Stats$maxgrad>0.1),]
+nc <- Stats[(Stats$converge.status == 1 |
+               Stats$converge.hessian == FALSE |
+               Stats$converge.maxgrad > 0.01),]
 nc.h0 <- nc[nc$version == "h0",]
 nc.h1 <- nc[nc$version != "h0",]
 
@@ -270,30 +272,42 @@ if(length(nc.id) > 0){
 ## Functions
 plot.mles <- function(Mod, Type){
   if(Mod == 'linmod'){
-    df <- dplyr::filter(mles, model == Mod & misp == 'correct')
+    df <- dplyr::filter(mles, model == Mod)
   } else {
-    df <- dplyr::filter(mles, model == Mod & type == Type & misp == 'correct')
+    df <- dplyr::filter(mles, model == Mod & type == Type)
   }
   p <- df %>% ggplot() +
       geom_violin(aes(x = par, y = bias)) +
-      facet_wrap(~type) +
+      facet_grid(misp~type) +
       theme_bw()
   return(p)
 }
 
 
-filter.true <- function(df, mod, type_, test_ = "GOF.ks", method.vec){
-  dplyr::filter(df, model == mod & type == type_ &
-                  test == test_ &
-                  method %in% method.vec &
-                  do.true == TRUE)
+filter.true <- function(df, mod, type_, test_ = NA, method.vec){
+  if(is.na(test_)){
+    dplyr::filter(df, model == mod & type == type_ &
+                    method %in% method.vec &
+                    do.true == TRUE)
+  } else {
+    dplyr::filter(df, model == mod & type == type_ &
+                    test == test_ &
+                    method %in% method.vec &
+                    do.true == TRUE)
+  }
 }
 
-filter.est <- function(df, mod, type_, test_ = "GOF.ks", method.vec){
-  dplyr::filter(df, model == mod & type == type_ &
+filter.est <- function(df, mod, type_, test_ = NA, method.vec){
+  if(is.na(test_)){
+    dplyr::filter(df, model == mod & type == type_ &
+                    method %in% method.vec &
+                    do.true == FALSE)
+  } else {
+    dplyr::filter(df, model == mod & type == type_ &
                   test == test_ &
                   method %in% method.vec &
                   do.true == FALSE)
+  }
 }
 
 plot.pval.hist <- function(df, doTrue){
@@ -320,6 +334,26 @@ plot.ecdf <- function(df, doTrue){
 }
 
 plot.err.pow <- function(df.true, df.est){
+
+  pvals.err <- df %>% filter(misp == "Correct") %>%
+    group_by(type, method, res.type) %>%
+    summarize('Type I Error' = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+
+  pvals.power <-df %>% filter(misp != "Correct") %>%
+    group_by(type, misp, method, res.type) %>%
+     summarize(Power = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+
+  pvals <- df %>% filter(test != "outlier") %>%
+    group_by(test, misp, method, res.type) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+
+  p <- pvals  %>%
+    ggplot(., aes(x = pval, y = method))  +
+    geom_point(mapping = aes(color = test)) +
+    facet_grid(test~misp)
+
+
+
   pvals.true <- df.true %>% filter(misp == "correct") %>%
     group_by(misp, method, res.type) %>%
     summarize(typeIerror = sum(pvalue <= 0.05)/sum(pvalue >= 0))
@@ -365,36 +399,31 @@ plot.err.pow <- function(df.true, df.est){
 tbl.err.pow <- function(df, caption = NULL){
 
 
-  pvals.err <- df %>% filter(misp == "correct") %>%
-    group_by(type, method, res.type) %>%
-    summarize('Type I Error' = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+  pvals <- df %>% filter(test != "outlier") %>%
+    group_by(test, misp, method, res.type) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
-  pvals.power <-df %>% filter(misp != "correct") %>%
-    group_by(type, misp, method, res.type) %>%
-    summarize(Power = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
-
-  pvals.est <- left_join(pvals.err, pvals.power)
-  misp.names <- as.character(unique(pvals.est$misp))
+  pvals.wider <- pivot_wider(pvals, names_from = misp, values_from = pval)
+  misp.names <- as.character(unique(pvals$misp))
   nmisp <- length(misp.names)
-  misp.header = c(1, rep(2, nmisp))
-  names(misp.header) <- c(" ", misp.names)
 
-  if(nmisp == 1){
-    out <- pvals.est %>%
+  if(nmisp == 2){
+    misp.header = c(1, rep(2, nmisp))
+    names(misp.header) <- c(" ", misp.names)
+    out <- pvals.wider %>%
       as.data.frame() %>% dplyr::select(method, 'Type I Error', Power)  %>%
       kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
         kableExtra::kable_styling(., "striped", "HOLD_position") %>%
       kableExtra::add_header_above(., misp.header)
   }
 
-  if(nmisp > 1){
+  if(nmisp > 2){
+    misp.header = c(rep(1,3), 3)
+    names(misp.header) <- c(rep(" ",2), 'Type I Error', 'Power')
 
-    out <- pvals.est %>%
-      tidyr::pivot_longer(., cols = 4:5, names_to = "metric", values_to = "pvalue") %>%
-      dplyr::select(misp, method, metric, pvalue) %>%
-      tidyr::pivot_wider(., names_from = c(misp, metric), values_from = pvalue) %>%
+    out <- pvals.wider %>%
+      dplyr::select(-res.type) %>%
       as.data.frame()
-    colnames(out) <- c("method", rep(c("Type I Error", "Power"), nmisp))
     out <- out %>%
       kableExtra::kbl(., format = "latex", caption = caption, booktabs = TRUE) %>%
       kableExtra::kable_styling(., "striped", "HOLD_position") %>%

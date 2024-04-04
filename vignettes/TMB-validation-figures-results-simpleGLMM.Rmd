@@ -77,14 +77,14 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, TRUE)
 ```
 
-#### Categorical Test
+#### Levene Test of unequal variances
 
-```{r, simpleGLMM-results-LMM-true-cat, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+```{r, simpleGLMM-results-LMM-true-lev, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
                        type = "LMM", 
-                       test_ = "Cat",
+                       test_ = "EqVar",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -100,6 +100,29 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, TRUE)
 ```
 
+
+#### ANOVA test for unequal means
+
+```{r, simpleGLMM-results-LMM-true-aov, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under an Anova Test for unequal means for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "AOV",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("Correct",
+                    "Miss RE",
+                    "Miss Uniform X",
+                    "Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
 
 <br>
 
@@ -153,14 +176,37 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
-#### Categorical Test
+#### Levene's Test for unequal variances
 
-```{r, simpleGLMM-results-LMM-est-cat, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+```{r, simpleGLMM-results-LMM-est-lev, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
                        type = "LMM", 
-                       test_ = "Cat",
+                       test_ = "EqVar",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "missunifcov", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Miss Uniform X",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+#### ANOVA Test for unequal means
+
+```{r, simpleGLMM-results-LMM-est-aov, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under ANOVA Test for unequal means for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Uniform Covariate (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "simpleGLMM", 
+                       type = "LMM", 
+                       test_ = "AOV",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -226,14 +272,37 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, TRUE)
 ```
 
-#### Categorical Test
+#### Levene's Test for unequal variances
 
-```{r, simpleGLMM-results-GLMM-true-cat, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+```{r, simpleGLMM-results-GLMM-true-lev, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
                        type = "GLMM", 
-                       test_ = "Cat",
+                       test_ = "EqVar",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "nb-pois", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: NB-Poisson",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, TRUE)
+```
+
+#### ANOVA Test for unequal means
+
+```{r, simpleGLMM-results-GLMM-true-aov, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under ANOVA Test for unequal means for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.true(df = pvals, 
+                       mod = "simpleGLMM", 
+                       type = "GLMM", 
+                       test_ = "AOV",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -301,14 +370,14 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
-#### Categorical Test
+#### Levene's Test for unequal variances
 
-```{r, simpleGLMM-results-GLMM-est-cat, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+```{r, simpleGLMM-results-GLMM-est-lev, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
                        type = "GLMM", 
-                       test_ = "Cat",
+                       test_ = "EqVar",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -324,15 +393,14 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### ANOVA Test for unequal means
 
-#### Outlier Test
-
-```{r, simpleGLMM-results-GLMM-est-outlier, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under Levene's Test for Homogeneity for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
+```{r, simpleGLMM-results-GLMM-est-aov, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under ANOVA Test for unequal means for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), NB data fit to Poisson (C), Mis-specified Random Effect (D)."}
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
                        type = "GLMM", 
-                       test_ = "disp",
+                       test_ = "AOV",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,

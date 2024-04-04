@@ -199,7 +199,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -222,7 +222,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -245,7 +245,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -272,7 +272,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -297,7 +297,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -320,7 +320,7 @@ pval.df$misp <- factor(pval.df$misp,
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
-                    "C: NB-Pois",
+                    "C: Zip-Pois",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
