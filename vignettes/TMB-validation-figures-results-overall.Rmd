@@ -14,25 +14,33 @@ source("../results/results-setup.R")
 
 # Method Comparison
 
-```{r, compare-all-lmm-theoretical, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "LMM, theoretical"}
+## LMM, theoretical residuals
+
+```{r, compare-all-lmm-theoretical, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error (top row) and Power (rows 2-7) calculated with estiamted residuals for all Linear Mixed Models separated by model and mis-specification. The top row represents theoretical Type I error under the correct model. Colors represent the type of test used to evaluate the residuals"}
 
 histogram.err.pow(df = pvals, Type = "LMM", ResType = TRUE )
 
 ```
 
-```{r, compare-all-lmm-estimated, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "LMM, estimated"}
+## LMM, estimated residuals
+
+```{r, compare-all-lmm-estimated, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error (top row) and Power (rows 2-7) calculated with estiamted residuals for all Linear Mixed Models separated by model and mis-specification. The top row represents estimated Type I error under the correct model. Colors represent the type of test used to evaluate the residuals"}
 
 histogram.err.pow(df = pvals, Type = "LMM", ResType = FALSE)
 
 ```
 
-```{r, compare-all-glmm-theoretical, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "GLMM, theoretical"}
+## GLMM, theoretical residuals
+
+```{r, compare-all-glmm-theoretical, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error (top row) and Power (rows 2-7) calculated with estiamted residuals for all Generalized Linear Mixed Models separated by model and mis-specification. The top row represents theoretical Type I error under the correct model. Colors represent the type of test used to evaluate the residuals"}
 
 histogram.err.pow(df = pvals, Type = "GLMM", ResType = TRUE )
 
 ```
 
-```{r, compare-all-glmm-estimated, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "GLMM, estimated"}
+## GLMM, estimated residuals
+
+```{r, compare-all-glmm-estimated, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error (top row) and Power (rows 2-7) calculated with estiamted residuals for all Generalized Linear Mixed Models separated by model and mis-specification. The top row represents estimated Type I error under the correct model. Colors represent the type of test used to evaluate the residuals"}
 
 histogram.err.pow(df = pvals, Type = "GLMM", ResType = FALSE)
 
