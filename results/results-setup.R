@@ -12,6 +12,7 @@ library(here)
 library(gridExtra)
 library(ellipse)
 library(rWishart)
+library(stringr)
 
 ## Functions for methods
 
@@ -176,9 +177,15 @@ nc <- Stats[(Stats$converge.status == 1 |
                Stats$converge.maxgrad > 0.01),]
 nc.h0 <- nc[nc$version == "h0",]
 nc.h1 <- nc[nc$version != "h0",]
+nc.cs <- Stats[Stats$converge.status == 1,]
+nc.cs.h0 <- nc.cs[nc.cs$version == "h0",]
+nc.cs.h1 <- nc.cs[nc.cs$version != "h0",]
 
 table(nc.h0$model, nc.h0$misp, nc.h0$type, nc.h0$do.true)
 table(nc.h1$model, nc.h1$misp, nc.h1$type, nc.h1$do.true)
+
+table(nc.cs.h0$model, nc.cs.h0$misp, nc.cs.h0$type, nc.cs.h0$do.true)
+table(nc.cs.h1$model, nc.cs.h1$misp, nc.cs.h1$type, nc.cs.h1$do.true)
 
 
 ## Data Pre-processing
@@ -258,6 +265,7 @@ pvals$method <- factor(pvals$method,
                         "Conditional ecdf, Not Rotated"
                       ))
 
+
 #Only filter out non-converging models if model is correctly specified
 nc.id <- dplyr::filter(nc, version == "h0")$id
 
@@ -310,6 +318,12 @@ filter.est <- function(df, mod, type_, test_ = NA, method.vec){
   }
 }
 
+filter.all <- function(df, mod, type_, method.vec){
+
+    dplyr::filter(df, model == mod & type == type_ &
+                    method %in% method.vec)
+}
+
 plot.pval.hist <- function(df, doTrue){
   no.misp <- sum(unique(df$misp) != "A: Correct")
   p <- ggplot(df, aes(pvalue, fill = misp, color=misp))
@@ -333,69 +347,214 @@ plot.ecdf <- function(df, doTrue){
   ggplot(pval.df, aes(pvalue, color = method)) + stat_ecdf(geom = "step") + facet_grid(method~misp)
 }
 
-plot.err.pow <- function(df.true, df.est){
-
-  pvals.err <- df %>% filter(misp == "Correct") %>%
-    group_by(type, method, res.type) %>%
-    summarize('Type I Error' = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
-
-  pvals.power <-df %>% filter(misp != "Correct") %>%
-    group_by(type, misp, method, res.type) %>%
-     summarize(Power = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
-
-  pvals <- df %>% filter(test != "outlier") %>%
-    group_by(test, misp, method, res.type) %>%
-    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
-
-  p <- pvals  %>%
-    ggplot(., aes(x = pval, y = method))  +
-    geom_point(mapping = aes(color = test)) +
-    facet_grid(test~misp)
-
-
-
-  pvals.true <- df.true %>% filter(misp == "correct") %>%
-    group_by(misp, method, res.type) %>%
-    summarize(typeIerror = sum(pvalue <= 0.05)/sum(pvalue >= 0))
-  pvals.true$restype <- "Theoretical"
-  pvals.true$power <- NA
-
-  pvals.err.est <- df.est %>% filter(misp == "correct") %>%
-    group_by(misp, method, type) %>%
-    summarize(typeIerror = sum(pvalue <= 0.05)/sum(pvalue >= 0))
-  pvals.err.est$restype <- "Estimated"
-
-  pvals.power <- df.est %>% filter(misp != "correct") %>%
-    group_by(misp, method, type) %>%
-    summarize(power = sum(pvalue <= 0.05)/sum(pvalue >= 0))
-  pvals.power$restype <- "Estimated"
-  pvals.est <- left_join(pvals.err.est, pvals.power)
-
-  pvals.comb <- rbind(pvals.true, pvals.est) %>%
-    pivot_longer(., c(4,6), names_to = "metric", values_to = "pvalue")
-
-  pvals.comb$metric = factor(pvals.comb$metric,
-                             levels = c("typeIerror", "power"),
-                             labels = c("Type I Error", "Power"))
-
-  data_vline <- tidyr::expand_grid(misp = unique(pvals.comb$misp),
-                                   metric = unique(pvals.comb$metric))
-  data_vline$vline <- ifelse(data_vline$metric == "Type I Error", 0.05, 0.95)
-
-  p <- pvals.comb  %>%
-    ggplot(., aes(x = pvalue, y = method)) +
-    geom_vline(data = data_vline,
-               aes(xintercept = vline), color = "red",
-               size = 0.75, show.legend = FALSE) +
-    geom_point(mapping = aes(color = type)) +
-    facet_nested(restype ~ misp + metric, labeller = label_wrap_gen(16) )  +
-    scale_x_continuous(breaks=c(0,0.5,1)) +
-    ylab("") + xlab("") +
-    scale_color_viridis_d() +
-    theme_bw() + theme(legend.position="bottom")
-  print(p)
+histogram.err.pow <- function(df, Type, ResType){
+  df %>% dplyr::filter(type == Type & do.true == ResType & model != "linmod" & test != "outlier") %>%
+    group_by(test, model, misp, method) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))%>%
+    ggplot(., aes(x = method, y = pval, fill = test, group = test)) + geom_col(position = "dodge") +
+    facet_grid(misp ~ model) + theme_bw() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
 
+plot.err.pow <- function(df){
+
+  results <- df %>% filter(test != "outlier") %>%
+    group_by(test, misp, method, res.type, do.true) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+
+  results$do.true <- factor(results$do.true,
+                            levels = c(TRUE, FALSE),
+                            labels = c("theoretical", "estimated"))
+  results$err_type <- ifelse(results$misp == "A: Correct", "Type I Error", "Power")
+  results$err_type <- factor(results$err_type,
+                             levels = c("Type I Error", "Power"),
+                             labels = c("Type I Error", "Power"))
+  results$err_line <- ifelse(results$misp == "A: Correct", 0.05, 0.95)
+
+  p <- results  %>%
+    ggplot(., aes(x = pval, y = method))  +
+    geom_point(mapping = aes(color = do.true)) +
+    scale_color_aaas() + xlab("p-value") +
+    facet_grid(test~err_type + misp) + theme_bw() +
+    theme(legend.position = "top") + #, legend_title = element_blank())+#,
+    #      axis.text.x = element_blank(),
+    #      axis.ticks.x = element_blank()) +
+    scale_x_continuous(breaks = c(0,0.5,1),
+                       labels = c("0", "0.5", "1")) +
+    geom_vline(mapping = aes( xintercept = results$err_line)) +
+    labs(color = "reisduals")
+
+
+  return(p)
+}
+
+err.table <-  function(df1, df2, sig.level, caption = NULL){
+
+  pvals1 <- df1 %>% filter(test != "outlier" & misp == "Correct") %>%
+    group_by(test, method, do.true) %>%
+    summarize(pval = round(sum(pvalue <= sig.level)/sum(pvalue >= 0),3))
+  pvals2 <- df2 %>% filter(test != "outlier" & misp == "Correct") %>%
+    group_by(test, method, do.true) %>%
+    summarize(pval = round(sum(pvalue <= sig.level)/sum(pvalue >= 0),3))
+
+  pvals.wider1 <- pivot_wider(pvals1, names_from = method, values_from = pval)
+  pvals.wider2 <- pivot_wider(pvals2, names_from = method, values_from = pval)
+
+  pvals.wider <- rbind(pvals.wider1, pvals.wider2)
+  pvals.wider$do.true <- factor(pvals.wider$do.true,
+                          level = c(TRUE, FALSE),
+                          label = c("theoretical", "estimated"))
+  colnames(pvals.wider)[which(colnames(pvals.wider) == "do.true")] <- "residual type"
+
+  pvals.wider$test <- factor(pvals.wider$test,
+                        level = c(
+                          "AOV",
+                          "EqVar",
+                          "GOF.ad",
+                          "GOF.ks",
+                          "GOF.lf",
+                          "Auto",
+                          "SAC"
+                        ),
+                        label = c(
+                          "AOV Equal Means",
+                          "Levene's Equal Variances",
+                          "Anderson Darling",
+                          "Kolmogorov-Smirnov",
+                          "Lilliefors",
+                          "Autocorrelation",
+                          "Moran's I"
+                        ))
+
+  out.table <- pvals.wider %>% arrange(test) %>%
+    kableExtra::kbl(., format = "latex", caption = caption,
+                    booktabs = TRUE, midrule = "", escape = FALSE) %>%
+    kableExtra::kable_styling(., "striped", "HOLD_position")
+  if(unique(df1$type) == "LMM"){
+    out.table <- out.table %>%
+      column_spec(1, width = "7em") %>%
+      column_spec(2, width = "4em")%>%
+      column_spec(3, width = "4em")%>%
+      column_spec(4, width = "4em")%>%
+      column_spec(5, width = "4em")%>%
+      column_spec(6, width = "4em")%>%
+      column_spec(8, width = "4em")%>%
+      column_spec(9, width = "6em")%>%
+      column_spec(10, width = "5em")%>%
+      column_spec(11, width = "6em") %>%
+      column_spec(12, width = "5em") %>%
+      collapse_rows(column = 1, latex_hline = "major")
+  }
+  if(unique(df1$type) == "GLMM"){
+    out.table <- out.table %>%
+      column_spec(1, width = "7em") %>%
+      column_spec(2, width = "4em")%>%
+      column_spec(3, width = "4em")%>%
+      column_spec(4, width = "4em")%>%
+      column_spec(5, width = "4em")%>%
+      column_spec(6, width = "4em")%>%
+      column_spec(7, width = "6em")%>%
+      column_spec(8, width = "6em") %>%
+      column_spec(9, width = "6em") %>%
+      column_spec(10, width = "6em") %>%
+      collapse_rows(column = 1, latex_hline = "major")
+  }
+
+  out.table
+
+}
+
+pow.table <-  function(df1, df2, sig.level, caption = NULL){
+
+  misp.names <- as.character(unique(df1$misp)[-1])
+  nmethods <- length(unique(df1$method))
+  misp.header = 1
+  names(misp.header) <- misp.names[1]
+
+  for(i in seq_along(misp.names)){
+
+    pvals1 <- df1 %>% filter(test != "outlier" & misp == misp.names[i]) %>%
+      group_by(test, method, do.true) %>%
+      summarize(pval = round(sum(pvalue <= sig.level)/sum(pvalue >= 0),3))
+    pvals2 <- df2 %>% filter(test != "outlier" & misp == misp.names[i]) %>%
+      group_by(test, method, do.true) %>%
+      summarize(pval = round(sum(pvalue <= sig.level)/sum(pvalue >= 0),3))
+
+    pvals.wider1 <- pivot_wider(pvals1, names_from = method, values_from = pval)
+    pvals.wider2 <- pivot_wider(pvals2, names_from = method, values_from = pval)
+
+    pvals.wider <- rbind(pvals.wider1, pvals.wider2)
+
+    out <- pvals.wider %>% as.data.frame() %>% arrange(test)
+     if(i == 1){
+       out.df <- rbind(c(misp.names[i], rep(" ", ncol(out)-1)), out)
+     } else {
+       out.df <- rbind(out.df, c(misp.names[i], rep(" ", ncol(out)-1)), out)
+     }
+}
+  out.df$do.true <- factor(out.df$do.true,
+                           level = c(TRUE, FALSE, " "),
+                           label = c("theoretical", "estimated", " "))
+  colnames(out.df)[which(colnames(out.df) == "do.true")] <- "residual type"
+
+  out.df$test <- factor(out.df$test,
+                        level = c(
+                          "AOV",
+                          "EqVar",
+                          "GOF.ad",
+                          "GOF.ks",
+                          "GOF.lf",
+                          "Auto",
+                          "SAC",
+                          misp.names
+                        ),
+                        label = c(
+                          "AOV Equal Means",
+                          "Levene's Equal Variances",
+                          "Anderson Darling",
+                          "Kolmogorov-Smirnov",
+                          "Lilliefors",
+                          "Autocorrelation",
+                          "Moran's I",
+                          misp.names
+                        ))
+
+  out.table <- out.df %>%
+      kableExtra::kbl(., format = "latex", caption = caption,
+                      booktabs = TRUE, midrule = "", escape = FALSE) %>%
+      kableExtra::kable_styling(., "striped", "HOLD_position")
+  if(unique(df1$type) == "LMM"){
+    out.table <- out.table %>%
+      column_spec(1, width = "7em") %>%
+      column_spec(2, width = "4em")%>%
+      column_spec(3, width = "4em")%>%
+      column_spec(4, width = "4em")%>%
+      column_spec(5, width = "4em")%>%
+      column_spec(6, width = "4em")%>%
+      column_spec(8, width = "4em")%>%
+      column_spec(9, width = "6em")%>%
+      column_spec(10, width = "5em")%>%
+      column_spec(11, width = "6em") %>%
+      column_spec(12, width = "5em") %>%
+      collapse_rows(column = 1, latex_hline = "major")
+  }
+  if(unique(df1$type) == "GLMM"){
+    out.table <- out.table %>%
+      column_spec(1, width = "7em") %>%
+      column_spec(2, width = "4em")%>%
+      column_spec(3, width = "4em")%>%
+      column_spec(4, width = "4em")%>%
+      column_spec(5, width = "4em")%>%
+      column_spec(6, width = "4em")%>%
+      column_spec(7, width = "6em")%>%
+      column_spec(8, width = "6em") %>%
+      column_spec(9, width = "6em") %>%
+      column_spec(10, width = "6em") %>%
+      collapse_rows(column = 1, latex_hline = "major")
+  }
+
+  out.table
+
+}
 tbl.err.pow <- function(df, caption = NULL){
 
 
