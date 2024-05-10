@@ -1,5 +1,6 @@
 ---
 title: 
+geometry: margin=1cm
 output: 
   pdf_document:
     extra_dependencies: ["booktabs", "pdflscape", "longtable"]
@@ -30,7 +31,7 @@ source("../results/results-setup.R")
 \begin{landscape}
 ```
 
-## Linear Mixed Models
+## Compound Symmetry - LMM
 
 ```{r, simpleGLMM-LMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
@@ -72,22 +73,22 @@ pval.df.est$misp <- factor(pval.df.est$misp,
                     "C: Misp RE" ))
 
 err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Linear Mixed Model. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - LMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Linear Mixed Model. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - LMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Linear Mixed Model. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - LMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Linear Mixed Model. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - LMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{=tex}
@@ -95,7 +96,7 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
 \newpage
 ```
 
-## Generalized Linear Mixed Models
+## Compound Symmetry - GLMM
 
 ```{r, simpleGLMM-GLMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
@@ -137,71 +138,160 @@ pval.df.est$misp <- factor(pval.df.est$misp,
                     "C: Misp RE" ))
 
 err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Generalized Linear Mixed Model. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - GLMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Generalized Linear Mixed Model. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - GLMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Generalized Linear Mixed Model. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - GLMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Generalized Linear Mixed Model. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+        caption = "Compound Symmetry - GLMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{=tex}
-\end{landscape}
 \clearpage
 \newpage
 ```
 
-## Randomwalk
+## Temporal Correlation - LMM
 
-```{r, rw-results-theor osa-true, echo = FALSE, message = FALSE}
+```{r, randomwalk-LMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
-pval.df.true <- filter.true(pvals, "randomwalk",
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',
+   'Pearson'
+)
+
+pval.df.true <- filter.true(pvals, 
+                            "randomwalk",
                             type_ = "LMM",
-                       method.vec = res.methods)
-pval.df.est <- filter.est(pvals, "randomwalk",
+                             method.vec = res.methods)
+pval.df.est <- filter.est(pvals, 
+                            "randomwalk",
                             type_ = "LMM",
-                       method.vec = res.methods)
+                             method.vec = res.methods)
+
 pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c('correct', 'missre', 'hsk', 'm0', 'mispre'),
+         levels = c('correct', 'missre', 'hsk', 'mu0', 'mispre'),
          labels = c("Correct",
                     "A: Missing RE",
-                    "B: Heterosced.",
+                    "B: Heterosck.",
                     "C: Missing Drift",
                     "D: Misp RE" ))
 
 
 pval.df.est$misp <- factor(pval.df.est$misp,
-        levels = c('correct', 'missre', 'hsk', 'm0', 'mispre'),
+         levels = c('correct', 'missre', 'hsk', 'mu0', 'mispre'),
          labels = c("Correct",
                     "A: Missing RE",
-                    "B: Heterosced.",
+                    "B: Heterosck.",
+                    "C: Missing Drift",
+                    "D: Misp RE" ))
+
+err.table(pval.df.true, pval.df.est, 0.05,
+        caption = "Temporal Correlation - LMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+```{r, randomwalk-LMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
+        caption = "Temporal Correlation - LMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+```{r, randomwalk-LMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+err.table(pval.df.true, pval.df.est, 0.1,
+        caption = "Temporal Correlation - LMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+```{r, randomwalk-LMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
+        caption = "Temporal Correlation - LMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+```{=tex}
+\clearpage
+\newpage
+```
+
+## Temporal Correlation - GLMM
+
+```{r, randomwalk-GLMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',
+   'Pearson'
+)
+
+pval.df.true <- filter.true(pvals, 
+                            "randomwalk",
+                            type_ = "GLMM",
+                             method.vec = res.methods)
+pval.df.est <- filter.est(pvals, 
+                            "randomwalk",
+                            type_ = "GLMM",
+                             method.vec = res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c('correct', 'missre', 'gamma-normal', 'mu0', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Gamma - Normal",
                     "C: Missing Drift",
                     "D: Misp RE" ))
 
 
-tbl.err.pow(pval.df.true, 
-        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c('correct', 'missre', 'gamma-normal', 'mu0', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Gamma - Normal",
+                    "C: Missing Drift",
+                    "D: Misp RE" ))
+
+err.table(pval.df.true, pval.df.est, 0.05,
+        caption = "Temporal Correlation - GLMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
-```{r, rw-results-est osa-true, echo = FALSE, message = FALSE}
-
-tbl.err.pow(pval.df.est, 
-        caption = "Randomwalk Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```{r, randomwalk-GLMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
+        caption = "Temporal Correlation - GLMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
+```{r, randomwalk-GLMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+err.table(pval.df.true, pval.df.est, 0.1,
+        caption = "Temporal Correlation - GLMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+```
 
+```{r, randomwalk-GLMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
+        caption = "Temporal Correlation - GLMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+```
 
 ```{=tex}
+\end{landscape}
 \clearpage
 \newpage
 ```
