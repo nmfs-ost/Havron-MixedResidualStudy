@@ -136,6 +136,31 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Lilliefors
+
+```{r, randomwalk-results-LMM-est-lf, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "randomwalk", 
+                       type = "LMM", 
+                       test_ = "GOF.lf",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "hsk",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Heteroskedasticity",
+                    "D: Miss Drift",
+                    "E: Misp. RE"))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
 <br>
 
 #### Anderson-Darling Test
@@ -277,6 +302,31 @@ pval.df <- filter.est(pvals,
                        mod = "randomwalk", 
                        type = "GLMM", 
                        test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "gamma-normal",
+                     "mu0",
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Gamma - Normal",
+                    "C: Miss Drift",
+                    "D: Misp. RE"))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+#### Lilliefors
+
+```{r, randomwalk-results-GLMM-est-lf, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "randomwalk", 
+                       type = "GLMM", 
+                       test_ = "GOF.lf",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,

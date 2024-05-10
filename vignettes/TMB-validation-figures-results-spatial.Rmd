@@ -128,6 +128,29 @@ pval.df$misp <- factor(pval.df$misp,
 plot.pval.hist(pval.df, FALSE)
 ```
 
+#### Lilliefors
+
+```{r, spatial-results-LMM-est-lf, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Normal data fit to Lognormal (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "spatial", 
+                       type = "LMM", 
+                       test_ = "GOF.lf",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+        levels = c( "correct", 
+                     "missre", 
+                     "ln-error", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Lognormal Error",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
 <br>
 
 #### Anderson-Darling Test
@@ -263,6 +286,29 @@ pval.df <- filter.est(pvals,
                        mod = "spatial", 
                        type = "GLMM", 
                        test_ = "GOF.ks",
+                       res.methods)
+
+pval.df$misp <- factor(pval.df$misp,
+         levels = c( "correct", 
+                     "missre", 
+                     "pois-zip", 
+                     "mispre"),
+         labels = c("A: Correct",
+                    "B: Miss RE",
+                    "C: Zip-Pois",
+                    "D: Misp. RE" ))
+
+plot.pval.hist(pval.df, FALSE)
+```
+
+#### Lilliefors
+
+```{r, spatial-results-GLMM-est-lf, echo = FALSE, message = FALSE, fig.height = 9, fig.cap = "Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Gamma data fit to Lognormal (C), Mis-specified Random Effect (D)."}
+
+pval.df <- filter.est(pvals, 
+                       mod = "spatial", 
+                       type = "GLMM", 
+                       test_ = "GOF.lf",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
