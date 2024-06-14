@@ -3,7 +3,7 @@ title:
 geometry: margin=1cm
 output: 
   pdf_document:
-    extra_dependencies: ["booktabs", "pdflscape", "longtable"]
+    extra_dependencies: ["booktabs", "pdflscape", "longtable", "bm"]
 ---
 
 # Methods
@@ -13,6 +13,8 @@ source("../results/results-setup.R")
 ```
 
 
+\input{"tables/sim-design.tex"}
+
 \input{"tables/linmod-specs.tex"}
 
 \input{"tables/simpleGLMM-specs.tex"}
@@ -20,6 +22,7 @@ source("../results/results-setup.R")
 \input{"tables/randomwalk-specs.tex"}
 
 \input{"tables/spatial-specs.tex"}
+
 
 ```{=tex}
 \clearpage
