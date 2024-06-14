@@ -14,7 +14,7 @@ update_results(update = FALSE)
 source("../results/results-setup.R")
 ```
 
-```{r, rename-values}
+```{r, rename-values, include = FALSE, warning = FALSE, message = FALSE}
 mles$misp <- factor(mles$misp,
                     levels = c(
                       "correct", 
