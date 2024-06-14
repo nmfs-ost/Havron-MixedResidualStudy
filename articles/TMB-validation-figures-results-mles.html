@@ -127,60 +127,6 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mles</span><span class="op">$</span><span class="va">misp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mles</span><span class="op">$</span><span class="va">misp</span>,</span>
-<span>                    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                      <span class="st">"correct"</span>, </span>
-<span>                      <span class="st">"overdispersion"</span>, </span>
-<span>                      <span class="st">"gamma-normal"</span>,</span>
-<span>                      <span class="st">"hsk"</span>,</span>
-<span>                      <span class="st">"nb-pois"</span>,</span>
-<span>                      <span class="st">"missunifcov"</span>,</span>
-<span>                      <span class="st">"pois-zip"</span>,</span>
-<span>                      <span class="st">"ln-error"</span>,</span>
-<span>                      <span class="st">"missre"</span>,</span>
-<span>                      <span class="st">"mu0"</span>,</span>
-<span>                      <span class="st">"mispre"</span></span>
-<span>                    <span class="op">)</span>,</span>
-<span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                      <span class="st">"Correct"</span>, </span>
-<span>                      <span class="st">"Overdispersion"</span>, </span>
-<span>                      <span class="st">"Gamma - Normal"</span>,</span>
-<span>                      <span class="st">"Hsk"</span>,</span>
-<span>                      <span class="st">"NB-Pois"</span>,</span>
-<span>                      <span class="st">"Missing Covariate"</span>,</span>
-<span>                      <span class="st">"Pois-ZIP"</span>,</span>
-<span>                      <span class="st">"Lognormal Error"</span>,</span>
-<span>                      <span class="st">"Missing RE"</span>,</span>
-<span>                      <span class="st">"Missing Drift"</span>,</span>
-<span>                      <span class="st">"Miss-specified RE"</span></span>
-<span>                    <span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
-<span><span class="va">mles</span><span class="op">$</span><span class="va">par</span><span class="op">[</span><span class="va">mles</span><span class="op">$</span><span class="va">model</span> <span class="op">==</span> <span class="st">'simpleGLMM'</span> <span class="op">&amp;</span> <span class="va">mles</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">'LMM'</span> <span class="op">&amp;</span> <span class="va">mles</span><span class="op">$</span><span class="va">par</span> <span class="op">==</span> <span class="st">'beta'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"beta_1"</span></span>
-<span></span>
-<span><span class="va">mles</span><span class="op">$</span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mles</span><span class="op">$</span><span class="va">par</span>,</span>
-<span>                   levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                     <span class="st">"mu"</span>,</span>
-<span>                     <span class="st">"beta"</span>, </span>
-<span>                     <span class="st">"beta_1"</span>, </span>
-<span>                     <span class="st">"beta_2"</span>,   </span>
-<span>                     <span class="st">"theta"</span>,</span>
-<span>                     <span class="st">"ln_sig_y"</span>,  </span>
-<span>                     <span class="st">"ln_sig_u"</span>, </span>
-<span>                     <span class="st">"ln_kappa"</span>,</span>
-<span>                     <span class="st">"ln_tau"</span></span>
-<span>                   <span class="op">)</span>,</span>
-<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>,</span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">beta</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">beta</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">beta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,   </span>
-<span>                     <span class="st">"size"</span>,</span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"ln("</span><span class="op">~</span><span class="va">sigma</span><span class="op">[</span><span class="va">y</span><span class="op">]</span><span class="op">~</span><span class="st">")"</span><span class="op">)</span>,  </span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"ln("</span><span class="op">~</span><span class="va">sigma</span><span class="op">[</span><span class="va">u</span><span class="op">]</span><span class="op">~</span><span class="st">")"</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"ln("</span><span class="op">~</span><span class="va">kappa</span><span class="op">~</span><span class="st">")"</span><span class="op">)</span>, </span>
-<span>                     <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"ln("</span><span class="op">~</span><span class="va">tau</span><span class="op">~</span><span class="st">")"</span><span class="op">)</span></span>
-<span>                   <span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="linear-model">Linear Model<a class="anchor" aria-label="anchor" href="#linear-model"></a>
 </h2>
