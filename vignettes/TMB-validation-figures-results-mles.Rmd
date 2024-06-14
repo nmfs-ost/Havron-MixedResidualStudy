@@ -14,31 +14,84 @@ update_results(update = FALSE)
 source("../results/results-setup.R")
 ```
 
+```{r, rename-values}
+mles$misp <- factor(mles$misp,
+                    levels = c(
+                      "correct", 
+                      "overdispersion", 
+                      "gamma-normal",
+                      "hsk",
+                      "nb-pois",
+                      "missunifcov",
+                      "pois-zip",
+                      "ln-error",
+                      "missre",
+                      "mu0",
+                      "mispre"
+                    ),
+                    labels = c(
+                      "Correct", 
+                      "Overdispersion", 
+                      "Gamma - Normal",
+                      "Hsk",
+                      "NB-Pois",
+                      "Missing Covariate",
+                      "Pois-ZIP",
+                      "Lognormal Error",
+                      "Missing RE",
+                      "Missing Drift",
+                      "Miss-specified RE"
+                    )
+            )
+mles$par[mles$model == 'simpleGLMM' & mles$type == 'LMM' & mles$par == 'beta'] <- "beta_1"
+
+mles$par <- factor(mles$par,
+                   levels = c(
+                     "mu",
+                     "beta", 
+                     "beta_1", 
+                     "beta_2",   
+                     "theta",
+                     "ln_sig_y",  
+                     "ln_sig_u", 
+                     "ln_kappa",
+                     "ln_tau"
+                   ),
+                   labels = c(
+                     expression(mu),
+                     expression(beta[0]), 
+                     expression(beta[0]), 
+                     expression(beta[1]),   
+                     "size",
+                     expression("ln("~sigma[y]~")"),  
+                     expression("ln("~sigma[u]~")"), 
+                     expression("ln("~kappa~")"), 
+                     expression("ln("~tau~")")
+                   ))
+ 
+```
 
 ## Linear Model
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear model when the model is correctly specified across 1000 simulations."}
-plot.mles("linmod", "LMM") + 
-  scale_x_discrete(
-    breaks = c("beta_1", "beta_2", "ln_sig"),
-    labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma~")")))
+
+mle.df <- dplyr::filter(mles, model == 'linmod')
+
+plot.mles(mle.df) 
 ```
 
 ## Mixed Model
 
 ### LMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear mixed model with a uniform covariate when the model is correctly specified across 1000 simulations."}
-plot.mles("simpleGLMM", "LMM") +
-scale_x_discrete(
-  breaks = c("beta_1", "beta_2", "ln_sig_u", "ln_sig_y"),
-  labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma[u]~")"), expression("ln("~sigma[y]~")")))
+mle.df <- dplyr::filter(mles, model == 'simpleGLMM' & type == 'LMM')
+plot.mles(mle.df)
 ```
 
 ### GLMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the generalized linear mixed model with a negative binomial distribution when the model is correctly specified across 1000 simulations."}
-plot.mles("simpleGLMM", "GLMM") +
-scale_x_discrete(
-  breaks = c("beta_1", "beta_2", "ln_sig_u", "ln_sig_y"),
-  labels = c(expression(beta[0]), expression(beta[1]), expression("ln("~sigma[u]~")"), expression("ln("~sigma[y]~")")))
+mle.df <- dplyr::filter(mles, model == 'simpleGLMM' & type == 'GLMM')
+
+plot.mles(mle.df) 
 ```
 
 
@@ -46,37 +99,31 @@ scale_x_discrete(
 
 ### LMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the randomwalk model with a drift term when the model is correctly specified across 1000 simulations."}
-plot.mles("randomwalk", "LMM") +
-scale_x_discrete(
-  breaks = c("ln_sig_y", "ln_sig_u", "mu"),
-  labels = c(expression("ln("~sigma[y]~")"), expression("ln("~sigma[u]~")"), expression(mu)))
+mle.df <- dplyr::filter(mles, model == 'randomwalk' & type == 'LMM')
+
+plot.mles(mle.df)
 ```
 
 ### GLMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the Gamma distributed randomwalk model with a drift term when the model is correctly specified across 1000 simulations."}
-plot.mles("randomwalk", "GLMM") +
-scale_x_discrete(
-  breaks = c("ln_sig", "ln_tau", "mu"),
-  labels = c(expression("ln("~sigma[y]~")"), expression("ln("~sigma[u]~")"), expression(mu)))
+mle.df <- dplyr::filter(mles, model == 'randomwalk' & type == 'GLMM')
+
+plot.mles(mle.df)
 ```
 
 
 ## Spatial
 ### LMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial linear mixed model when the model is correctly specified across 1000 simulations."}
-plot.mles("spatial", "LMM") +
-scale_x_discrete(
-  breaks = c("beta", "ln_kappa", "ln_tau", "theta"),
-  labels = c(expression(beta[0]), 
-             expression("ln("~kappa~")"), expression("ln("~tau~")"), 
-             expression("ln("~sigma[y]~")")))
+mle.df <- dplyr::filter(mles, model == 'spatial' & type == 'LMM')
+
+plot.mles(mle.df) 
 ```
 
 
 ### GLMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the spatial Poisson model when the model is correctly specified across 1000 simulations."}
-plot.mles("spatial", "GLMM") +
-scale_x_discrete(
-  breaks = c("beta", "ln_kappa", "ln_tau"),
-  labels = c(expression(beta[0]), expression("ln("~kappa~")"), expression("ln("~tau~")")))
+mle.df <- dplyr::filter(mles, model == 'spatial' & type == 'GLMM')
+
+plot.mles(mle.df)
 ```

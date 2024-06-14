@@ -278,15 +278,12 @@ if(length(nc.id) > 0){
 
 
 ## Functions
-plot.mles <- function(Mod, Type){
-  if(Mod == 'linmod'){
-    df <- dplyr::filter(mles, model == Mod)
-  } else {
-    df <- dplyr::filter(mles, model == Mod & type == Type)
-  }
+plot.mles <- function(df){
   p <- df %>% ggplot() +
-      geom_violin(aes(x = par, y = bias)) +
-      facet_grid(misp~type) +
+      geom_violin(aes(x = misp, y = bias)) +
+      geom_hline(aes(yintercept = 0), linetype = "dashed") +
+      facet_grid(par~type, scales = 'free_y',
+                 labeller = label_parsed) +
       theme_bw()
   return(p)
 }
