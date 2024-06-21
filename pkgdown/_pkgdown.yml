@@ -29,19 +29,19 @@ navbar:
       icon: fas fa-file-contract fa-lg
       menu:
       - text: Tables
-        href: TMB-validation-tables.html
+        href: articles/TMB-validation-tables.html
       - text: Figures-Methods
-        href: TMB-validation-figures-methods.html
+        href: articles/TMB-validation-figures-methods.html
       - text: Figures-MLEs
-        href: TMB-validation-figures-results-mles.html
+        href: articles/TMB-validation-figures-results-mles.html
       - text: Figures-Results-Overall
-        href: TMB-validation-figures-results-overall.html
+        href: articles/TMB-validation-figures-results-overall.html
       - text: Figures-Results-Compound-Symmetry
-        href: TMB-validation-figures-results-simpleGLMM.html
+        href: articles/TMB-validation-figures-results-simpleGLMM.html
       - text: Figures-Results-Temporal
-        href: TMB-validation-figures-results-randomwalk.html
+        href: articles/TMB-validation-figures-results-randomwalk.html
       - text: Figures-Results-Spatial
-        href: TMB-validation-figures-results-spatial.html
+        href: articles/TMB-validation-figures-results-spatial.html
 
 
 
