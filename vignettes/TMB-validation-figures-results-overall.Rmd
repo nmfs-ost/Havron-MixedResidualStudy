@@ -14,6 +14,42 @@ source("../results/results-setup.R")
 
 # Method Comparison
 
+## Type I Error, LMM
+
+```{r, compare-all-lmm-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
+
+histogram.err(df = pvals, Type = "LMM")
+
+```
+
+## Type I Error, GLMM
+
+```{r, compare-all-glmm-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
+
+histogram.err(df = pvals, Type = "LMM")
+
+```
+
+## Power, LMM
+
+```{r, compare-all-lmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
+
+histogram.err(df = pvals, Type = "LMM")
+
+```
+
+## Power, GLMM
+
+```{r, compare-all-glmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
+
+histogram.err(df = pvals, Type = "LMM")
+
+```
+
+
+====================================
+
+
 ## LMM, theoretical residuals
 
 ```{r, compare-all-lmm-theoretical, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error (top row) and Power (rows 2-7) calculated with estiamted residuals for all Linear Mixed Models separated by model and mis-specification. The top row represents theoretical Type I error under the correct model. Colors represent the type of test used to evaluate the residuals"}

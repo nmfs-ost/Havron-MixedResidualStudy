@@ -345,11 +345,32 @@ plot.ecdf <- function(df, doTrue){
 }
 
 histogram.err.pow <- function(df, Type, ResType){
-  df %>% dplyr::filter(type == Type & do.true == ResType & model != "linmod" & test != "outlier") %>%
+  df %>% dplyr::filter(type == Type & do.true == ResType & model != "linmod" &
+                         test != "outlier" & test != "disp") %>%
     group_by(test, model, misp, method) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))%>%
     ggplot(., aes(x = method, y = pval, fill = test, group = test)) + geom_col(position = "dodge") +
     facet_grid(misp ~ model) + theme_bw() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+histogram.err <- function(df, Type){
+  df %>% dplyr::filter(type == Type & model != "linmod" &
+                         test != "outlier" & test != "disp" & misp == "correct") %>%
+    group_by(test, model, method, do.true) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
+    ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
+    facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.05) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+histogram.pow <- function(df, Type){
+  df %>% dplyr::filter(type == Type & model != "linmod" &
+                         test != "outlier" & test != "disp" & misp != "Correct") %>%
+    group_by(test, model, method) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
+    ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
+    facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.05) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
 
 plot.err.pow <- function(df){
