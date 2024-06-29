@@ -34,7 +34,7 @@ histogram.err(df = pvals, Type = "LMM")
 
 ```{r, compare-all-lmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
 
-histogram.err(df = pvals, Type = "LMM")
+histogram.pow(df = pvals, Type = "LMM")
 
 ```
 
@@ -42,7 +42,7 @@ histogram.err(df = pvals, Type = "LMM")
 
 ```{r, compare-all-glmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
 
-histogram.err(df = pvals, Type = "LMM")
+histogram.pow(df = pvals, Type = "LMM")
 
 ```
 
