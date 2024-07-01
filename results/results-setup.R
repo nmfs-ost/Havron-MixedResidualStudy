@@ -264,6 +264,32 @@ pvals$method <- factor(pvals$method,
                         "Conditional ecdf, Rotated",
                         "Conditional ecdf, Not Rotated"
                       ))
+pvals$misp.type <- factor(pvals$misp,
+                          level = c(
+                            "correct",
+                            "overdispersion",
+                            "missre",
+                            "gamma-normal",
+                            "mu0",
+                            "mispre",
+                            "hsk",
+                            "nb-pois",
+                            "missunifcov",
+                            "pois-zip",
+                            "ln-error"
+                          ),
+                          label = c(
+                            "Correct",
+                            "Misp. Data Model",
+                            "Missing RE",
+                            "Misp. Data Model",
+                            "Misp. Data Model",
+                            "Misp. RE Model",
+                            "Misp. Data Model",
+                            "Misp. Data Model",
+                            "Misp. Data Model",
+                            "Misp. Data Model",
+                            "Misp. Data Model" ))
 
 
 #Only filter out non-converging models if model is correctly specified
@@ -370,6 +396,16 @@ histogram.pow <- function(df, Type){
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
     ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
     facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.95) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+histogram.pow.bymisp <- function(df, Type){
+  df %>% dplyr::filter(type == Type & model != "linmod" &
+                         test != "outlier" & test != "disp" & misp != "Correct") %>%
+    group_by(test, model, method, misp.type, do.true) %>%
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
+    ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
+    facet_grid(misp.type + do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.95) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
 
