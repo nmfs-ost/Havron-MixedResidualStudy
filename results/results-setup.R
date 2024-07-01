@@ -291,6 +291,32 @@ pvals$misp.type <- factor(pvals$misp,
                             "Misp. Data Model",
                             "Misp. Data Model" ))
 
+pvals$do.true <- factor(pvals$do.true,
+                        levels = c(TRUE, FALSE),
+                        labels = c("theoretical", "estimated"))
+
+pvals$test <- factor(pvals$test,
+                     levels = c("GOF.ad",
+                                "GOF.ks",
+                                "GOF.lf",
+                                "outlier",
+                                "AOV",
+                                "EqVar",
+                                "disp",
+                                "Auto",
+                                "SAC"
+                     ),
+
+                     labels = c("Anderson-Darling",
+                                "Kolmogorov-Smirnov",
+                                "Lilliefors",
+                                "outlier",
+                                "Analysis of Variance",
+                                "Levene's Equal Variance",
+                                "disp",
+                                "Autocorrelation",
+                                "Spatial Autocorrelation"
+                     ))
 
 #Only filter out non-converging models if model is correctly specified
 nc.id <- dplyr::filter(nc, version == "h0")$id
