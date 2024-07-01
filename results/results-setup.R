@@ -366,7 +366,7 @@ histogram.err <- function(df, Type){
 histogram.pow <- function(df, Type){
   df %>% dplyr::filter(type == Type & model != "linmod" &
                          test != "outlier" & test != "disp" & misp != "Correct") %>%
-    group_by(test, model, method) %>%
+    group_by(test, model, method, do.true) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
     ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
     facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.95) +
