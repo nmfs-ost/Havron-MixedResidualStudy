@@ -37,8 +37,8 @@ res.methods <- c(
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "GOF.ks",
+                       type_ = "LMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -60,8 +60,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "GOF.ad",
+                       type_ = "LMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -83,8 +83,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "EqVar",
+                       type_ = "LMM", 
+                       test_ = "Levene's Equal Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -107,8 +107,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "AOV",
+                       type_ = "LMM", 
+                       test_ = "Analysis of Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -134,8 +134,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "GOF.ks",
+                       type_ = "LMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -157,8 +157,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "GOF.lf",
+                       type_ = "LMM", 
+                       test_ = "Lilliefors",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -182,8 +182,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "GOF.ad",
+                       type_ = "LMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -205,8 +205,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "EqVar",
+                       type_ = "LMM", 
+                       test_ = "Levene's Equal Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -228,8 +228,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "LMM", 
-                       test_ = "AOV",
+                       type_ = "LMM", 
+                       test_ = "Analysis of Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -255,8 +255,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "GOF.ks",
+                       type_ = "GLMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -278,8 +278,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "GOF.ad",
+                       type_ = "GLMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -301,8 +301,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "EqVar",
+                       type_ = "GLMM", 
+                       test_ = "Levene's Equal Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -324,8 +324,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "AOV",
+                       type_ = "GLMM", 
+                       test_ = "Analysis of Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -351,8 +351,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "GOF.ks",
+                       type_ = "GLMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -374,8 +374,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "GOF.lf",
+                       type_ = "GLMM", 
+                       test_ = "Lilliefors",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -399,8 +399,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "GOF.ad",
+                       type_ = "GLMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -422,8 +422,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "EqVar",
+                       type_ = "GLMM", 
+                       test_ = "Levene's Equal Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -445,8 +445,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "simpleGLMM", 
-                       type = "GLMM", 
-                       test_ = "AOV",
+                       type_ = "GLMM", 
+                       test_ = "Analysis of Variance",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,

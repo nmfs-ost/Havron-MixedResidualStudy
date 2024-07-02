@@ -345,12 +345,12 @@ filter.true <- function(df, mod, type_, test_ = NA, method.vec){
   if(is.na(test_)){
     dplyr::filter(df, model == mod & type == type_ &
                     method %in% method.vec &
-                    do.true == TRUE)
+                    do.true == "theoretical")
   } else {
     dplyr::filter(df, model == mod & type == type_ &
                     test == test_ &
                     method %in% method.vec &
-                    do.true == TRUE)
+                    do.true == "theoretical")
   }
 }
 
@@ -358,12 +358,12 @@ filter.est <- function(df, mod, type_, test_ = NA, method.vec){
   if(is.na(test_)){
     dplyr::filter(df, model == mod & type == type_ &
                     method %in% method.vec &
-                    do.true == FALSE)
+                    do.true == "estimated")
   } else {
     dplyr::filter(df, model == mod & type == type_ &
                   test == test_ &
                   method %in% method.vec &
-                  do.true == FALSE)
+                  do.true == "estimated")
   }
 }
 

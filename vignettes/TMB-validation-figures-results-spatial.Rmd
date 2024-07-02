@@ -37,8 +37,8 @@ res.methods <- c(
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "GOF.ks",
+                       type_ = "LMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -60,8 +60,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "GOF.ad",
+                       type_ = "LMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -83,8 +83,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "SAC",
+                       type_ = "LMM", 
+                       test_ = "Spatial Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -111,8 +111,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "GOF.ks",
+                       type_ = "LMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -134,8 +134,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "GOF.lf",
+                       type_ = "LMM", 
+                       test_ = "Lilliefors",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -159,8 +159,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "GOF.ad",
+                       type_ = "LMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -182,8 +182,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "LMM", 
-                       test_ = "SAC",
+                       type_ = "LMM", 
+                       test_ = "Spatial Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -211,8 +211,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "GOF.ks",
+                       type_ = "GLMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -234,8 +234,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "GOF.ad",
+                       type_ = "GLMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -257,8 +257,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "SAC",
+                       type_ = "GLMM", 
+                       test_ = "Spatial Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -284,8 +284,8 @@ plot.pval.hist(pval.df, TRUE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "GOF.ks",
+                       type_ = "GLMM", 
+                       test_ = "Kolmogorov-Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -307,8 +307,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "GOF.lf",
+                       type_ = "GLMM", 
+                       test_ = "Lilliefors",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -332,8 +332,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "GOF.ad",
+                       type_ = "GLMM", 
+                       test_ = "Anderson-Darling",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -355,8 +355,8 @@ plot.pval.hist(pval.df, FALSE)
 
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
-                       type = "GLMM", 
-                       test_ = "SAC",
+                       type_ = "GLMM", 
+                       test_ = "Spatial Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
