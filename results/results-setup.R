@@ -421,7 +421,8 @@ histogram.pow <- function(df, Type){
     group_by(test, model, method, misp, do.true) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
     ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
-    facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.95) +
+    facet_grid(do.true ~ model) +
+    theme_bw() + geom_hline(yintercept = 0.95) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
 
@@ -431,7 +432,8 @@ histogram.pow.bymisp <- function(df, Type){
     group_by(test, model, method, misp, misp.type, do.true) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
     ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
-    facet_grid(misp.type ~ model + do.true) + theme_bw() + geom_hline(yintercept = 0.95) +
+    facet_grid(misp.type ~ model + do.true, labeller = label_wrap_gen(20)) +
+    theme_bw() + geom_hline(yintercept = 0.95) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
 
