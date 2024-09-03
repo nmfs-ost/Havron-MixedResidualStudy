@@ -19,7 +19,7 @@ source("../results/results-setup.R")
 plot_ss_runtimes_log(runtimes.all)
 ```
 
-```{r, pvals-ss-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Type I Error by sample size."}
+```{r, pvals-ss-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Type I Error by sample size."}
 plot_ss_t1err_by_dim(pvals.all)
 ```
 
