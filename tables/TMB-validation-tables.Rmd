@@ -30,6 +30,52 @@ source("../results/results-setup.R")
 ```
 # Results
 
+## LM 
+
+```{r, linmod-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',
+   'Pearson'
+)
+
+pval.df.true <- filter.true(pvals, 
+                            "linmod",
+                            type_ = "LMM",
+                             method.vec = res.methods)
+pval.df.est <- filter.est(pvals, 
+                            "linmod",
+                            type_ = "LMM",
+                             method.vec = res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c('correct', 'overdispersion'),
+         labels = c("Correct",
+                    "LN-error"))
+
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c('correct', 'overdispersion'),
+         labels = c("Correct",
+                    "LN-error"))
+
+err.table(pval.df.true, pval.df.est, 0.05,
+        caption = "Linear Model. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+```{r, linmod-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
+        caption = "Linear Model. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+```
+
+
 ```{=tex}
 \begin{landscape}
 ```
