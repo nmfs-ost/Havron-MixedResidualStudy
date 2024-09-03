@@ -13,7 +13,6 @@ library(gridExtra)
 library(ellipse)
 library(rWishart)
 library(stringr)
-
 ## Functions for methods
 
 output.iid <- function(y){
@@ -406,11 +405,20 @@ histogram.err.pow <- function(df, Type, ResType){
 }
 
 histogram.err <- function(df, Type){
-  df %>% dplyr::filter(type == Type & model != "linmod" &
+  df %<>% dplyr::filter(type == Type & model != "linmod" &
                          test != "outlier" & test != "disp" & misp == "correct") %>%
     group_by(test, model, method, do.true) %>%
-    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
-    ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+  if(Type == "GLMM"){
+    df %<>% dplyr::filter(method == "Pearson" | method == "cdf" |
+                            method == "Conditional ecdf, Not Rotated")
+  } else {
+    df %<>% dplyr::filter(method == "Pearson" | method == "cdf" |
+                            method == "Conditional ecdf, Not Rotated" |
+                            method == "Unconditional ecdf, Rotated" |
+                            method == "Unconditional ecdf, Not Rotated")
+  }
+  ggplot(df, aes(x = method, y = pval, color = test, group = test)) +geom_point() +
     facet_grid(do.true ~ model) + theme_bw() + geom_hline(yintercept = 0.05) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 }
@@ -427,11 +435,20 @@ histogram.pow <- function(df, Type){
 }
 
 histogram.pow.bymisp <- function(df, Type){
-  df %>% dplyr::filter(type == Type & model != "linmod" &
+  df %<>% dplyr::filter(type == Type & model != "linmod" &
                          test != "outlier" & test != "disp" & misp != "correct") %>%
     group_by(test, model, method, misp, misp.type, do.true) %>%
-    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3)) %>%
-    ggplot(., aes(x = method, y = pval, color = test, group = test)) +geom_point() +
+    summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
+    if(Type == "GLMM"){
+      df %<>% dplyr::filter(method == "Pearson" | method == "cdf" |
+                              method == "Conditional ecdf, Not Rotated")
+    } else {
+      df %<>% dplyr::filter(method == "Pearson" | method == "cdf" |
+                              method == "Conditional ecdf, Not Rotated" |
+                              method == "Unconditional ecdf, Rotated" |
+                              method == "Unconditional ecdf, Not Rotated")
+    }
+    ggplot(df, aes(x = method, y = pval, color = test, group = test)) +geom_point() +
     facet_grid(misp.type ~ model + do.true) +
     theme_bw() + geom_hline(yintercept = 0.95) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
@@ -677,140 +694,150 @@ tbl.err.pow <- function(df, caption = NULL){
 }
 #
 # ### Type I error and Power
-# results.simpleGLMM.grps <- readRDS(paste0(path, '/simpleGLMM_missunifcov_obs_sample_sizes.RDS'))
-# results.simpleGLMM.grps <- readRDS(paste0(path, '/simpleGLMM_missunifcov_grps_sample_sizes.RDS'))
-# results.simpleGLMM.grps$pvals$model <-
-#   results.simpleGLMM.grps$runtimes$model <-
-#   "simpleGLMM.vary.ngrps"
-#
-# results.simpleGLMM.obs <- readRDS(paste0(path, '/simpleGLMM_missunifcov_grps_sample_sizes.RDS'))
-# results.simpleGLMM.obs$pvals$model <-
-#   results.simpleGLMM.obs$runtimes$model <-
-#   "simpleGLMM.vary.nobs"
-#
-# results.randomwalk <- readRDS(paste0(path, '/randomwalk_mu0_sample_sizes.RDS'))
-# results.spatial <- readRDS(paste0(path, '/spatial_mispomega_sample_sizes.RDS'))
-# runtimes.all <- rbind(results.simpleGLMM.obs$runtimes,
-#                      # results.simpleGLMM.grps$runtimes,
-#                       results.randomwalk$runtimes,
-#                       results.spatial$runtimes)
-# runtimes.all <- runtimes.all %>% filter(!is.na(med))
-# pvals.all <- rbind(results.simpleGLMM.obs$pvals,
-#                     #  results.simpleGLMM.grps$pvals,
-#                       results.randomwalk$pvals,
-#                       results.spatial$pvals)
-#
-# runtimes.all$level <- factor(runtimes.all$type,
-#                              level = c(
-#                                'fg',
-#                                'osg',
-#                                'gen',
-#                                'cdf',
-#                                'mcmc',
-#                                'pears',
-#                                'uncond',
-#                                'uncond_nrot',
-#                                'cond',
-#                                'cond_nrot'),
-#                              label = c(
-#                                "Unconditional",
-#                                "Unconditional",
-#                                "Unconditional",
-#                                "Unconditional",
-#                                "Unconditional",
-#                                "Conditional",
-#                                "Unconditional",
-#                                "Unconditional",
-#                                "Conditional",
-#                                "Conditional"))
-#
-# runtimes.all$method <- factor(runtimes.all$type,
-#                               level = c(
-#                                 'fg',
-#                                 'osg',
-#                                 'gen',
-#                                 'cdf',
-#                                 'mcmc',
-#                                 'pears',
-#                                 'uncond',
-#                                 'uncond_nrot',
-#                                 'cond',
-#                                 'cond_nrot'),
-#                               label = c(
-#                                 'full Gaussian',
-#                                 'one-step Gaussian',
-#                                 'one-step Generic',
-#                                 'cdf',
-#                                 'MCMC',
-#                                 'Pearson',
-#                                 "Unconditional ecdf, Rotated",
-#                                 "Unconditional ecdf, Not Rotated",
-#                                 "Conditional ecdf, Rotated",
-#                                 "Conditional ecdf, Not Rotated"
-#                               ))
-# pvals.all$method <- factor(pvals.all$method,
-#                            level = c(
-#                              'pears',
-#                              'gen',
-#                              'osg',
-#                              'fg',
-#                              'cdf',
-#                              'mcmc',
-#                              'uncond',
-#                              'uncond_nrot',
-#                              'cond',
-#                              'cond_nrot'),
-#                            label = c(
-#                              'Pearson',
-#                              'one-step Generic',
-#                              'one-step Gaussian',
-#                              'full Gaussian',
-#                              'cdf',
-#                              'MCMC',
-#                              "Unconditional ecdf, Rotated",
-#                              "Unconditional ecdf, Not Rotated",
-#                              "Conditional ecdf, Rotated",
-#                              "Conditional ecdf, Not Rotated"
-#                            ))
-#
-#
-# t1.err.plot <- function(df){
-#   x.name <- "Number of Observations"
-#   if("simpleGLMM.vary.nobs" %in% df$model |
-#      "simpleGLMM.vary.ngroups" %in% df$model ){
-#     x.name <- "Number of Observations x Number of Groups"
-#   }
-#   p <- df %>%
-#     filter(version == "h0") %>%
-#     group_by(nobs, method) %>%
-#     summarise(t1_err = sum(pvalue<0.05)/sum(pvalue>=0)) %>%
-#     ggplot(aes(x = nobs, y = t1_err)) +
-#     ylab("Type I Error Rate") +
-#     xlab(x.name) +
-#     geom_point() + geom_line() +
-#     facet_wrap(~method, labeller = label_wrap_gen(14)) +
-#     theme_bw()
-#
-#   print(p)
-# }
-#
-# pow.plot <- function(df){
-#   x.name <- "Number of Observations"
-#   if("simpleGLMM.vary.nobs" %in% df$model |
-#      "simpleGLMM.vary.ngroups" %in% df$model ){
-#     x.name <- "Number of Observations x Number of Groups"
-#   }
-#   p <- df %>%
-#     filter(version == "h1") %>%
-#     group_by(nobs, method) %>%
-#     summarise(power = sum(pvalue<=0.05)/sum(pvalue>=0)) %>%
-#     ggplot(aes(x = nobs, y = power)) +
-#       ylab("Power") +
-#       xlab(x.name)  +
-#       geom_point() + geom_line() +
-#       facet_wrap(~method, labeller = label_wrap_gen(14)) +
-#       theme_bw()
-#
-#   print(p)
-# }
-#
+results.simpleGLMM.lmm <- readRDS(paste0(path, '/simpleGLMM_missunifcov_LMM_obs_sample_sizes.RDS'))
+results.simpleGLMM.lmm$pvals$type = "LMM"
+results.simpleGLMM.lmm$mles$type = "LMM"
+results.simpleGLMM.glmm <- readRDS(paste0(path, '/simpleGLMM_mispre_GLMM_obs_sample_sizes.RDS'))
+results.simpleGLMM.glmm$pvals$type = "GLMM"
+results.simpleGLMM.glmm$mles$type = "GLMM"
+results.randomwalk.lmm <- readRDS(paste0(path, '/randomwalk_hsk_LMM_sample_sizes.RDS'))
+results.randomwalk.lmm$pvals$type <- "LMM"
+results.randomwalk.lmm$mles$type <- "LMM"
+results.randomwalk.glmm <- readRDS(paste0(path, '/randomwalk_mispre_GLMM_sample_sizes.RDS'))
+results.randomwalk.glmm$pvals$type <- "GLMM"
+results.randomwalk.glmm$mles$type <- "GLMM"
+results.spatial.lmm <- readRDS(paste0(path, '/spatial_mispre_LMM_sample_sizes.RDS'))
+results.spatial.lmm$pvals$type <- "LMM"
+results.spatial.lmm$mles$type <- "LMM"
+results.spatial.glmm <- readRDS(paste0(path, '/spatial_pois-zip_GLMM_sample_sizes.RDS'))
+results.spatial.glmm$pvals$type <- "GLMM"
+results.spatial.glmm$mles$type <- "GLMM"
+runtimes.all <- rbind(results.simpleGLMM.lmm$runtimes,
+                      results.randomwalk.lmm$runtimes,
+                      results.spatial.lmm$runtimes)
+runtimes.all <- runtimes.all %>% filter(!is.na(med))
+pvals.all <- rbind(results.simpleGLMM.lmm$pvals,
+                   results.simpleGLMM.glmm$pvals,
+                   results.randomwalk.lmm$pvals,
+                   results.randomwalk.glmm$pvals,
+                   results.spatial.lmm$pvals,
+                   results.spatial.glmm$pvals)
+mles.all <- rbind(results.simpleGLMM.lmm$mles,
+                  results.simpleGLMM.glmm$mles,
+                  results.randomwalk.lmm$mles,
+                  results.randomwalk.glmm$mles,
+                  results.spatial.lmm$mles,
+                  results.spatial.glmm$mles)
+
+
+runtimes.all$method <- factor(runtimes.all$method,
+                              level = c(
+                                'runtime.fg',
+                                'runtime.osg',
+                                'runtime.gen',
+                                'runtime.cdf',
+                                'runtime.mcmc',
+                                'runtime.uncond',
+                                'runtime.uncond_nrot',
+                                'runtime.cond',
+                                'runtime.cond_nrot'),
+                              label = c(
+                                'full Gaussian',
+                                'one-step Gaussian',
+                                'one-step Generic',
+                                'cdf',
+                                'MCMC',
+                                "Unconditional ecdf, Rotated",
+                                "Unconditional ecdf, Not Rotated",
+                                "Conditional ecdf, Rotated",
+                                "Conditional ecdf, Not Rotated"
+                              ))
+pvals.all$method <- factor(pvals.all$method,
+                           level = c(
+                             'gen',
+                             'osg',
+                             'fg',
+                             'cdf',
+                             'mcmc',
+                             'uncond',
+                             'uncond_nrot',
+                             'cond',
+                             'cond_nrot'),
+                           label = c(
+                             'one-step Generic',
+                             'one-step Gaussian',
+                             'full Gaussian',
+                             'cdf',
+                             'MCMC',
+                             "Unconditional ecdf, Rotated",
+                             "Unconditional ecdf, Not Rotated",
+                             "Conditional ecdf, Rotated",
+                             "Conditional ecdf, Not Rotated"
+                           ))
+
+
+plot_ss_t1err_by_dim <- function(df){
+
+    p <- df %>%
+      filter(version == "h0") %>%
+      group_by(nobs, method, model, type) %>%
+      summarise(t1_err = sum(pvalue<0.05)/sum(pvalue>=0)) %>%
+      ggplot(aes(x = nobs, y = t1_err, color = method)) +
+      ylab("Type I Error Rate") +
+      xlab("Number of Observations") +
+      geom_point() + geom_line() +
+      geom_hline(yintercept = 0.05, color = 'red', linetype = "dashed") +
+      facet_grid(model~type, labeller = label_wrap_gen(14)) +
+      theme_bw()
+
+    print(p)
+}
+
+plot_ss_pow_by_dim <- function(df){
+
+  p <- df %>%
+    filter(version == "h1") %>%
+    group_by(nobs, method, model, type) %>%
+    summarise(power = sum(pvalue<=0.05)/sum(pvalue>=0)) %>%
+    ggplot(aes(x = nobs, y = power, color = method)) +
+      ylab("Power") +
+      xlab("Number of Observations")  +
+      geom_point() + geom_line() +
+      geom_hline(yintercept = 0.95, color = 'red', linetype = "dashed") +
+      facet_grid(model~type, labeller = label_wrap_gen(14)) +
+      theme_bw()
+
+  print(p)
+}
+
+
+plot_ss_runtimes_natural <- function(df){
+  p <- ggplot(df,
+              aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
+    facet_wrap(~model, scales = "free_y") +
+    geom_line() +
+    labs(y='runtime (s)') +
+    scale_color_discrete()  +
+    theme_bw()
+  print(p)
+}
+plot_ss_runtimes_log <- function(df){
+  p <- ggplot(df,
+              aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
+    facet_wrap(~model) +
+    geom_line() +
+    geom_pointrange(fatten=2) +
+    scale_y_log10()+labs(y='log(runtime (s))') +
+    scale_color_discrete()  +
+    theme_bw()
+  print(p)
+}
+plot_ss_mles_by_dim <- function(df){
+  p <- ggplot(df, aes(factor(nobs), bias)) +
+    geom_violin() +
+    geom_hline(yintercept=0, color='red') +
+    facet_grid(h~par) + labs(y='Absolute error')
+  print(p)
+}
+
+
