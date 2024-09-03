@@ -782,14 +782,15 @@ plot_ss_t1err_by_dim <- function(df){
       filter(version == "h0") %>%
       group_by(nobs, method, model, type) %>%
       summarise(t1_err = sum(pvalue<0.05)/sum(pvalue>=0)) %>%
-      ggplot(aes(x = nobs, y = t1_err, color = method)) +
+      ggplot(aes(x = nobs, y = t1_err, fill = method, color = method)) +
       ylab("Type I Error Rate") +
       xlab("Number of Observations") +
       geom_point() + geom_line() +
       geom_hline(yintercept = 0.05, color = 'red', linetype = "dashed") +
       facet_grid(model~type, labeller = label_wrap_gen(14)) +
       theme_bw() +
-      theme(legend.position = "bottom")
+      theme(legend.position = "bottom")+
+      guides(fill=guide_legend(ncol=3))
 
     print(p)
 }
@@ -800,14 +801,15 @@ plot_ss_pow_by_dim <- function(df){
     filter(version == "h1") %>%
     group_by(nobs, method, model, type) %>%
     summarise(power = sum(pvalue<=0.05)/sum(pvalue>=0)) %>%
-    ggplot(aes(x = nobs, y = power, color = method)) +
+    ggplot(aes(x = nobs, y = power, fill = method, color = method)) +
       ylab("Power") +
       xlab("Number of Observations")  +
       geom_point() + geom_line() +
       geom_hline(yintercept = 0.95, color = 'red', linetype = "dashed") +
       facet_grid(model~type, labeller = label_wrap_gen(14)) +
       theme_bw() +
-      theme(legend.position = "bottom")
+      theme(legend.position = "bottom") +
+      guides(fill=guide_legend(ncol=3))
 
   print(p)
 }
