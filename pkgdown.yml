@@ -1,13 +1,14 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   TMB-validation-figures-methods: TMB-validation-figures-methods.html
   TMB-validation-figures-results-mles: TMB-validation-figures-results-mles.html
   TMB-validation-figures-results-overall: TMB-validation-figures-results-overall.html
   TMB-validation-figures-results-randomwalk: TMB-validation-figures-results-randomwalk.html
+  TMB-validation-figures-results-samplesizes: TMB-validation-figures-results-samplesizes.html
   TMB-validation-figures-results-simpleGLMM: TMB-validation-figures-results-simpleGLMM.html
   TMB-validation-figures-results-spatial: TMB-validation-figures-results-spatial.html
+  TMB-validation-tables-methods: TMB-validation-tables-methods.html
   TMB-validation-tables: TMB-validation-tables.html
-last_built: 2024-07-02T20:59Z
-
+last_built: 2024-09-03T21:46Z
