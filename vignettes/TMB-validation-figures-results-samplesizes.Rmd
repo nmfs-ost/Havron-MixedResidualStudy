@@ -1,0 +1,28 @@
+---
+title: "Sample Size Results"
+output: html_document
+---
+
+<br>
+
+```{r, include = FALSE, warning = FALSE, message = FALSE }
+source("../R/update-results.R")
+#Set update = TRUE to update results from source code
+update_results(update = FALSE)
+source("../results/results-setup.R")
+```
+
+\clearpage
+\newpage
+
+```{r, runtimes-ss, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Runtimes by sample size."}
+plot_ss_runtimes_log(runtimes.all)
+```
+
+```{r, pvals-ss-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Type I Error by sample size."}
+plot_ss_t1err_by_dim(pvals.all)
+```
+
+```{r, pvals-ss-pow, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Power by sample size."}
+plot_ss_pow_by_dim(pvals.all)
+```
