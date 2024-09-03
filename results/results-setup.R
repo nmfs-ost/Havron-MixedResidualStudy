@@ -788,7 +788,8 @@ plot_ss_t1err_by_dim <- function(df){
       geom_point() + geom_line() +
       geom_hline(yintercept = 0.05, color = 'red', linetype = "dashed") +
       facet_grid(model~type, labeller = label_wrap_gen(14)) +
-      theme_bw()
+      theme_bw() +
+      theme(legend.position = "bottom")
 
     print(p)
 }
@@ -805,7 +806,8 @@ plot_ss_pow_by_dim <- function(df){
       geom_point() + geom_line() +
       geom_hline(yintercept = 0.95, color = 'red', linetype = "dashed") +
       facet_grid(model~type, labeller = label_wrap_gen(14)) +
-      theme_bw()
+      theme_bw() +
+      theme(legend.position = "bottom")
 
   print(p)
 }
@@ -814,7 +816,7 @@ plot_ss_pow_by_dim <- function(df){
 plot_ss_runtimes_natural <- function(df){
   p <- ggplot(df,
               aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
-    facet_wrap(~model, scales = "free_y") +
+    facet_wrap(~model, scales = "free_y", ncol = 1) +
     geom_line() +
     labs(y='runtime (s)') +
     scale_color_discrete()  +
@@ -824,7 +826,7 @@ plot_ss_runtimes_natural <- function(df){
 plot_ss_runtimes_log <- function(df){
   p <- ggplot(df,
               aes(nobs, med, ymin=lwr, ymax=upr,  color=method)) +
-    facet_wrap(~model) +
+    facet_wrap(~model, ncol = 1) +
     geom_line() +
     geom_pointrange(fatten=2) +
     scale_y_log10()+labs(y='log(runtime (s))') +
