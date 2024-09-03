@@ -19,6 +19,8 @@ Residual Project
     - [MLEs](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-mles.html)
     - [Overall
       Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-overall.html)
+    - [Sample Size
+      Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-samplesizes.html)
     - [Compound Symmetry
       Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-simpleGLMM.html)
     - [Temporal
