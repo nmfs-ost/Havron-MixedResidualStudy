@@ -197,6 +197,8 @@ table(nc.cs.h1$model, nc.cs.h1$misp, nc.cs.h1$type, nc.cs.h1$do.true)
 #                                    'Mis-specified', 'Mis-specified', ))
 pvals$res.type[which(pvals$method == "pears")] <- "pears"
 pvals$res.type[which(pvals$method == "mcmc")] <- "sim"
+pvals$method[which(pvals$method == "process" & pvals$res.type == "sim")] <- "process_ecdf"
+pvals$method[which(pvals$method == "process" & pvals$res.type == "osa")] <- "process_osa"
 pvals$res.type <- factor(pvals$res.type,
                      levels = c("osa", "sim", "pears"),
                      labels = c("Analytical Methods",
@@ -214,31 +216,11 @@ pvals <- dplyr::filter(pvals,
                          'uncond',
                          'uncond_nrot',
                          'cond',
-                         'cond_nrot'))
+                         'cond_nrot',
+                         'process_ecdf',
+                         'process_osa'))
 
-pvals$level <- factor(pvals$method,
-                      level = c(
-                        'fg',
-                        'osg',
-                        'gen',
-                        'cdf',
-                        'mcmc',
-                        'pears',
-                        'uncond',
-                        'uncond_nrot',
-                        'cond',
-                        'cond_nrot'),
-                      label = c(
-                        "Unconditional",
-                        "Unconditional",
-                        "Unconditional",
-                        "Unconditional",
-                        "Unconditional",
-                        "Conditional",
-                        "Unconditional",
-                        "Unconditional",
-                        "Conditional",
-                        "Conditional"))
+
 pvals$method <- factor(pvals$method,
                        level = c(
                         'pears',
@@ -247,6 +229,8 @@ pvals$method <- factor(pvals$method,
                         'fg',
                         'cdf',
                         'mcmc',
+                        'process_osa',
+                        'process_ecdf',
                         'uncond',
                         'uncond_nrot',
                         'cond',
@@ -258,6 +242,8 @@ pvals$method <- factor(pvals$method,
                         'full Gaussian',
                         'cdf',
                         'MCMC',
+                        'Process osa',
+                        'Process ecdf',
                         "Unconditional ecdf, Rotated",
                         "Unconditional ecdf, Not Rotated",
                         "Conditional ecdf, Rotated",
@@ -473,7 +459,7 @@ plot.err.pow <- function(df, misp.filter, test.filter){
     ggplot(., aes(x = pval, y = method))  +
     geom_point(mapping = aes(color = do.true)) +
   #  scale_color_aaas() + xlab("p-value") +
-    facet_grid(test~model+err_type, labeller = label_wrap_gen(14)) + theme_bw() +
+    facet_grid(test~model+err_type, labeller = label_wrap_gen(18)) + theme_bw() +
     theme(legend.position = "top") + #, legend_title = element_blank())+#,
     #      axis.text.x = element_blank(),
     #      axis.ticks.x = element_blank()) +

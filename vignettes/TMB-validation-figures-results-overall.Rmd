@@ -35,7 +35,8 @@ df.pow <- pvals %>% dplyr::filter(., version != "h0" &
                              test == "Kolmogorov- Smirnov" )&# | 
                              # test == "Autocorrelation" |
                              # test == "Spatial Autocorrelation") &
-                            (method != "Unconditional ecdf, Not Rotated" & method != "Pearson")) %>%
+                            (method != "Unconditional ecdf, Not Rotated" & method != "Pearson" &
+                               method != "Process ecdf" & method != "Process osa")) %>%
   group_by(., do.true, test) %>%
   select(., "pvalue") %>%
   summarize(., 'pvalue' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
@@ -56,7 +57,9 @@ ggplot(df.err.pow, aes(pvalue, test)) +
   geom_point(mapping = aes(color = do.true)) +
   facet_grid(~type) + theme_bw() +
     geom_vline(mapping = aes( xintercept = df.err.pow$err_line)) +
-    theme(legend.position = "top")
+    theme(legend.position = "top") +
+    scale_x_continuous(breaks = c(0,0.5,1),
+                       labels = c("0", "0.5", "1"))
 
 ```
 
@@ -103,7 +106,9 @@ ggplot(df.err, aes(pvalue, method)) +
   geom_point(mapping = aes(color = do.true)) +
   facet_grid(~test) + theme_bw() +
     geom_vline(mapping = aes( xintercept = df.err$err_line))+
-    theme(legend.position = "top")
+    theme(legend.position = "top") +
+    scale_x_continuous(breaks = c(0,0.5,1),
+                       labels = c("0", "0.5", "1"))
 ```
 
 <br>
@@ -124,14 +129,16 @@ df.corr %>% dplyr::filter(., type == "GLMM" & misp != "mu0") %>%
 
 ## Missing RE Model
 ```{r, miss-re-lmm, echo = FALSE, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
-df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated") %>% 
+df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated" &
+                            method != "Process ecdf" & method != "Process osa") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
                  c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 
 ```
 
 ```{r, miss-re-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
-df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated") %>% 
+df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated" &
+                            method != "Process ecdf" & method != "Process osa") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
                  c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 ```
