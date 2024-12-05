@@ -307,7 +307,7 @@ pvals$test <- factor(pvals$test,
                      ),
 
                      labels = c("Anderson-Darling",
-                                "Kolmogorov-Smirnov",
+                                "Kolmogorov- Smirnov",
                                 "Lilliefors",
                                 "outlier",
                                 "Analysis of Variance",
@@ -455,33 +455,32 @@ histogram.pow.bymisp <- function(df, Type){
           legend.position = "bottom")
 }
 
-plot.err.pow <- function(df){
+plot.err.pow <- function(df, misp.filter, test.filter){
 
-  results <- df %>% filter(test != "outlier") %>%
-    group_by(test, misp, method, res.type, do.true) %>%
+  results <- df %>% dplyr::filter(test != "outlier") %>%
+    dplyr::filter(misp.type %in% misp.filter) %>%
+    dplyr::filter(test %in% test.filter) %>%
+    group_by(test, misp, model, method, res.type, do.true) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
-  results$do.true <- factor(results$do.true,
-                            levels = c(TRUE, FALSE),
-                            labels = c("theoretical", "estimated"))
-  results$err_type <- ifelse(results$misp == "A: Correct", "Type I Error", "Power")
+  results$err_type <- ifelse(results$misp == "correct", "Type I Error", "Power")
   results$err_type <- factor(results$err_type,
                              levels = c("Type I Error", "Power"),
                              labels = c("Type I Error", "Power"))
-  results$err_line <- ifelse(results$misp == "A: Correct", 0.05, 0.95)
+  results$err_line <- ifelse(results$misp == "correct", 0.05, 0.95)
 
   p <- results  %>%
     ggplot(., aes(x = pval, y = method))  +
     geom_point(mapping = aes(color = do.true)) +
-    scale_color_aaas() + xlab("p-value") +
-    facet_grid(test~err_type + misp) + theme_bw() +
+  #  scale_color_aaas() + xlab("p-value") +
+    facet_grid(test~model+err_type, labeller = label_wrap_gen(14)) + theme_bw() +
     theme(legend.position = "top") + #, legend_title = element_blank())+#,
     #      axis.text.x = element_blank(),
     #      axis.ticks.x = element_blank()) +
     scale_x_continuous(breaks = c(0,0.5,1),
                        labels = c("0", "0.5", "1")) +
     geom_vline(mapping = aes( xintercept = results$err_line)) +
-    labs(color = "reisduals")
+    labs(color = "residuals")
 
 
   return(p)
@@ -519,7 +518,7 @@ err.table <-  function(df1, df2, sig.level, caption = NULL){
                           "AOV Equal Means",
                           "Levene's Equal Variances",
                           "Anderson Darling",
-                          "Kolmogorov-Smirnov",
+                          "Kolmogorov- Smirnov",
                           "Lilliefors",
                           "Autocorrelation",
                           "Moran's I"
@@ -611,7 +610,7 @@ pow.table <-  function(df1, df2, sig.level, caption = NULL){
                           "AOV Equal Means",
                           "Levene's Equal Variances",
                           "Anderson Darling",
-                          "Kolmogorov-Smirnov",
+                          "Kolmogorov- Smirnov",
                           "Lilliefors",
                           "Autocorrelation",
                           "Moran's I",
