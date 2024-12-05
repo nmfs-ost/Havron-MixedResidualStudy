@@ -1,9 +1,10 @@
 ---
-title: Results - KS Test
+title: Results 
 output: html_document
 ---
 
 <br>
+
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE }
 source("../R/update-results.R")
@@ -11,55 +12,138 @@ source("../R/update-results.R")
 update_results(update = FALSE)
 source("../results/results-setup.R")
 ```
+# Test Comparison
+
+```{r}
+df.err <- pvals %>% dplyr::filter(., version == "h0" & 
+                          (model == "randomwalk" | model == "spatial") &
+                          (test == "Lilliefors" | test == "Anderson-Darling" |
+                             test == "Kolmogorov- Smirnov" )&# | 
+                             # test == "Autocorrelation" |
+                             # test == "Spatial Autocorrelation") &
+                            (method != "Unconditional ecdf, Not Rotated" & method != "Pearson")) %>%
+  group_by(., do.true, test) %>%
+  select(., "pvalue") %>%
+  summarize(., 'pvalue' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+
+#df.err %<>% pivot_wider(., names_from = misp.type, values_from = 'Type I Error')
+df.err$version <- "Correct"
+
+df.pow <- pvals %>% dplyr::filter(., version != "h0" & 
+                          (model == "randomwalk" | model == "spatial") &
+                          (test == "Lilliefors" | test == "Anderson-Darling" |
+                             test == "Kolmogorov- Smirnov" )&# | 
+                             # test == "Autocorrelation" |
+                             # test == "Spatial Autocorrelation") &
+                            (method != "Unconditional ecdf, Not Rotated" & method != "Pearson")) %>%
+  group_by(., do.true, test) %>%
+  select(., "pvalue") %>%
+  summarize(., 'pvalue' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+df.pow$version <- "Mis-specified"
+
+#df.pow %<>% pivot_wider(., names_from = misp.type, values_from = Power)
+df.err.pow <- rbind(df.err, df.pow)
+df.err.pow$type <- NA
+df.err.pow$type <- ifelse(df.err.pow$version == "Correct", 
+                         "Type I Error", "Power")
+df.err.pow$type <- factor(df.err.pow$type, 
+                    levels = c("Type I Error", "Power"))
+df.err.pow$err_line <- 0
+df.err.pow$err_line <- ifelse(df.err.pow$version == "Correct", 
+                          0.05, 0.95)
+
+ggplot(df.err.pow, aes(pvalue, test)) + 
+  geom_point(mapping = aes(color = do.true)) +
+  facet_grid(~type) + theme_bw() +
+    geom_vline(mapping = aes( xintercept = df.err.pow$err_line)) +
+    theme(legend.position = "top")
+
+```
+
+
+<br>
 
 # Method Comparison
 
-## Type I Error, LMM
+```{r}
+df.err <- pvals %>% dplyr::filter(., version == "h0" & 
+                          (model == "randomwalk" | model == "spatial") &
+                          (test == "Kolmogorov- Smirnov" | 
+                             test == "Autocorrelation" |
+                             test == "Spatial Autocorrelation")) %>%
+  group_by(., do.true, test, method, misp.type) %>%
+  select(., "pvalue") %>%
+  summarize(., pvalue = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+df.err$err_line <- 0.05
 
-```{r, compare-all-lmm-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
+# df.pow <- pvals %>% dplyr::filter(., version != "h0" & 
+#                           (model == "randomwalk" | model == "spatial") &
+#                           (test == "Kolmogorov- Smirnov" | 
+#                              test == "Autocorrelation" |
+#                              test == "Spatial Autocorrelation")) %>%
+#   group_by(., do.true, test, method, misp.type) %>%
+#   select(., "pvalue") %>%
+#   summarize(., pvalue = sum(pvalue <= 0.05)/sum(pvalue >= 0))
+# #df.pow <- cbind(df.pow[,1:4], df.pow[,6], df.pow[,5])
+# 
+# df.err.pow <- rbind(df.err, df.pow) 
+# df.err.pow$err_line <- ifelse(df.pow.err$misp.type == "Correct",
+#                               0.05, 0.95)
 
-histogram.err(df = pvals, Type = "LMM")
+
+# %>% 
+#   pivot_wider(names_from = method, values_from = c('Type I Error', Power))
+# 
+# df.pow.err
+# df.pow %<>% pivot_wider(., names_from = method, values_from = Power)
+# 
+# df.err.pow <- cbind(df.err, df.pow[,4:13])
+# df.err.pow
+ggplot(df.err, aes(pvalue, method)) + 
+  geom_point(mapping = aes(color = do.true)) +
+  facet_grid(~test) + theme_bw() +
+    geom_vline(mapping = aes( xintercept = df.err$err_line))+
+    theme(legend.position = "top")
+```
+
+<br>
+
+## Mis-specified Observation Model
+```{r}
+df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk") & 
+                           method != "Unconditional ecdf, Not Rotated") 
+
+df.corr %>% dplyr::filter(., type == "LMM" & misp != "hsk") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
+```
+
+```{r}
+df.corr %>% dplyr::filter(., type == "GLMM" & misp != "mu0") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
+```
+
+## Missing RE Model
+```{r}
+df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
+                 c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 
 ```
 
-## Type I Error, GLMM
-
-```{r, compare-all-glmm-typeI, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Type I Error for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
-
-histogram.err(df = pvals, Type = "LMM")
-
+```{r}
+df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
+                 c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 ```
 
-## Power, LMM
-
-```{r, compare-all-lmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals"}
-
-histogram.pow(df = pvals, Type = "LMM")
-
-```
-
-## Power, GLMM
-
-```{r, compare-all-glmm-power, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals."}
-
-histogram.pow(df = pvals, Type = "GLMM")
-
+## Mis-specified RE Model
+```{r}
+df.corr %>% dplyr::filter(., type == "LMM") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation", "Spatial Autocorrelation", "Kolmogorov- Smirnov") )
 ```
 
 
-## Power by Misp, LMM
-
-```{r, compare-all-lmm-power-misp, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power and mis-specification for all Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals."}
-
-histogram.pow.bymisp(df = pvals, Type = "LMM")
-
+```{r}
+df.corr %>% dplyr::filter(., type == "GLMM") %>% 
+  plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation", "Spatial Autocorrelation", "Kolmogorov- Smirnov") )
 ```
-
-## Power by Misp, GLMM
-
-```{r, compare-all-glmm-power-misp, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, fig.cap = "Methods by Power and mis-specification for all Generalized Linear Mixed Models separated by model and estimated vs. theoretical residuals. Colors represent the type of test used to evaluate the residuals."}
-
-histogram.pow.bymisp(df = pvals, Type = "GLMM")
-
-```
-
