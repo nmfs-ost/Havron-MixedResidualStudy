@@ -133,159 +133,52 @@
 <div class="section level2">
 <h2 id="test-comparison">Test Comparison<a class="anchor" aria-label="anchor" href="#test-comparison"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.err</span> <span class="op">&lt;-</span> <span class="va">pvals</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">version</span> <span class="op">==</span> <span class="st">"h0"</span> <span class="op">&amp;</span> </span>
-<span>                          <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"randomwalk"</span> <span class="op">|</span> <span class="va">model</span> <span class="op">==</span> <span class="st">"spatial"</span><span class="op">)</span> <span class="op">&amp;</span></span>
-<span>                          <span class="op">(</span><span class="va">test</span> <span class="op">==</span> <span class="st">"Lilliefors"</span> <span class="op">|</span> <span class="va">test</span> <span class="op">==</span> <span class="st">"Anderson-Darling"</span> <span class="op">|</span></span>
-<span>                             <span class="va">test</span> <span class="op">==</span> <span class="st">"Kolmogorov- Smirnov"</span> <span class="op">)</span><span class="op">&amp;</span><span class="co"># | </span></span>
-<span>                             <span class="co"># test == "Autocorrelation" |</span></span>
-<span>                             <span class="co"># test == "Spatial Autocorrelation") &amp;</span></span>
-<span>                            <span class="op">(</span><span class="va">method</span> <span class="op">!=</span> <span class="st">"Unconditional ecdf, Not Rotated"</span> <span class="op">&amp;</span> <span class="va">method</span> <span class="op">!=</span> <span class="st">"Pearson"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">.</span>, <span class="va">do.true</span>, <span class="va">test</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">.</span>, <span class="st">"pvalue"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarize</span><span class="op">(</span><span class="va">.</span>, <span class="st">'pvalue'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Adding missing grouping variables: `do.true`, `test`</span></span>
 <span><span class="co">## `summarise()` has grouped output by 'do.true'. You can override using the</span></span>
-<span><span class="co">## `.groups` argument.</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#df.err %&lt;&gt;% pivot_wider(., names_from = misp.type, values_from = 'Type I Error')</span></span>
-<span><span class="va">df.err</span><span class="op">$</span><span class="va">version</span> <span class="op">&lt;-</span> <span class="st">"Correct"</span></span>
-<span></span>
-<span><span class="va">df.pow</span> <span class="op">&lt;-</span> <span class="va">pvals</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">version</span> <span class="op">!=</span> <span class="st">"h0"</span> <span class="op">&amp;</span> </span>
-<span>                          <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"randomwalk"</span> <span class="op">|</span> <span class="va">model</span> <span class="op">==</span> <span class="st">"spatial"</span><span class="op">)</span> <span class="op">&amp;</span></span>
-<span>                          <span class="op">(</span><span class="va">test</span> <span class="op">==</span> <span class="st">"Lilliefors"</span> <span class="op">|</span> <span class="va">test</span> <span class="op">==</span> <span class="st">"Anderson-Darling"</span> <span class="op">|</span></span>
-<span>                             <span class="va">test</span> <span class="op">==</span> <span class="st">"Kolmogorov- Smirnov"</span> <span class="op">)</span><span class="op">&amp;</span><span class="co"># | </span></span>
-<span>                             <span class="co"># test == "Autocorrelation" |</span></span>
-<span>                             <span class="co"># test == "Spatial Autocorrelation") &amp;</span></span>
-<span>                            <span class="op">(</span><span class="va">method</span> <span class="op">!=</span> <span class="st">"Unconditional ecdf, Not Rotated"</span> <span class="op">&amp;</span> <span class="va">method</span> <span class="op">!=</span> <span class="st">"Pearson"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">.</span>, <span class="va">do.true</span>, <span class="va">test</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">.</span>, <span class="st">"pvalue"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarize</span><span class="op">(</span><span class="va">.</span>, <span class="st">'pvalue'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Adding missing grouping variables: `do.true`, `test`</span></span>
+<span><span class="co">## `.groups` argument.</span></span>
+<span><span class="co">## Adding missing grouping variables: `do.true`, `test`</span></span>
 <span><span class="co">## `summarise()` has grouped output by 'do.true'. You can override using the</span></span>
 <span><span class="co">## `.groups` argument.</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.pow</span><span class="op">$</span><span class="va">version</span> <span class="op">&lt;-</span> <span class="st">"Mis-specified"</span></span>
-<span></span>
-<span><span class="co">#df.pow %&lt;&gt;% pivot_wider(., names_from = misp.type, values_from = Power)</span></span>
-<span><span class="va">df.err.pow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">df.err</span>, <span class="va">df.pow</span><span class="op">)</span></span>
-<span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">version</span> <span class="op">==</span> <span class="st">"Correct"</span>, </span>
-<span>                         <span class="st">"Type I Error"</span>, <span class="st">"Power"</span><span class="op">)</span></span>
-<span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">type</span>, </span>
-<span>                    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Type I Error"</span>, <span class="st">"Power"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">err_line</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">err_line</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">df.err.pow</span><span class="op">$</span><span class="va">version</span> <span class="op">==</span> <span class="st">"Correct"</span>, </span>
-<span>                          <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">df.err.pow</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">pvalue</span>, <span class="va">test</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">do.true</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="op">~</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_vline</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span> xintercept <span class="op">=</span> <span class="va">df.err.pow</span><span class="op">$</span><span class="va">err_line</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/test-comparison-1.png" width="700"></p>
 <p><br></p>
 </div>
 <div class="section level2">
 <h2 id="method-comparison">Method Comparison<a class="anchor" aria-label="anchor" href="#method-comparison"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.err</span> <span class="op">&lt;-</span> <span class="va">pvals</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">version</span> <span class="op">==</span> <span class="st">"h0"</span> <span class="op">&amp;</span> </span>
-<span>                          <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"randomwalk"</span> <span class="op">|</span> <span class="va">model</span> <span class="op">==</span> <span class="st">"spatial"</span><span class="op">)</span> <span class="op">&amp;</span></span>
-<span>                          <span class="op">(</span><span class="va">test</span> <span class="op">==</span> <span class="st">"Kolmogorov- Smirnov"</span> <span class="op">|</span> </span>
-<span>                             <span class="va">test</span> <span class="op">==</span> <span class="st">"Autocorrelation"</span> <span class="op">|</span></span>
-<span>                             <span class="va">test</span> <span class="op">==</span> <span class="st">"Spatial Autocorrelation"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">.</span>, <span class="va">do.true</span>, <span class="va">test</span>, <span class="va">method</span>, <span class="va">misp.type</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">.</span>, <span class="st">"pvalue"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarize</span><span class="op">(</span><span class="va">.</span>, pvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Adding missing grouping variables: `do.true`, `test`, `method`, `misp.type`</span></span>
 <span><span class="co">## `summarise()` has grouped output by 'do.true', 'test', 'method'. You can</span></span>
 <span><span class="co">## override using the `.groups` argument.</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.err</span><span class="op">$</span><span class="va">err_line</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
-<span></span>
-<span><span class="co"># df.pow &lt;- pvals %&gt;% dplyr::filter(., version != "h0" &amp; </span></span>
-<span><span class="co">#                           (model == "randomwalk" | model == "spatial") &amp;</span></span>
-<span><span class="co">#                           (test == "Kolmogorov- Smirnov" | </span></span>
-<span><span class="co">#                              test == "Autocorrelation" |</span></span>
-<span><span class="co">#                              test == "Spatial Autocorrelation")) %&gt;%</span></span>
-<span><span class="co">#   group_by(., do.true, test, method, misp.type) %&gt;%</span></span>
-<span><span class="co">#   select(., "pvalue") %&gt;%</span></span>
-<span><span class="co">#   summarize(., pvalue = sum(pvalue &lt;= 0.05)/sum(pvalue &gt;= 0))</span></span>
-<span><span class="co"># #df.pow &lt;- cbind(df.pow[,1:4], df.pow[,6], df.pow[,5])</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># df.err.pow &lt;- rbind(df.err, df.pow) </span></span>
-<span><span class="co"># df.err.pow$err_line &lt;- ifelse(df.pow.err$misp.type == "Correct",</span></span>
-<span><span class="co">#                               0.05, 0.95)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># %&gt;% </span></span>
-<span><span class="co">#   pivot_wider(names_from = method, values_from = c('Type I Error', Power))</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># df.pow.err</span></span>
-<span><span class="co"># df.pow %&lt;&gt;% pivot_wider(., names_from = method, values_from = Power)</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># df.err.pow &lt;- cbind(df.err, df.pow[,4:13])</span></span>
-<span><span class="co"># df.err.pow</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">df.err</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">pvalue</span>, <span class="va">method</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">do.true</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="op">~</span><span class="va">test</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_vline</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span> xintercept <span class="op">=</span> <span class="va">df.err</span><span class="op">$</span><span class="va">err_line</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/method-comparison-1.png" width="700"></p>
 <p><br></p>
 <div class="section level3">
 <h3 id="mis-specified-observation-model">Mis-specified Observation Model<a class="anchor" aria-label="anchor" href="#mis-specified-observation-model"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pvals</span>,<span class="op">(</span> <span class="va">model</span> <span class="op">==</span> <span class="st">"spatial"</span> <span class="op">|</span> <span class="va">model</span> <span class="op">==</span> <span class="st">"randomwalk"</span><span class="op">)</span> <span class="op">&amp;</span> </span>
-<span>                           <span class="va">method</span> <span class="op">!=</span> <span class="st">"Unconditional ecdf, Not Rotated"</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"LMM"</span> <span class="op">&amp;</span> <span class="va">misp</span> <span class="op">!=</span> <span class="st">"hsk"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Misp. Data Model"</span><span class="op">)</span>, test.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kolmogorov- Smirnov"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"GLMM"</span> <span class="op">&amp;</span> <span class="va">misp</span> <span class="op">!=</span> <span class="st">"mu0"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Misp. Data Model"</span><span class="op">)</span>, test.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kolmogorov- Smirnov"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/misp-obs-model-lmm-1.png" width="700"></p>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/misp-obs-model-glmm-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="missing-re-model">Missing RE Model<a class="anchor" aria-label="anchor" href="#missing-re-model"></a>
 </h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"LMM"</span> <span class="op">&amp;</span> <span class="va">method</span> <span class="op">!=</span> <span class="st">"Unconditional ecdf, Not Rotated"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Missing RE"</span><span class="op">)</span>, test.filter <span class="op">=</span> </span>
-<span>                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kolmogorov- Smirnov"</span>, <span class="st">"Autocorrelation"</span>, <span class="st">"Spatial Autocorrelation"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"GLMM"</span> <span class="op">&amp;</span> <span class="va">method</span> <span class="op">!=</span> <span class="st">"Unconditional ecdf, Not Rotated"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Missing RE"</span><span class="op">)</span>, test.filter <span class="op">=</span> </span>
-<span>                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kolmogorov- Smirnov"</span>, <span class="st">"Autocorrelation"</span>, <span class="st">"Spatial Autocorrelation"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/miss-re-lmm-1.png" width="700"></p>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/miss-re-glmm-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="mis-specified-re-model">Mis-specified RE Model<a class="anchor" aria-label="anchor" href="#mis-specified-re-model"></a>
 </h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"LMM"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Misp. RE Model"</span><span class="op">)</span>, test.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Autocorrelation"</span>, <span class="st">"Spatial Autocorrelation"</span>, <span class="st">"Kolmogorov- Smirnov"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df.corr</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">"GLMM"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">plot.err.pow</span><span class="op">(</span><span class="va">.</span>, misp.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Correct"</span>,  <span class="st">"Misp. RE Model"</span><span class="op">)</span>, test.filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Autocorrelation"</span>, <span class="st">"Spatial Autocorrelation"</span>, <span class="st">"Kolmogorov- Smirnov"</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/misp-re-lmm-1.png" width="700"></p>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'test', 'misp', 'model', 'method',</span></span>
 <span><span class="co">## 'res.type'. You can override using the `.groups` argument.</span></span></code></pre>
-<p><img src="TMB-validation-figures-results-overall_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="TMB-validation-figures-results-overall_files/figure-html/misp-re-glmm-1.png" width="700"></p>
 </div>
 </div>
   </div>
