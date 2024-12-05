@@ -14,7 +14,7 @@ source("../results/results-setup.R")
 ```
 # Test Comparison
 
-```{r}
+```{r, test-comparison, echo = FALSE, caption = "Type I Error for correctly specified models from goodness-of-fit normality tests: Anderson-Darling, Kolmogorov-Smirnov, and Lilliefors."}
 df.err <- pvals %>% dplyr::filter(., version == "h0" & 
                           (model == "randomwalk" | model == "spatial") &
                           (test == "Lilliefors" | test == "Anderson-Darling" |
@@ -65,7 +65,7 @@ ggplot(df.err.pow, aes(pvalue, test)) +
 
 # Method Comparison
 
-```{r}
+```{r, method-comparison, echo = FALSE, caption = "Type I Error for correctly specified models compared across residual calculation methods."}
 df.err <- pvals %>% dplyr::filter(., version == "h0" & 
                           (model == "randomwalk" | model == "spatial") &
                           (test == "Kolmogorov- Smirnov" | 
@@ -109,7 +109,7 @@ ggplot(df.err, aes(pvalue, method)) +
 <br>
 
 ## Mis-specified Observation Model
-```{r}
+```{r, misp-obs-model-lmm, echo = FALSE, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified LMM Data Models under the Kolmogorov-Smirnov normality Test."}
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk") & 
                            method != "Unconditional ecdf, Not Rotated") 
 
@@ -117,33 +117,33 @@ df.corr %>% dplyr::filter(., type == "LMM" & misp != "hsk") %>%
   plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
 ```
 
-```{r}
+```{r, misp-obs-model-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Mis-specified GLMM Data Models under the Kolmogorov-Smirnov normality Test."}
 df.corr %>% dplyr::filter(., type == "GLMM" & misp != "mu0") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
 ```
 
 ## Missing RE Model
-```{r}
+```{r, miss-re-lmm, echo = FALSE, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
                  c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 
 ```
 
-```{r}
+```{r, miss-re-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
                  c("Kolmogorov- Smirnov", "Autocorrelation", "Spatial Autocorrelation") )
 ```
 
 ## Mis-specified RE Model
-```{r}
+```{r, misp-re-lmm, echo = FALSE, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "LMM") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation", "Spatial Autocorrelation", "Kolmogorov- Smirnov") )
 ```
 
 
-```{r}
+```{r, misp-re-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "GLMM") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation", "Spatial Autocorrelation", "Kolmogorov- Smirnov") )
 ```
