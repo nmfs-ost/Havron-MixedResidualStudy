@@ -261,7 +261,8 @@ pvals$misp.type <- factor(pvals$misp,
                             "nb-pois",
                             "missunifcov",
                             "pois-zip",
-                            "ln-error"
+                            "ln-error",
+                            "identity-log"
                           ),
                           label = c(
                             "Correct",
@@ -274,7 +275,8 @@ pvals$misp.type <- factor(pvals$misp,
                             "Misp. Data Model",
                             "Misp. Data Model",
                             "Misp. Data Model",
-                            "Misp. Data Model" ))
+                            "Misp. Data Model",
+                            "Misp. Data Model"))
 
 pvals$do.true <- factor(pvals$do.true,
                         levels = c(TRUE, FALSE),
@@ -289,7 +291,8 @@ pvals$test <- factor(pvals$test,
                                 "EqVar",
                                 "disp",
                                 "Auto",
-                                "SAC"
+                                "SAC",
+                                "phyloauto"
                      ),
 
                      labels = c("Anderson-Darling",
@@ -300,7 +303,8 @@ pvals$test <- factor(pvals$test,
                                 "Levene's Equal Variance",
                                 "disp",
                                 "Autocorrelation",
-                                "Spatial Autocorrelation"
+                                "Spatial Autocorrelation",
+                                "Phylogenetic Autocorrelation"
                      ))
 
 #Only filter out non-converging models if model is correctly specified
