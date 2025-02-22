@@ -1,0 +1,183 @@
+\begin{landscape}
+\begin{table}[h]
+    \caption{Phylogenetic Model Simulation: data generating models, parameter values, and mis-specifications.}
+    \begin{tabular}{lllll|llll}
+    \toprule
+    &\multicolumn{4}{l}{\textbf{Linear Mixed Model}}&\multicolumn{4}{l}{\textbf{Generalized Linear Mixed Model}}\\
+    && Data Generating Model & Parameters & Data Fitting Model &
+    &Data Generating Model & Parameters & Data Fitting Model\\
+    \hline
+      \hline ~\\
+    \rotatebox[origin=c]{90}{
+    ~~ Correct ~~
+    }
+  &&
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + u \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    a &= 0 \\
+    r &= 0 \\
+    \sigma^{2}_{u} &= 2 \\
+    \beta &= (0,1) \\
+    \sigma_{y} &= 1
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + u \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &&
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u )\\
+    y &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    a &= 0 \\
+    r &= 0 \\
+    \sigma^{2}_{u} &= 1 \\
+    \beta_{0} &= 3 \\
+    \theta &= 0.5
+    \end{aligned}$}
+  &
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u) \\
+    y &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}
+  \\~\\
+  \hline ~\\
+  \multirow{25}{*}{
+   \rotatebox[origin=l]{90}{
+    Mis-specified \quad \quad
+    }
+  }
+  & \multicolumn{4}{l}{Missing Random Effects}&\multicolumn{4}{l}{Missing Random Effects}\\
+  &&
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + u \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+     {$\!\begin{aligned}
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta  \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &&
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u) \\
+    y &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}
+  &
+  &
+   {$\!\begin{aligned}
+   \eta &= exp(\beta_{0})\\
+    y &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}
+  \\
+  ~\\
+  &\multicolumn{4}{l}{Mis-specified Data Model}&\multicolumn{4}{l}{Misp-specified Data Model}\\
+  &&
+     {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + u \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+    {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= exp(X\beta + u) \\
+    y &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &&
+ {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u) \\
+    y &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}
+  &
+  &
+      {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u) \\
+    y &\sim Poisson(\mu = \eta)\\
+    \end{aligned}$}
+  \\
+ ~\\
+& \multicolumn{4}{l}{Mis-specifed Random Effects}&\multicolumn{4}{l}{Mis-specified Random Effects}\\
+  &&
+      {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + exp(u) \\
+    y^{'} &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+       {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a, r, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    X_{i} &\sim Unif(-0.5, 0.5) \\
+    \eta &= X\beta + u \\
+    y^{'} &\sim Normal(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &&
+     {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= OU(tree, a = 1, r = -2, \sigma^2_{u})\\
+    u^{'} &\sim MVNORM(\Sigma)\\
+    \eta^{'} &= exp(\beta_{0} + u^{'}) \\
+    y^{'} &\sim NegBinom(\mu = \eta^{'}, size = \theta)\\
+    \end{aligned}$}
+  &
+  &
+ {$\!\begin{aligned}
+    tree &\sim randomTree(n)\\
+    \Sigma &= BM(tree, a = 0, r = 0, \sigma^2_{u})\\
+    u &\sim MVNORM(\Sigma)\\
+    \eta &= exp(\beta_{0} + u) \\
+    y^{'} &\sim NegBinom(\mu = \eta, size = \theta)\\
+    \end{aligned}$}\\
+  \bottomrule
+    \end{tabular}
+    \end{table}
+\end{landscape}

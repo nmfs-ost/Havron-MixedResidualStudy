@@ -1,15 +1,17 @@
 \begin{landscape}
 \begin{table}[h]
     \caption{Spatial Model Simulation: data generating models, parameter values, and mis-specifications.}
-    \begin{tabular}{llll|llll}
+    \begin{tabular}{lllll|llll}
     \toprule
-    & Data Generating Model & Parameters & Data Fitting Model &
-    & Data Generating Model & Parameters & Data Fitting Model\\
+    &\multicolumn{4}{l}{\textbf{Linear Mixed Model}}&\multicolumn{4}{l}{\textbf{Generalized Linear Mixed Model}}\\
+    && Data Generating Model & Parameters & Data Fitting Model &
+    &Data Generating Model & Parameters & Data Fitting Model\\
     \hline
-    \multicolumn{4}{l}{Linear Mixed Model}&\multicolumn{4}{|l}{Generalized Linear Mixed Model}\\
-    \hline
-    \multicolumn{4}{l}{Correct}&\multicolumn{4}{l}{Correct}\\
-  &
+      \hline ~\\
+    \rotatebox[origin=c]{90}{
+    ~~ Correct ~~
+    }
+  &&
     {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= \beta_{0} + \omega_{i} \\
@@ -17,11 +19,11 @@
     \end{aligned}$}
   &
     {$\!\begin{aligned}
-    \beta_{0} &= 4\\
+    \beta_{0} &= 2\\
     \sigma^{2}_{y} &= 1 \\
-    \phi &= 30 \\
+    \phi &= 50 \\
     \kappa &= \sqrt{8}/\phi\\
-    \sigma^{2}_{\omega} &= 1
+    \sigma^{2}_{\omega} &= 2
     \end{aligned}$}
   &
     {$\!\begin{aligned}
@@ -49,11 +51,15 @@
     \eta_{i} &= exp(\beta_{0} + \omega_{i}) \\
     y &\sim Pois(\eta, \sigma_{y})
     \end{aligned}$}\\~\\
-  \hline
-  \multicolumn{4}{l}{Mis-specified}&\multicolumn{4}{l}{Mis-specified}\\
-  &
+  \hline ~\\
+  \multirow{15}{*}{
+   \rotatebox[origin=l]{90}{
+    Mis-specified \quad \quad
+    }
+  }
+  & \multicolumn{4}{l}{Missing Random Effects}&\multicolumn{4}{l}{Missing Random Effects}\\
+  &&
     {$\!\begin{aligned}
-    \text{Cor}&\text{rect}\\
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= \beta_{0} + \omega_{i} \\
     y &\sim N(\eta, \sigma_{y})
@@ -61,21 +67,12 @@
   &
   &
     {$\!\begin{aligned}
-    \text{Mis}&\text{sing}\\
-    \text{Ran}&\text{dom Effect} \\
     \eta_{i} &= \beta_{0} \\
-    y &\sim N(\eta, \sigma_{y}) \\
-    \\
-    \text{Log}&\text{normal Error} \\
-    \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
-    \eta_{i} &= \beta_{0} + \omega_{i} \\
-    \sigma_{y} &= exp(N(0,1)) \\
     y &\sim N(\eta, \sigma_{y})
     \end{aligned}$}
    &
    &
     {$\!\begin{aligned}
-    \text{Cor}&\text{rect}\\
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= exp(\beta_{0} + \omega_{i}) \\
     y &\sim Pois(\eta)
@@ -83,67 +80,60 @@
   &
   &
     {$\!\begin{aligned}
-    \text{Mis}&\text{sing}\\
-    \text{Ran}&\text{dom Effect} \\
     \eta_{i} &= exp(\beta_{0}) \\
     y &\sim Pois(\eta) \\
      \end{aligned}$} \\
-  \cline{2-2}\cline{4-4}\cline{6-6}\cline{8-8}
-  &
-     {$\!\begin{aligned}
-     \\
-    \text{Log}&\text{normal}\\
-    \text{Ran}&\text{dom Effect} \\
-    \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
-    \eta_{i} &= \beta_{0} + exp(\omega_{i}) \\
-    y^{'} &\sim N(\eta, \sigma_{y})
-    \end{aligned}$}
-  &
-  &
-    {$\!\begin{aligned}\\
-    \text{Cor}&\text{rect}\\
+~\\
+ &\multicolumn{4}{l}{Mis-specified Data Model}&\multicolumn{4}{l}{Mis-specified Data Model}\\
+  &&
+    {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= \beta_{0} + \omega_{i} \\
-    y^{'} &\sim N(\eta, \sigma_{y})\\
+    y &\sim N(\eta, \sigma_{y})
     \end{aligned}$}
   &
   &
-    {$\!\begin{aligned}
-     \\
-    \text{Zer}&\text{o-Inflated}\\
-    \text{Poi}&\text{sson} \\
+  {$\!\begin{aligned}
+    \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
+    \eta_{i} &= \beta_{0} + \omega_{i} \\
+    \sigma_{y} &= exp(N(0,1)) \\
+    y &\sim N(\eta, \sigma_{y})
+    \end{aligned}$}
+    &
+    &
+     {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= exp(\beta_{0} + \omega_{i}) \\
     y^{'} &\sim B(1, 0.7) * Pois(\eta)
     \end{aligned}$}
   &
   &
-    {$\!\begin{aligned}\\
-    \text{Cor}&\text{rect}\\
+    {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
     \eta_{i} &= exp(\beta_{0} + \omega_{i}) \\
     y &\sim Pois(\eta)
     \end{aligned}$}
   \\~\\
-  \cline{6-6}\cline{8-8}
-  &&&
+& \multicolumn{4}{l}{Mis-specified Random Effects Model}&\multicolumn{4}{l}{Mis-specified Random Effects Model}\\
+
   &&
-    {$\!\begin{aligned}
-     \\
-    \text{Log}&\text{normal}\\
-    \text{Ran}&\text{dom Effect} \\
+     {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
-    \eta_{i} &= exp(\beta_{0} + exp(\omega_{i})) \\
-    y^{'} &\sim Pois(\eta)
+    \eta_{i} &= \beta_{0} + exp(\omega_{i}) \\
+    y^{'} &\sim N(\eta, \sigma_{y})
     \end{aligned}$}
   &
   &
-   {$\!\begin{aligned}
-    \text{Cor}&\text{rect}\\
+    {$\!\begin{aligned}
     \omega &\sim GMRF(Q[\kappa, \sigma^{2}_{\omega}]) \\
-    \eta_{i} &= exp(\beta_{0} + \omega_{i}) \\
-    y^{'} &\sim Pois(\eta)
-    \end{aligned}$}\\
+    \eta_{i} &= \beta_{0} + \omega_{i} \\
+    y^{'} &\sim N(\eta, \sigma_{y})\\
+    \end{aligned}$}
+  &
+  &
+  &
+  &
+  \\~\\
   \bottomrule
   \end{tabular}
 \end{table}
