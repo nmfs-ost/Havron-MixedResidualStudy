@@ -36,10 +36,6 @@ navbar:
         href: articles/TMB-validation-figures-results-mles.html
       - text: Figures-Results-Overall
         href: articles/TMB-validation-figures-results-overall.html
-      - text: Figures-Results-Sample-Sizes
-        href: articles/TMB-validation-figures-results-samplesizes.html
-      - text: Figures-Results-Compound-Symmetry
-        href: articles/TMB-validation-figures-results-simpleGLMM.html
       - text: Figures-Results-Temporal
         href: articles/TMB-validation-figures-results-randomwalk.html
       - text: Figures-Results-Spatial
