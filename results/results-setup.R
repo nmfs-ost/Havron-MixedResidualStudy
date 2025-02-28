@@ -303,8 +303,8 @@ pvals$test <- factor(pvals$test,
                                 "Levene's Equal Variance",
                                 "disp",
                                 "Autocorrelation",
-                                "Spatial Autocorrelation",
-                                "Phylogenetic Autocorrelation"
+                                "Autocorrelation",
+                                "Autocorrelation"
                      ))
 
 #Only filter out non-converging models if model is correctly specified
@@ -463,7 +463,7 @@ plot.err.pow <- function(df, misp.filter, test.filter){
     ggplot(., aes(x = pval, y = method))  +
     geom_point(mapping = aes(color = do.true)) +
   #  scale_color_aaas() + xlab("p-value") +
-    facet_grid(test~model+err_type, labeller = label_wrap_gen(18)) + theme_bw() +
+    facet_grid(model~test+err_type, labeller = label_wrap_gen(18)) + theme_bw() +
     theme(legend.position = "top") + #, legend_title = element_blank())+#,
     #      axis.text.x = element_blank(),
     #      axis.ticks.x = element_blank()) +
