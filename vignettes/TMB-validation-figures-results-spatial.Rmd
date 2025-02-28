@@ -38,7 +38,7 @@ res.methods <- c(
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
                        type_ = "LMM", 
-                       test_ = "Kolmogorov-Smirnov",
+                       test_ = "Kolmogorov- Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -84,7 +84,7 @@ plot.pval.hist(pval.df, TRUE)
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
                        type_ = "LMM", 
-                       test_ = "Spatial Autocorrelation",
+                       test_ = "Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -112,7 +112,7 @@ plot.pval.hist(pval.df, TRUE)
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
                        type_ = "LMM", 
-                       test_ = "Kolmogorov-Smirnov",
+                       test_ = "Kolmogorov- Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -183,7 +183,7 @@ plot.pval.hist(pval.df, FALSE)
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
                        type_ = "LMM", 
-                       test_ = "Spatial Autocorrelation",
+                       test_ = "Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
@@ -212,15 +212,17 @@ plot.pval.hist(pval.df, FALSE)
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
                        type_ = "GLMM", 
-                       test_ = "Kolmogorov-Smirnov",
+                       test_ = "Kolmogorov- Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
-        levels = c( "correct", 
+        levels = c( "correct",
+                    "aniso",
                      "missre", 
                      "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
+                    "D: Misp. RE",
                     "B: Miss RE",
                     "C: Zip-Pois",
                     "D: Misp. RE" ))
@@ -240,10 +242,12 @@ pval.df <- filter.true(df = pvals,
 
 pval.df$misp <- factor(pval.df$misp,
            levels = c( "correct", 
+                      "aniso",
                      "missre", 
                      "pois-zip", 
                      "mispre"),
          labels = c("A: Correct",
+                    "D: Misp. RE",
                     "B: Miss RE",
                     "C: Zip-Pois",
                     "D: Misp. RE" ))
@@ -258,17 +262,19 @@ plot.pval.hist(pval.df, TRUE)
 pval.df <- filter.true(df = pvals, 
                        mod = "spatial", 
                        type_ = "GLMM", 
-                       test_ = "Spatial Autocorrelation",
+                       test_ = "Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
            levels = c( "correct", 
                      "missre", 
-                     "pois-zip", 
+                     "pois-zip",
+                     "aniso",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
+                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -285,17 +291,19 @@ plot.pval.hist(pval.df, TRUE)
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
                        type_ = "GLMM", 
-                       test_ = "Kolmogorov-Smirnov",
+                       test_ = "Kolmogorov- Smirnov",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
+                     "aniso",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
+                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -315,10 +323,12 @@ pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
+                     "aniso",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
+                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -339,11 +349,13 @@ pval.df <- filter.est(pvals,
 pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
-                     "pois-zip", 
+                     "pois-zip",
+                     "aniso",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
+                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -356,17 +368,19 @@ plot.pval.hist(pval.df, FALSE)
 pval.df <- filter.est(pvals, 
                        mod = "spatial", 
                        type_ = "GLMM", 
-                       test_ = "Spatial Autocorrelation",
+                       test_ = "Autocorrelation",
                        res.methods)
 
 pval.df$misp <- factor(pval.df$misp,
           levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
+                     "aniso",
                      "mispre"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
+                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
