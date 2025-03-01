@@ -50,10 +50,12 @@ res.methods <- c(
 pval.df.true <- filter.true(pvals, 
                             "linmod",
                             type_ = "LMM",
+                            test = "Kolmogorov- Smirnov",
                              method.vec = res.methods)
 pval.df.est <- filter.est(pvals, 
                             "linmod",
                             type_ = "LMM",
+                            test = "Kolmogorov- Smirnov",
                              method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
@@ -80,64 +82,64 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
 \begin{landscape}
 ```
 
-## Compound Symmetry - LMM
+<!-- ## Compound Symmetry 
 
 ```{r, simpleGLMM-LMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-
-res.methods <- c(
-   'full Gaussian',
-   'one-step Gaussian',
-   'one-step Generic',
-   'cdf',
-   'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',
-   'Pearson'
-)
-
-pval.df.true <- filter.true(pvals, 
-                            "simpleGLMM",
-                            type_ = "LMM",
-                             method.vec = res.methods)
-pval.df.est <- filter.est(pvals, 
-                            "simpleGLMM",
-                            type_ = "LMM",
-                             method.vec = res.methods)
-
-pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c('correct', 'missre', 'missunifcov', 'mispre'),
-         labels = c("Correct",
-                    "A: Missing RE",
-                    "B: Missing X",
-                    "C: Misp RE" ))
-
-
-pval.df.est$misp <- factor(pval.df.est$misp,
-          levels = c('correct', 'missre', 'missunifcov', 'mispre'),
-         labels = c("Correct",
-                    "A: Missing RE",
-                    "B: Missing X",
-                    "C: Misp RE" ))
-
-err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Compound Symmetry - LMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+# #
+# # res.methods <- c(
+# #    'full Gaussian',
+# #    'one-step Gaussian',
+# #    'one-step Generic',
+# #    'cdf',
+# #    'MCMC',
+# #    'Unconditional ecdf, Rotated',
+# #    'Unconditional ecdf, Not Rotated',
+# #    'Conditional ecdf, Rotated',
+# #    'Conditional ecdf, Not Rotated',
+# #    'Pearson'
+# # )
+# #
+# # pval.df.true <- filter.true(pvals,
+# #                             "simpleGLMM",
+# #                             type_ = "LMM",
+# #                              method.vec = res.methods)
+# # pval.df.est <- filter.est(pvals,
+# #                             "simpleGLMM",
+# #                             type_ = "LMM",
+# #                              method.vec = res.methods)
+# #
+# # pval.df.true$misp <- factor(pval.df.true$misp,
+# #          levels = c('correct', 'missre', 'missunifcov', 'mispre'),
+# #          labels = c("Correct",
+# #                     "A: Missing RE",
+# #                     "B: Missing X",
+# #                     "C: Misp RE" ))
+# #
+# #
+# # pval.df.est$misp <- factor(pval.df.est$misp,
+# #           levels = c('correct', 'missre', 'missunifcov', 'mispre'),
+# #          labels = c("Correct",
+# #                     "A: Missing RE",
+# #                     "B: Missing X",
+# #                     "C: Misp RE" ))
+# #
+# # err.table(pval.df.true, pval.df.est, 0.05,
+# #         caption = "Compound Symmetry - LMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Compound Symmetry - LMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+# # pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
+# #         caption = "Compound Symmetry - LMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Compound Symmetry - LMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+# err.table(pval.df.true, pval.df.est, 0.1,
+#         caption = "Compound Symmetry - LMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-LMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Compound Symmetry - LMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+# pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
+#         caption = "Compound Symmetry - LMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{=tex}
@@ -145,71 +147,71 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
 \newpage
 ```
 
-## Compound Symmetry - GLMM
+ ## Compound Symmetry - GLMM
 
 ```{r, simpleGLMM-GLMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-
-res.methods <- c(
-   'full Gaussian',
-   'one-step Gaussian',
-   'one-step Generic',
-   'cdf',
-   'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',
-   'Pearson'
-)
-
-pval.df.true <- filter.true(pvals, 
-                            "simpleGLMM",
-                            type_ = "GLMM",
-                             method.vec = res.methods)
-pval.df.est <- filter.est(pvals, 
-                            "simpleGLMM",
-                            type_ = "GLMM",
-                             method.vec = res.methods)
-
-pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c('correct', 'missre', 'nb-pois', 'mispre'),
-         labels = c("Correct",
-                    "A: Missing RE",
-                    "B: NB - Pois",
-                    "C: Misp RE" ))
-
-
-pval.df.est$misp <- factor(pval.df.est$misp,
-          levels = c('correct', 'missre', 'nb-pois', 'mispre'),
-         labels = c("Correct",
-                    "A: Missing RE",
-                    "B: NB - Pois",
-                    "C: Misp RE" ))
-
-err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Compound Symmetry - GLMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+# 
+# res.methods <- c(
+#    'full Gaussian',
+#    'one-step Gaussian',
+#    'one-step Generic',
+#    'cdf',
+#    'MCMC',
+#    'Unconditional ecdf, Rotated',
+#    'Unconditional ecdf, Not Rotated',
+#    'Conditional ecdf, Rotated',  
+#    'Conditional ecdf, Not Rotated',
+#    'Pearson'
+# )
+# 
+# pval.df.true <- filter.true(pvals, 
+#                             "simpleGLMM",
+#                             type_ = "GLMM",
+#                              method.vec = res.methods)
+# pval.df.est <- filter.est(pvals, 
+#                             "simpleGLMM",
+#                             type_ = "GLMM",
+#                              method.vec = res.methods)
+# 
+# pval.df.true$misp <- factor(pval.df.true$misp,
+#          levels = c('correct', 'missre', 'nb-pois', 'mispre'),
+#          labels = c("Correct",
+#                     "A: Missing RE",
+#                     "B: NB - Pois",
+#                     "C: Misp RE" ))
+# 
+# 
+# pval.df.est$misp <- factor(pval.df.est$misp,
+#           levels = c('correct', 'missre', 'nb-pois', 'mispre'),
+#          labels = c("Correct",
+#                     "A: Missing RE",
+#                     "B: NB - Pois",
+#                     "C: Misp RE" ))
+# 
+# err.table(pval.df.true, pval.df.est, 0.05,
+#         caption = "Compound Symmetry - GLMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Compound Symmetry - GLMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+# pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
+#         caption = "Compound Symmetry - GLMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Compound Symmetry - GLMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
+# err.table(pval.df.true, pval.df.est, 0.1,
+#         caption = "Compound Symmetry - GLMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{r, simpleGLMM-GLMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Compound Symmetry - GLMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
+# pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
+#         caption = "Compound Symmetry - GLMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
 ```{=tex}
 \clearpage
 \newpage
 ```
-
+-->
 ## Temporal Correlation - LMM
 
 ```{r, randomwalk-LMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
@@ -347,7 +349,7 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
 
 ## Spatial
 
-```{r, spatial-results-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r, spatial-results-lmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 pval.df.true <- filter.true(pvals, "spatial",
                             type_ = "LMM",
@@ -360,26 +362,136 @@ pval.df.true$misp <- factor(pval.df.true$misp,
          levels = c('correct', 'missre', 'ln-error', 'mispre'),
          labels = c("Correct",
                     "A: Missing RE",
-                    "B: Lognorm error",
+                    "B: Misp Data",
                     "C: Misp RE" ))
 
 pval.df.est$misp <- factor(pval.df.est$misp,
          levels = c('correct', 'missre', 'ln-error', 'mispre'),
          labels = c("Correct",
                     "A: Missing RE",
-                    "B: Lognorm error",
+                    "B: Misp Data",
                     "C: Misp RE" ))
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
-```{r, spatial-results-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r, spatial-results-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals using the KS normality test. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
+
+```{r, spatial-results-glmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+pval.df.true <- filter.true(pvals, "spatial",
+                            type_ = "GLMM",
+                       method.vec = res.methods)
+pval.df.est <- filter.est(pvals, "spatial",
+                            type_ = "GLMM",
+                       method.vec = res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c('correct', 'missre', 'pois-zip', 'aniso'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c('correct', 'missre', 'pois-zip', 'aniso'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+
+
+tbl.err.pow(pval.df.true,
+        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, spatial-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est,
+        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+## Phylogenetic
+
+```{r, phylo-results-lmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+pval.df.true <- filter.true(pvals, "phylo",
+                            type_ = "LMM",
+                       method.vec = res.methods)
+pval.df.est <- filter.est(pvals, "phylo",
+                            type_ = "LMM",
+                       method.vec = res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c('correct', 'missre', 'identity-log', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c('correct', 'missre', 'identity-log', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+  
+
+tbl.err.pow(pval.df.true, 
+        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, phylo-results-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est, 
+        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+
+```{r, phylo-results-glmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+pval.df.true <- filter.true(pvals, "phylo",
+                            type_ = "GLMM",
+                       method.vec = res.methods)
+pval.df.est <- filter.est(pvals, "phylo",
+                            type_ = "GLMM",
+                       method.vec = res.methods)
+
+pval.df.true$misp <- factor(pval.df.true$misp,
+         levels = c('correct', 'missre', 'nb-pois', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+
+pval.df.est$misp <- factor(pval.df.est$misp,
+         levels = c('correct', 'missre', 'nb-pois', 'mispre'),
+         labels = c("Correct",
+                    "A: Missing RE",
+                    "B: Misp Data",
+                    "C: Misp RE" ))
+
+
+tbl.err.pow(pval.df.true,
+        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{r, phylo-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est,
+        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+```
+
+```{=tex}
+\clearpage
+\newpage
+```
 \input{"tables/tbl-1.tex"}
 

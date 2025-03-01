@@ -491,36 +491,36 @@ err.table <-  function(df1, df2, sig.level, caption = NULL){
   pvals.wider2 <- pivot_wider(pvals2, names_from = method, values_from = pval)
 
   pvals.wider <- rbind(pvals.wider1, pvals.wider2)
-  pvals.wider$do.true <- factor(pvals.wider$do.true,
-                          level = c(TRUE, FALSE),
-                          label = c("theoretical", "estimated"))
+  # pvals.wider$do.true <- factor(pvals.wider$do.true,
+  #                         level = c(TRUE, FALSE),
+  #                         label = c("theoretical", "estimated"))
   colnames(pvals.wider)[which(colnames(pvals.wider) == "do.true")] <- "residual type"
 
-  pvals.wider$test <- factor(pvals.wider$test,
-                        level = c(
-                          "AOV",
-                          "EqVar",
-                          "GOF.ad",
-                          "GOF.ks",
-                          "GOF.lf",
-                          "Auto",
-                          "SAC"
-                        ),
-                        label = c(
-                          "AOV Equal Means",
-                          "Levene's Equal Variances",
-                          "Anderson Darling",
-                          "Kolmogorov- Smirnov",
-                          "Lilliefors",
-                          "Autocorrelation",
-                          "Moran's I"
-                        ))
+  # pvals.wider$test <- factor(pvals.wider$test,
+  #                       level = c(
+  #                         "AOV",
+  #                         "EqVar",
+  #                         "GOF.ad",
+  #                         "GOF.ks",
+  #                         "GOF.lf",
+  #                         "Auto",
+  #                         "SAC"
+  #                       ),
+  #                       label = c(
+  #                         "AOV Equal Means",
+  #                         "Levene's Equal Variances",
+  #                         "Anderson Darling",
+  #                         "Kolmogorov- Smirnov",
+  #                         "Lilliefors",
+  #                         "Autocorrelation",
+  #                         "Moran's I"
+  #                       ))
 
   out.table <- pvals.wider %>% arrange(test) %>%
     kableExtra::kbl(., format = "latex", caption = caption,
                     booktabs = TRUE, midrule = "", escape = FALSE) %>%
     kableExtra::kable_styling(., "striped", "HOLD_position")
-  if(unique(df1$type) == "LMM"){
+  if(unique(df1$model == "linmod")){
     out.table <- out.table %>%
       column_spec(1, width = "7em") %>%
       column_spec(2, width = "4em")%>%
@@ -528,26 +528,39 @@ err.table <-  function(df1, df2, sig.level, caption = NULL){
       column_spec(4, width = "4em")%>%
       column_spec(5, width = "4em")%>%
       column_spec(6, width = "4em")%>%
-      column_spec(8, width = "4em")%>%
+      column_spec(8, width = "7em")%>%
       column_spec(9, width = "6em")%>%
-      column_spec(10, width = "5em")%>%
-      column_spec(11, width = "6em") %>%
-      column_spec(12, width = "5em") %>%
       collapse_rows(column = 1, latex_hline = "major")
-  }
-  if(unique(df1$type) == "GLMM"){
-    out.table <- out.table %>%
-      column_spec(1, width = "7em") %>%
-      column_spec(2, width = "4em")%>%
-      column_spec(3, width = "4em")%>%
-      column_spec(4, width = "4em")%>%
-      column_spec(5, width = "4em")%>%
-      column_spec(6, width = "4em")%>%
-      column_spec(7, width = "6em")%>%
-      column_spec(8, width = "6em") %>%
-      column_spec(9, width = "6em") %>%
-      column_spec(10, width = "6em") %>%
-      collapse_rows(column = 1, latex_hline = "major")
+  } else {
+    if(unique(df1$type) == "LMM"){
+      out.table <- out.table %>%
+        column_spec(1, width = "7em") %>%
+        column_spec(2, width = "4em")%>%
+        column_spec(3, width = "4em")%>%
+        column_spec(4, width = "4em")%>%
+        column_spec(5, width = "4em")%>%
+        column_spec(6, width = "4em")%>%
+        column_spec(8, width = "4em")%>%
+        column_spec(9, width = "6em")%>%
+        column_spec(10, width = "5em")%>%
+        column_spec(11, width = "6em") %>%
+        column_spec(12, width = "5em") %>%
+        collapse_rows(column = 1, latex_hline = "major")
+    }
+    if(unique(df1$type) == "GLMM"){
+      out.table <- out.table %>%
+        column_spec(1, width = "7em") %>%
+        column_spec(2, width = "4em")%>%
+        column_spec(3, width = "4em")%>%
+        column_spec(4, width = "4em")%>%
+        column_spec(5, width = "4em")%>%
+        column_spec(6, width = "4em")%>%
+        column_spec(7, width = "6em")%>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "6em") %>%
+        column_spec(10, width = "6em") %>%
+        collapse_rows(column = 1, latex_hline = "major")
+    }
   }
 
   out.table
@@ -577,43 +590,52 @@ pow.table <-  function(df1, df2, sig.level, caption = NULL){
 
     out <- pvals.wider %>% as.data.frame() %>% arrange(test)
      if(i == 1){
-       out.df <- rbind(c(misp.names[i], rep(" ", ncol(out)-1)), out)
+       new.row <- c(misp.names[i], rep(" ", ncol(out)-1)) %>% as.data.frame() %>% t()
+       colnames(new.row) <- colnames(out)
+       out.df <- rbind(new.row, out)
      } else {
-       out.df <- rbind(out.df, c(misp.names[i], rep(" ", ncol(out)-1)), out)
+       new.row <- c(misp.names[i], rep(" ", ncol(out)-1)) %>% as.data.frame() %>% t()
+       colnames(new.row) <- colnames(out)
+       out.df <- rbind(out.df, new.row, out)
      }
 }
-  out.df$do.true <- factor(out.df$do.true,
-                           level = c(TRUE, FALSE, " "),
-                           label = c("theoretical", "estimated", " "))
+  # out.df$do.true <- factor(out.df$do.true,
+  #                          level = c(TRUE, FALSE, " "),
+  #                          label = c("theoretical", "estimated", " "))
   colnames(out.df)[which(colnames(out.df) == "do.true")] <- "residual type"
 
-  out.df$test <- factor(out.df$test,
-                        level = c(
-                          "AOV",
-                          "EqVar",
-                          "GOF.ad",
-                          "GOF.ks",
-                          "GOF.lf",
-                          "Auto",
-                          "SAC",
-                          misp.names
-                        ),
-                        label = c(
-                          "AOV Equal Means",
-                          "Levene's Equal Variances",
-                          "Anderson Darling",
-                          "Kolmogorov- Smirnov",
-                          "Lilliefors",
-                          "Autocorrelation",
-                          "Moran's I",
-                          misp.names
-                        ))
-
+  # out.df$test <- factor(out.df$test,
+  #                       level = c(
+  #                         "AOV",
+  #                         "EqVar",
+  #                         "GOF.ad",
+  #                         "GOF.ks",
+  #                         "GOF.lf",
+  #                         "Auto",
+  #                         "SAC",
+  #                         misp.names
+  #                       ),
+  #                       label = c(
+  #                         "AOV Equal Means",
+  #                         "Levene's Equal Variances",
+  #                         "Anderson Darling",
+  #                         "Kolmogorov- Smirnov",
+  #                         "Lilliefors",
+  #                         "Autocorrelation",
+  #                         "Moran's I",
+  #                         misp.names
+  #                       ))
   out.table <- out.df %>%
-      kableExtra::kbl(., format = "latex", caption = caption,
+      kableExtra::kbl(., format = "latex", caption = caption, row.names = FALSE,
                       booktabs = TRUE, midrule = "", escape = FALSE) %>%
       kableExtra::kable_styling(., "striped", "HOLD_position")
-  if(unique(df1$type) == "LMM"){
+  if(unique(df1$model) == "linmod"){
+    out.table <- pvals.wider %>% arrange(test)
+    colnames(out.table)[which(colnames(out.table) == "do.true")] <- "residual type"
+    out.table <- out.table %>%
+      kableExtra::kbl(., format = "latex", caption = caption,
+                      booktabs = TRUE, midrule = "", escape = FALSE) %>%
+      kableExtra::kable_styling(., latex_options = "HOLD_position")
     out.table <- out.table %>%
       column_spec(1, width = "7em") %>%
       column_spec(2, width = "4em")%>%
@@ -621,26 +643,41 @@ pow.table <-  function(df1, df2, sig.level, caption = NULL){
       column_spec(4, width = "4em")%>%
       column_spec(5, width = "4em")%>%
       column_spec(6, width = "4em")%>%
-      column_spec(8, width = "4em")%>%
+      column_spec(8, width = "7em")%>%
       column_spec(9, width = "6em")%>%
-      column_spec(10, width = "5em")%>%
-      column_spec(11, width = "6em") %>%
-      column_spec(12, width = "5em") %>%
       collapse_rows(column = 1, latex_hline = "major")
-  }
-  if(unique(df1$type) == "GLMM"){
-    out.table <- out.table %>%
-      column_spec(1, width = "7em") %>%
-      column_spec(2, width = "4em")%>%
-      column_spec(3, width = "4em")%>%
-      column_spec(4, width = "4em")%>%
-      column_spec(5, width = "4em")%>%
-      column_spec(6, width = "4em")%>%
-      column_spec(7, width = "6em")%>%
-      column_spec(8, width = "6em") %>%
-      column_spec(9, width = "6em") %>%
-      column_spec(10, width = "6em") %>%
-      collapse_rows(column = 1, latex_hline = "major")
+
+  } else {
+
+    if(unique(df1$type) == "LMM"){
+      out.table <- out.table %>%
+        column_spec(1, width = "7em") %>%
+        column_spec(2, width = "4em")%>%
+        column_spec(3, width = "4em")%>%
+        column_spec(4, width = "4em")%>%
+        column_spec(5, width = "4em")%>%
+        column_spec(6, width = "4em")%>%
+        column_spec(8, width = "4em")%>%
+        column_spec(9, width = "6em")%>%
+        column_spec(10, width = "5em")%>%
+        column_spec(11, width = "6em") %>%
+        column_spec(12, width = "5em") %>%
+        collapse_rows(column = 1, latex_hline = "major")
+    }
+    if(unique(df1$type) == "GLMM"){
+      out.table <- out.table %>%
+        column_spec(1, width = "7em") %>%
+        column_spec(2, width = "4em")%>%
+        column_spec(3, width = "4em")%>%
+        column_spec(4, width = "4em")%>%
+        column_spec(5, width = "4em")%>%
+        column_spec(6, width = "4em")%>%
+        column_spec(7, width = "6em")%>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "6em") %>%
+        column_spec(10, width = "6em") %>%
+        collapse_rows(column = 1, latex_hline = "major")
+    }
   }
 
   out.table
@@ -649,11 +686,11 @@ pow.table <-  function(df1, df2, sig.level, caption = NULL){
 tbl.err.pow <- function(df, caption = NULL){
 
 
-  pvals <- df %>% filter(test != "outlier") %>%
+  pvals.df <- df %>% filter(test != "outlier") %>%
     group_by(test, misp, method, res.type) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 
-  pvals.wider <- pivot_wider(pvals, names_from = misp, values_from = pval)
+  pvals.wider <- pivot_wider(pvals.df, names_from = misp, values_from = pval)
   misp.names <- as.character(unique(pvals$misp))
   nmisp <- length(misp.names)
 

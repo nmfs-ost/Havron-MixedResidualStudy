@@ -26,5 +26,3 @@ output: html_document
 ![](figures/TMB-validation-tables_Page_20.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_21.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_22.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_23.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_24.jpg){width=100%}
