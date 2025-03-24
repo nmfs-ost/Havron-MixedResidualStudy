@@ -122,7 +122,7 @@ df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not
 
 ## iid Model 
 
-```{r, miss-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 12, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
+```{r, miss-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk" | model == 'phylo') & 
                            method != "Unconditional ecdf, Not Rotated" & 
                            method != "Conditional ecdf, Not Rotated")  
@@ -133,7 +133,7 @@ df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not 
 
 ```
 
-```{r, miss-re-glmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
+```{r, miss-re-glmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 8, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated" & 
                            method != "Conditional ecdf, Not Rotated" ) %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
@@ -141,14 +141,14 @@ df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not
 ```
 
 ## Mis-specified Covariance Model
-```{r, misp-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 12, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
+```{r, misp-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated" & 
                            method != "Conditional ecdf, Not Rotated" ) %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation",  "Kolmogorov- Smirnov") )
 ```
 
 
-```{r, misp-re-glmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 10, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
+```{r, misp-re-glmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 8, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects GLMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not Rotated" & 
                            method != "Conditional ecdf, Not Rotated" ) %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation",  "Kolmogorov- Smirnov") )
