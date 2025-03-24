@@ -15,14 +15,14 @@ navbar:
       icon: fab fa-github fa-lg
       menu:
       - text: This Pkgdown Repo
-        href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy
+        href: https://github.com/nmfs-ost/Havron-MixedResidualStudy
       - text: Mixed Residual Project Repo
         href: https://github.com/Cole-Monnahan-NOAA/mixed_resids
 
     issue:
       text: Issues
       icon: fas fa-question-circle fa-lg
-      href: https://github.com/Andrea-Havron-NOAA/MixedResidualStudy/issues
+      href: https://github.com/nmfs-ost/Havron-MixedResidualStudy/issues
 
     articles:
       text: Vignettes

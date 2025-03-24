@@ -11,18 +11,17 @@ Residual Project
 - [Google Doc
   Draft](https://docs.google.com/document/d/19Y39GqVRAmoIEegxgzyf6HXVWYgWGyr5x8cyHe3qHK8/edit)
   (co-authors only)
-- [Pkgdown
-  Repo](https://github.com/Andrea-Havron-NOAA/MixedResidualStudy):
-  - [Tables](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-tables.html)
+- [Pkgdown Repo](https://github.com/nmfs-ost/Havron-MixedResidualStudy):
+  - [Tables](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-tables.html)
   - Figures:
-    - [Methods](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-methods.html)
-    - [MLEs](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-mles.html)
+    - [Methods](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-methods.html)
+    - [MLEs](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-mles.html)
     - [Overall
-      Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-overall.html)
+      Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-overall.html)
     - [Temporal
-      Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-randomwalk.html)
+      Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-randomwalk.html)
     - [Spatial
-      Results](https://andrea-havron-noaa.github.io/MixedResidualStudy/articles/TMB-validation-figures-results-spatial.html)
+      Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-spatial.html)
 
 **Mixed Effects Residual Project** <br> [Repo
 Structure](https://github.com/Cole-Monnahan-NOAA/mixed_resids)
