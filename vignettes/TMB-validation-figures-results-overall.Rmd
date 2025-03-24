@@ -82,7 +82,8 @@ df.err <- pvals %>% dplyr::filter(., !(method == "Process ecdf" &
                           (test == "Kolmogorov- Smirnov" | 
                              test == "Autocorrelation" |
                              test == "Spatial Autocorrelation" | 
-                             test == "Phylogenetic Autocorrelation"))  %>%
+                             test == "Phylogenetic Autocorrelation") &
+                            (  method != "Process ecdf" & method != "Process osa"))  %>%
   group_by(., do.true, test, method, type, model, misp.type) %>%
   select(., "pvalue") %>%
   summarize(., pvalue = sum(pvalue <= 0.05)/sum(pvalue >= 0))
@@ -104,7 +105,7 @@ ggplot(df.err, aes(y = method, x = pvalue)) +
 <br>
 
 ## Mis-specified Observation Model
-```{r, misp-obs-model-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 8, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified LMM Data Models under the Kolmogorov-Smirnov normality Test."}
+```{r, misp-obs-model-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 6, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified LMM Data Models under the Kolmogorov-Smirnov normality Test."}
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk" | model == 'phylo') & 
                            ( method != "Process ecdf" & method != "Process osa") &
                            method != "Unconditional ecdf, Not Rotated" & 
@@ -122,10 +123,11 @@ df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not
 
 ## iid Model 
 
-```{r, miss-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 8, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
+```{r, miss-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 6, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Missing Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk" | model == 'phylo') & 
                            method != "Unconditional ecdf, Not Rotated" & 
-                           method != "Conditional ecdf, Not Rotated")  
+                           method != "Conditional ecdf, Not Rotated" & 
+                           method != "Process ecdf" & method != "Process osa")  
 
 df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Missing RE"), test.filter = 
@@ -143,7 +145,8 @@ df.corr %>% dplyr::filter(., type == "GLMM" & method != "Unconditional ecdf, Not
 ## Mis-specified Covariance Model
 ```{r, misp-re-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 8, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified Random Effects LMM Models under the Kolmogorov-Smirnov normality Test and Correlation Tests (Durbin-Watson Autocorrelation and Moran's I Spatial Autocorrelation)."}
 df.corr %>% dplyr::filter(., type == "LMM" & method != "Unconditional ecdf, Not Rotated" & 
-                           method != "Conditional ecdf, Not Rotated" ) %>% 
+                           method != "Conditional ecdf, Not Rotated" & 
+                            method != "Process ecdf" & method != "Process osa" ) %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = c("Autocorrelation",  "Kolmogorov- Smirnov") )
 ```
 
