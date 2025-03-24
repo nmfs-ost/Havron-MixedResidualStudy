@@ -686,7 +686,7 @@ pow.table <-  function(df1, df2, sig.level, caption = NULL){
 tbl.err.pow <- function(df, caption = NULL){
 
 
-  pvals.df <- df %>% filter(test != "outlier") %>%
+  pvals.df <- df %>% filter(test != "outlier" & test != "disp") %>%
     group_by(test, misp, method, res.type) %>%
     summarize(pval = round(sum(pvalue <= 0.05)/sum(pvalue >= 0),3))
 

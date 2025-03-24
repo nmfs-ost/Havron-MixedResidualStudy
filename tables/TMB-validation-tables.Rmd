@@ -38,12 +38,9 @@ res.methods <- c(
    'full Gaussian',
    'one-step Gaussian',
    'one-step Generic',
-   'cdf',
+   'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',
+   'Conditional ecdf, Not Rotated',  
    'Pearson'
 )
 
@@ -77,10 +74,6 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
         caption = "Linear Model. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
 ```
 
-
-```{=tex}
-\begin{landscape}
-```
 
 <!-- ## Compound Symmetry 
 
@@ -214,18 +207,20 @@ pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
 -->
 ## Temporal Correlation - LMM
 
-```{r, randomwalk-LMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r, randomwalk-lmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 res.methods <- c(
    'full Gaussian',
    'one-step Gaussian',
    'one-step Generic',
-   'cdf',
+   'one-step cdf',
    'MCMC',
    'Unconditional ecdf, Rotated',
    'Unconditional ecdf, Not Rotated',
    'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',
+   'Conditional ecdf, Not Rotated', 
+   'Process ecdf',
+   'Process osa',
    'Pearson'
 )
 
@@ -239,60 +234,45 @@ pval.df.est <- filter.est(pvals,
                              method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c('correct', 'missre', 'hsk', 'mu0', 'mispre'),
+         levels = c('correct', 'missre', 'hsk', 'mu0'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Heterosck.",
-                    "C: Missing Drift",
-                    "D: Misp RE" ))
+                    "C: Missing Drift" ))
 
 
 pval.df.est$misp <- factor(pval.df.est$misp,
-         levels = c('correct', 'missre', 'hsk', 'mu0', 'mispre'),
+         levels = c('correct', 'missre', 'hsk', 'mu0'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Heterosck.",
-                    "C: Missing Drift",
-                    "D: Misp RE" ))
+                    "C: Missing Drift"))
 
-err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Temporal Correlation - LMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+tbl.err.pow(pval.df.true, 
+        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
-```{r, randomwalk-LMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Temporal Correlation - LMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+```{r, randomwalk-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est, 
+        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
-```{r, randomwalk-LMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Temporal Correlation - LMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
-```
-
-```{r, randomwalk-LMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Temporal Correlation - LMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
-```
-
-```{=tex}
-\clearpage
-\newpage
-```
 
 ## Temporal Correlation - GLMM
 
-```{r, randomwalk-GLMM-err-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r, randomwalk-results-glmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 res.methods <- c(
-   'full Gaussian',
-   'one-step Gaussian',
    'one-step Generic',
-   'cdf',
+   'one-step cdf',
    'MCMC',
    'Unconditional ecdf, Rotated',
    'Unconditional ecdf, Not Rotated',
    'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',
+   'Conditional ecdf, Not Rotated',  
+   'Process ecdf',
+   'Process osa',
    'Pearson'
 )
 
@@ -306,50 +286,49 @@ pval.df.est <- filter.est(pvals,
                              method.vec = res.methods)
 
 pval.df.true$misp <- factor(pval.df.true$misp,
-         levels = c('correct', 'missre', 'gamma-normal', 'mu0', 'mispre'),
+         levels = c('correct', 'missre', 'gamma-normal', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Gamma - Normal",
-                    "C: Missing Drift",
-                    "D: Misp RE" ))
+                    "C: Misp Cov" ))
 
 
 pval.df.est$misp <- factor(pval.df.est$misp,
-         levels = c('correct', 'missre', 'gamma-normal', 'mu0', 'mispre'),
+         levels = c('correct', 'missre', 'gamma-normal', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Gamma - Normal",
-                    "C: Missing Drift",
-                    "D: Misp RE" ))
+                    "C: Misp Cov" ))
 
-err.table(pval.df.true, pval.df.est, 0.05,
-        caption = "Temporal Correlation - GLMM. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.")
+tbl.err.pow(pval.df.true,
+        caption = "GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
-```{r, randomwalk-GLMM-pow-results-005, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.05,
-        caption = "Temporal Correlation - GLMM. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.")
+```{r, randomwalk-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+tbl.err.pow(pval.df.est,
+        caption = "GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
 ```
 
-```{r, randomwalk-GLMM-err-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-err.table(pval.df.true, pval.df.est, 0.1,
-        caption = "Temporal Correlation - GLMM. Type I error rates at the 0.10 significance level evaluated for each method for theoretical and estimated residuals.")
-```
-
-```{r, randomwalk-GLMM-pow-results-010, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-pow.table(df1 = pval.df.true, df2 = pval.df.est, sig.level = 0.1,
-        caption = "Temporal Correlation - GLMM. Power at the 0.90 significance level evaluated for each method for theoretical and estimated residuals.")
-```
-
-```{=tex}
-\end{landscape}
-\clearpage
-\newpage
-```
 
 ## Spatial
 
 ```{r, spatial-results-lmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'one-step cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated', 
+   'Process ecdf',
+   'Process osa',
+   'Pearson'
+)
 
 pval.df.true <- filter.true(pvals, "spatial",
                             type_ = "LMM",
@@ -361,16 +340,16 @@ pval.df.est <- filter.est(pvals, "spatial",
 pval.df.true$misp <- factor(pval.df.true$misp,
          levels = c('correct', 'missre', 'ln-error', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 pval.df.est$misp <- factor(pval.df.est$misp,
          levels = c('correct', 'missre', 'ln-error', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
   
 
 tbl.err.pow(pval.df.true, 
@@ -386,6 +365,19 @@ tbl.err.pow(pval.df.est,
 
 ```{r, spatial-results-glmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
+res.methods <- c(
+   'one-step Generic',
+   'one-step cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',   
+   'Process ecdf',
+   'Process osa',
+   'Pearson'
+)
+
 pval.df.true <- filter.true(pvals, "spatial",
                             type_ = "GLMM",
                        method.vec = res.methods)
@@ -396,16 +388,16 @@ pval.df.est <- filter.est(pvals, "spatial",
 pval.df.true$misp <- factor(pval.df.true$misp,
          levels = c('correct', 'missre', 'pois-zip', 'aniso'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 pval.df.est$misp <- factor(pval.df.est$misp,
          levels = c('correct', 'missre', 'pois-zip', 'aniso'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 
 tbl.err.pow(pval.df.true,
@@ -422,6 +414,21 @@ tbl.err.pow(pval.df.est,
 
 ```{r, phylo-results-lmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
+res.methods <- c(
+   'full Gaussian',
+   'one-step Gaussian',
+   'one-step Generic',
+   'one-step cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated',  
+   'Process ecdf',
+   'Process osa',
+   'Pearson'
+)
+
 pval.df.true <- filter.true(pvals, "phylo",
                             type_ = "LMM",
                        method.vec = res.methods)
@@ -432,16 +439,16 @@ pval.df.est <- filter.est(pvals, "phylo",
 pval.df.true$misp <- factor(pval.df.true$misp,
          levels = c('correct', 'missre', 'identity-log', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 pval.df.est$misp <- factor(pval.df.est$misp,
          levels = c('correct', 'missre', 'identity-log', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
   
 
 tbl.err.pow(pval.df.true, 
@@ -457,6 +464,19 @@ tbl.err.pow(pval.df.est,
 
 ```{r, phylo-results-glmm-theor, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
+res.methods <- c(
+   'one-step Generic',
+   'one-step cdf',
+   'MCMC',
+   'Unconditional ecdf, Rotated',
+   'Unconditional ecdf, Not Rotated',
+   'Conditional ecdf, Rotated',  
+   'Conditional ecdf, Not Rotated', 
+   'Process ecdf',
+   'Process osa',
+   'Pearson'
+)
+
 pval.df.true <- filter.true(pvals, "phylo",
                             type_ = "GLMM",
                        method.vec = res.methods)
@@ -467,16 +487,16 @@ pval.df.est <- filter.est(pvals, "phylo",
 pval.df.true$misp <- factor(pval.df.true$misp,
          levels = c('correct', 'missre', 'nb-pois', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 pval.df.est$misp <- factor(pval.df.est$misp,
          levels = c('correct', 'missre', 'nb-pois', 'mispre'),
          labels = c("Correct",
-                    "A: Missing RE",
+                    "A: iid",
                     "B: Misp Data",
-                    "C: Misp RE" ))
+                    "C: Misp Cov" ))
 
 
 tbl.err.pow(pval.df.true,

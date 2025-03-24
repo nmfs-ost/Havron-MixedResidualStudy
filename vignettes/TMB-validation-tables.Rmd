@@ -22,7 +22,3 @@ output: html_document
 ![](figures/TMB-validation-tables_Page_16.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_17.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_18.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_19.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_20.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_21.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_22.jpg){width=100%}
