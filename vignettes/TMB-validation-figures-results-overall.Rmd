@@ -14,35 +14,39 @@ source("../results/results-setup.R")
 ```
 # Test Comparison
 
-```{r, test-comparison, echo = FALSE, message = FALSE, warning = FALSE, caption = "Type I Error for correctly specified models from goodness-of-fit normality tests: Anderson-Darling, Kolmogorov-Smirnov, and Lilliefors."}
+```{r, test-comparison, echo = FALSE, fig.height = 4,  message = FALSE, warning = FALSE, caption = "Type I Error for correctly specified models from goodness-of-fit normality tests: Anderson-Darling, Kolmogorov-Smirnov, and Lilliefors."}
 df.err <- pvals %>% dplyr::filter(., version == "h0" & 
                           (model == "randomwalk" | model == "spatial" | model == "phylo") &
                           (test == "Lilliefors" | test == "Anderson-Darling" |
                              test == "Kolmogorov- Smirnov" ) & # | 
                              # test == "Autocorrelation" |
                              # test == "Spatial Autocorrelation") &
-                           (method != "Unconditional ecdf, Not Rotated" & method != "Pearson" &
-                               method != "Process ecdf" & method != "Process osa"))  %>%
+                           # (method != "Unconditional ecdf, Not Rotated" & 
+                           #    method != "Conditional ecdf, Not Rotated" &
+                           #    method != "Pearson" &
+                           (     method != "Process ecdf" & method != "Process osa"))  %>%
   group_by(., do.true, test, method, type, model, misp.type) %>%
   select(., "pvalue") %>%
   summarize(., 'pvalue' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
 
 #df.err %<>% pivot_wider(., names_from = misp.type, values_from = 'Type I Error')
 df.err$version <- "Correct"
+df.err$err_line <- 0.05
 
 df.pow <- pvals %>% dplyr::filter(., version != "h0" & 
                           (model == "randomwalk" | model == "spatial" | model == "phylo") &
                           (test == "Lilliefors" | test == "Anderson-Darling" |
-                             test == "Kolmogorov- Smirnov" ) & # | 
+                             test == "Kolmogorov- Smirnov" )& # | 
                              # test == "Autocorrelation" |
                              # test == "Spatial Autocorrelation") &
-                            (method != "Unconditional ecdf, Not Rotated" & method != "Pearson" &
-                               method != "Process ecdf" & method != "Process osa"))  %>%
+                            # (method != "Unconditional ecdf, Not Rotated" & method != "Pearson" &
+                            (  method != "Process ecdf" & method != "Process osa"))  %>%
 
   group_by(., do.true, test, method, type, model, misp.type) %>%
   select(., "pvalue") %>%
   summarize(., 'pvalue' = sum(pvalue <= 0.05)/sum(pvalue >= 0))
 df.pow$version <- "Mis-specified"
+df.pow$err_line <- 0.95
 
 #df.pow %<>% pivot_wider(., names_from = misp.type, values_from = Power)
 df.err.pow <- rbind(df.err, df.pow)
@@ -51,13 +55,11 @@ df.err.pow$err <- ifelse(df.err.pow$version == "Correct",
                          "Type I Error", "Power")
 df.err.pow$err <- factor(df.err.pow$err, 
                     levels = c("Type I Error", "Power"))
-df.err.pow$err_line <- 0
-df.err.pow$err_line <- ifelse(df.err.pow$version == "Correct", 
-                          0.05, 0.95)
 
 ggplot(df.err.pow, aes(y = test, x = pvalue)) + 
   geom_boxplot(mapping = aes(color = do.true)) +
-  facet_grid(~err) + theme_bw() +
+ facet_grid(~err) + 
+  theme_bw() +
     geom_vline(mapping = aes( xintercept = df.err.pow$err_line)) +
     theme(legend.position = "top") +
     scale_x_continuous(breaks = c(0,0.5,1),
