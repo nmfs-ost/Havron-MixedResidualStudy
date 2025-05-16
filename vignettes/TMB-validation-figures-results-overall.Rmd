@@ -112,7 +112,7 @@ ggplot(df.err, aes(y = method, x = pvalue)) +
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk" | model == 'phylo')&
                              method != "Unconditional ecdf, Not Rotated" & 
                              method != "Unconditional ecdf, Rotated" & 
-                             method != "Conditional ecdf, Not Rotated" &
+                             method != "Conditional ecdf, Rotated" &
                              method != "Process ecdf" & 
                              method != "Process osa") 
 df.corr %>% dplyr::filter(., type == "LMM" ) %>% 

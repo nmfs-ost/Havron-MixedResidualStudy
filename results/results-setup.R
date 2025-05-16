@@ -247,7 +247,7 @@ pvals$method <- factor(pvals$method,
                         "Unconditional ecdf, Rotated",
                         "Unconditional ecdf, Not Rotated",
                         "Conditional ecdf, Rotated",
-                        "Conditional ecdf, Not Rotated"
+                        "ecdf"
                       ))
 pvals$misp.type <- factor(pvals$misp,
                           level = c(
@@ -740,18 +740,18 @@ results.spatial.lmm$mles$type <- "LMM"
 results.spatial.glmm <- readRDS(paste0(path, '/spatial_pois-zip_GLMM_sample_sizes.RDS'))
 results.spatial.glmm$pvals$type <- "GLMM"
 results.spatial.glmm$mles$type <- "GLMM"
-runtimes.all <- rbind(results.simpleGLMM.lmm$runtimes,
+runtimes.all <- rbind(#results.simpleGLMM.lmm$runtimes,
                       results.randomwalk.lmm$runtimes,
                       results.spatial.lmm$runtimes)
 runtimes.all <- runtimes.all %>% filter(!is.na(med))
-pvals.all <- rbind(results.simpleGLMM.lmm$pvals,
-                   results.simpleGLMM.glmm$pvals,
+pvals.all <- rbind(#results.simpleGLMM.lmm$pvals,
+                   #results.simpleGLMM.glmm$pvals,
                    results.randomwalk.lmm$pvals,
                    results.randomwalk.glmm$pvals,
                    results.spatial.lmm$pvals,
                    results.spatial.glmm$pvals)
-mles.all <- rbind(results.simpleGLMM.lmm$mles,
-                  results.simpleGLMM.glmm$mles,
+mles.all <- rbind(#results.simpleGLMM.lmm$mles,
+                  #results.simpleGLMM.glmm$mles,
                   results.randomwalk.lmm$mles,
                   results.randomwalk.glmm$mles,
                   results.spatial.lmm$mles,
