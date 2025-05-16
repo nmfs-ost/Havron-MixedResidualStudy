@@ -14,7 +14,7 @@
 			"updatePackages": true
 		},
 		 "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
-			"packages": "dplyr,magrittr,viridis,ggplot2,tidyr,kableExtra,ggh4x,ggsci,mvtnorm,moments,here,gridExtra,ellipse,rWishart,stringr)",
+			"packages": "dplyr,magrittr,viridis,ggplot2,tidyr,kableExtra,ggh4x,ggsci,mvtnorm,moments,here,gridExtra,ellipse,rWishart,stringr",
 			"installSystemRequirements": true
 		  },
 		 // option to run rstudio. you can type rserver into the command line to
