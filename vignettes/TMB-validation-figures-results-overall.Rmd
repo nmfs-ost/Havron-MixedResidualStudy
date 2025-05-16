@@ -21,7 +21,7 @@ df.err <- pvals %>% dplyr::filter(., version == "h0" &
                              test == "Kolmogorov- Smirnov" ) & 
                             method != "Unconditional ecdf, Not Rotated" & 
                             method != "Unconditional ecdf, Rotated" & 
-                            method != "Conditional ecdf, Not Rotated" &
+                            method != "Conditional ecdf, Rotated" &
                             method != "Process ecdf" & method != "Process osa")  %>%
   group_by(., do.true, test, method, type, model, misp.type) %>%
   select(., "pvalue") %>%
@@ -37,7 +37,7 @@ df.pow <- pvals %>% dplyr::filter(., version != "h0"  &
                              test == "Kolmogorov- Smirnov" ) & 
                             method != "Unconditional ecdf, Not Rotated" & 
                             method != "Unconditional ecdf, Rotated" & 
-                            method != "Conditional ecdf, Not Rotated" &
+                            method != "Conditional ecdf, Rotated" &
                             method != "Process ecdf" & method != "Process osa")  %>%
 
   group_by(., do.true, test, method, type, model, misp.type) %>%
@@ -83,7 +83,7 @@ df.err <- pvals %>% dplyr::filter(., !(method == "Process ecdf" &
                              test == "Phylogenetic Autocorrelation") &
                              method != "Unconditional ecdf, Not Rotated" & 
                              method != "Unconditional ecdf, Rotated" & 
-                             method != "Conditional ecdf, Not Rotated" &
+                             method != "Conditional ecdf, Rotated" &
                              method != "Process ecdf" & 
                              method != "Process osa")  %>%
   group_by(., do.true, test, method, type, model, misp.type) %>%
