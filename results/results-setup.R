@@ -722,12 +722,12 @@ tbl.err.pow <- function(df, caption = NULL){
 }
 #
 # ### Type I error and Power
-results.simpleGLMM.lmm <- readRDS(paste0(path, '/simpleGLMM_missunifcov_LMM_obs_sample_sizes.RDS'))
-results.simpleGLMM.lmm$pvals$type = "LMM"
-results.simpleGLMM.lmm$mles$type = "LMM"
-results.simpleGLMM.glmm <- readRDS(paste0(path, '/simpleGLMM_mispre_GLMM_obs_sample_sizes.RDS'))
-results.simpleGLMM.glmm$pvals$type = "GLMM"
-results.simpleGLMM.glmm$mles$type = "GLMM"
+# results.simpleGLMM.lmm <- readRDS(paste0(path, '/simpleGLMM_missunifcov_LMM_obs_sample_sizes.RDS'))
+# results.simpleGLMM.lmm$pvals$type = "LMM"
+# results.simpleGLMM.lmm$mles$type = "LMM"
+# results.simpleGLMM.glmm <- readRDS(paste0(path, '/simpleGLMM_mispre_GLMM_obs_sample_sizes.RDS'))
+# results.simpleGLMM.glmm$pvals$type = "GLMM"
+# results.simpleGLMM.glmm$mles$type = "GLMM"
 results.randomwalk.lmm <- readRDS(paste0(path, '/randomwalk_hsk_LMM_sample_sizes.RDS'))
 results.randomwalk.lmm$pvals$type <- "LMM"
 results.randomwalk.lmm$mles$type <- "LMM"

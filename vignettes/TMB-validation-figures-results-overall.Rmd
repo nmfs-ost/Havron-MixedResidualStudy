@@ -152,3 +152,9 @@ df.corr %>% dplyr::filter(., type == "GLMM"  ) %>%
   plot.err.pow(., misp.filter = c("Correct",  "Misp. RE Model"), test.filter = 
                  c("Kolmogorov- Smirnov", "Autocorrelation") )
 ```
+
+
+## Power by Sample summarize
+```{r, ss-rw-mispre-glmm, echo = FALSE, message - FALSE, warning = FALSE, fig.height = 6, caption = "Power by Sample Size for the GLMM randomwalk model with mis-specified covariance structure}
+results.randomwalk.glmm$pval %>% plot_ss_pow_by_dim()
+```
