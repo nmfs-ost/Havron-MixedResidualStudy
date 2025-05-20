@@ -108,7 +108,7 @@ ggplot(df.err, aes(y = method, x = pvalue)) +
  
 
 ## Mis-specified Observation Model
-```{r, misp-obs-model-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 6, caption = "LMM: Residual calculation methods compared for Type I Error and Power for Mis-specified LMM Data Models under the Kolmogorov-Smirnov normality Test."}
+```{r, misp-obs-model-lmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 6, caption = "LMM: Residual calculation methods compared for Type I Error and Power for mis-specified LMM Data Models under the Kolmogorov-Smirnov normality test."}
 df.corr <- dplyr::filter(pvals,( model == "spatial" | model == "randomwalk" | model == 'phylo')&
                              method != "Unconditional ecdf, Not Rotated" & 
                              method != "Unconditional ecdf, Rotated" & 
@@ -119,7 +119,7 @@ df.corr %>% dplyr::filter(., type == "LMM" ) %>%
   plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
 ```
 
-```{r, fig.height = 6, misp-obs-model-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for Mis-specified GLMM Data Models under the Kolmogorov-Smirnov normality Test."}
+```{r, fig.height = 6, misp-obs-model-glmm, echo = FALSE, caption = "GLMM: Residual calculation methods compared for Type I Error and Power for mis-specified GLMM Data Models under the Kolmogorov-Smirnov normality test."}
 df.corr %>% dplyr::filter(., type == "GLMM") %>% 
   plot.err.pow(., misp.filter = c("Correct",  "Misp. Data Model"), test.filter = c("Kolmogorov- Smirnov") )
 ```

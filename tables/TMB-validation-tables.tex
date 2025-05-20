@@ -1,0 +1,815 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{bm}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\section{Methods}\label{methods}
+
+\input{"tables/sim-design.tex"}
+
+\input{"tables/linmod-specs.tex"}
+
+\input{"tables/randomwalk-specs.tex"}
+
+\input{"tables/spatial-specs.tex"}
+
+\input{"tables/phylo-specs.tex"}
+
+\clearpage
+\newpage
+
+\section{Results}\label{results}
+
+\subsection{LM}\label{lm}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:linmod-err-results-005}Linear Model. Type I error rates at the 0.05 significance level evaluated for each method for theoretical and estimated residuals.}
+\centering
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{7em}>{\raggedright\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}r>{}p{7em}>{}p{6em}}
+\toprule
+test & residual type & Pearson & one-step cdf & one-step Generic & one-step Gaussian & full Gaussian\\
+
+ & theoretical & 0.048 & 0.048 & 0.048 & 0.048 & 0.048\\
+
+\multirow{-2}{7em}{\raggedright\arraybackslash Kolmogorov- Smirnov} & estimated & 0.000 & 0.000 & 0.000 & 0.000 & 0.000\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:linmod-pow-results-005}Linear Model. Power at the 0.95 significance level evaluated for each method for theoretical and estimated residuals.}
+\centering
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{7em}>{\raggedright\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}r>{}p{7em}>{}p{6em}}
+\toprule
+test & residual type & Pearson & one-step cdf & one-step Generic & one-step Gaussian & full Gaussian\\
+
+ & theoretical & 1.000 & 1.000 & 1.000 & 1.000 & 1.000\\
+
+\multirow{-2}{7em}{\raggedright\arraybackslash Kolmogorov- Smirnov} & estimated & 0.963 & 0.963 & 0.963 & 0.963 & 0.963\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Temporal Correlation -
+LMM}\label{temporal-correlation---lmm}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:randomwalk-lmm-theor}LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Heterosck. & C: Missing Drift\\
+\midrule
+Anderson-Darling & Pearson & 0.061 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.046 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step Generic & 0.046 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step Gaussian & 0.046 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & full Gaussian & 0.046 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Anderson-Darling & MCMC & 0.048 & 1.000 & 1.000 & 0.050\\
+Anderson-Darling & Process osa & 1.000 & NA & 1.000 & 1.000\\
+Anderson-Darling & Process ecdf & 0.306 & NA & 0.320 & 0.329\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.335 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.993 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.352 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Pearson & 0.056 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & one-step cdf & 0.041 & 1.000 & 0.889 & 1.000\\
+Kolmogorov- Smirnov & one-step Generic & 0.042 & 1.000 & 0.867 & 1.000\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.042 & 1.000 & 0.867 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.042 & 1.000 & 0.867 & 1.000\\
+Kolmogorov- Smirnov & MCMC & 0.041 & 1.000 & 0.814 & 0.047\\
+Kolmogorov- Smirnov & Process osa & 1.000 & NA & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Process ecdf & 0.047 & NA & 0.043 & 0.048\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.060 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.987 & 1.000 & 0.960 & 1.000\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.065 & 1.000 & 1.000 & 1.000\\
+Autocorrelation & Pearson & 0.047 & 1.000 & 0.000 & 1.000\\
+Autocorrelation & one-step cdf & 0.051 & 1.000 & 0.000 & 0.100\\
+Autocorrelation & one-step Generic & 0.052 & 1.000 & 0.000 & 0.104\\
+\addlinespace
+Autocorrelation & one-step Gaussian & 0.052 & 1.000 & 0.000 & 0.100\\
+Autocorrelation & full Gaussian & 0.052 & 1.000 & 0.000 & 0.100\\
+Autocorrelation & MCMC & 0.048 & 1.000 & 0.000 & 0.069\\
+Autocorrelation & Process osa & 0.069 & NA & 0.000 & 0.069\\
+Autocorrelation & Process ecdf & 0.048 & NA & 0.050 & 0.050\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Rotated & 0.043 & 0.982 & 0.000 & 0.132\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 1.000 & 0.984 & 0.923 & 1.000\\
+Autocorrelation & Conditional ecdf, Rotated & 0.053 & 0.983 & 0.110 & 0.985\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:randomwalk-lmm-est}LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Heterosck. & C: Missing Drift\\
+\midrule
+Anderson-Darling & Pearson & 0.002 & 1.000 & 0.010 & 0.000\\
+Anderson-Darling & one-step cdf & 0.030 & 1.000 & 0.016 & 1.000\\
+Anderson-Darling & one-step Generic & 0.024 & 1.000 & 0.016 & 0.995\\
+Anderson-Darling & one-step Gaussian & 0.022 & 1.000 & 0.014 & 0.996\\
+Anderson-Darling & full Gaussian & 0.027 & 1.000 & 0.022 & 0.997\\
+\addlinespace
+Anderson-Darling & MCMC & 0.053 & 1.000 & 0.117 & 0.051\\
+Anderson-Darling & Process osa & 1.000 & NA & 1.000 & 0.999\\
+Anderson-Darling & Process ecdf & 0.015 & NA & 0.285 & 0.996\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.315 & 1.000 & 0.912 & 0.999\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.315 & 1.000 & 0.453 & 1.000\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.015 & 1.000 & 0.780 & 0.000\\
+Kolmogorov- Smirnov & Pearson & 0.129 & 1.000 & 0.668 & 1.000\\
+Kolmogorov- Smirnov & one-step cdf & 0.000 & 1.000 & 0.362 & 1.000\\
+Kolmogorov- Smirnov & one-step Generic & 0.000 & 1.000 & 0.365 & 1.000\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.000 & 1.000 & 0.365 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.000 & 1.000 & 0.370 & 1.000\\
+Kolmogorov- Smirnov & MCMC & 0.054 & 1.000 & 0.467 & 0.051\\
+Kolmogorov- Smirnov & Process osa & 1.000 & NA & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Process ecdf & 0.357 & NA & 0.998 & 1.000\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.001 & 1.000 & 0.141 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.996 & 1.000 & 0.964 & 1.000\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.077 & 1.000 & 0.183 & 1.000\\
+Lilliefors & Pearson & 0.051 & 0.130 & 0.992 & 0.022\\
+Lilliefors & one-step cdf & 0.048 & 0.130 & 0.980 & 1.000\\
+Lilliefors & one-step Generic & 0.052 & 0.130 & 0.980 & 0.036\\
+\addlinespace
+Lilliefors & one-step Gaussian & 0.053 & 0.130 & 0.980 & 0.036\\
+Lilliefors & full Gaussian & 0.052 & 0.130 & 0.982 & 0.034\\
+Lilliefors & MCMC & 0.050 & 0.130 & 0.870 & 0.054\\
+Lilliefors & Process osa & 0.057 & NA & 0.219 & 0.035\\
+Lilliefors & Process ecdf & 0.074 & NA & 0.626 & 0.099\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Rotated & 0.169 & 0.204 & 0.971 & 0.140\\
+Lilliefors & Unconditional ecdf, Not Rotated & 0.528 & 0.278 & 0.836 & 1.000\\
+Lilliefors & Conditional ecdf, Rotated & 0.047 & 0.210 & 0.980 & 0.083\\
+Autocorrelation & Pearson & 0.001 & 1.000 & 0.000 & 0.000\\
+Autocorrelation & one-step cdf & 0.003 & 1.000 & 0.000 & 0.001\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.003 & 1.000 & 0.000 & 0.000\\
+Autocorrelation & one-step Gaussian & 0.003 & 1.000 & 0.000 & 0.000\\
+Autocorrelation & full Gaussian & 0.003 & 1.000 & 0.000 & 0.000\\
+Autocorrelation & MCMC & 0.027 & 1.000 & 0.104 & 0.059\\
+Autocorrelation & Process osa & 0.064 & NA & 0.217 & 0.000\\
+\addlinespace
+Autocorrelation & Process ecdf & 0.974 & NA & 0.897 & 0.000\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.006 & 1.000 & 0.177 & 0.000\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 1.000 & 1.000 & 0.905 & 1.000\\
+Autocorrelation & Conditional ecdf, Rotated & 0.001 & 1.000 & 0.043 & 0.045\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Temporal Correlation -
+GLMM}\label{temporal-correlation---glmm}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:randomwalk-results-glmm-theor}GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Gamma - Normal & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.976 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.097 & 1.000 & 0.961 & 1.000\\
+Anderson-Darling & one-step Generic & 0.041 & 1.000 & 0.959 & 1.000\\
+Anderson-Darling & MCMC & 0.048 & 1.000 & 0.684 & 0.063\\
+Anderson-Darling & Process osa & 0.091 & NA & 0.919 & 1.000\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.329 & NA & 0.318 & 0.335\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.819 & 1.000 & 0.997 & 0.741\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.994 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.318 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Pearson & 0.875 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.077 & 1.000 & 0.874 & 1.000\\
+Kolmogorov- Smirnov & one-step Generic & 0.033 & 1.000 & 0.880 & 1.000\\
+Kolmogorov- Smirnov & MCMC & 0.056 & 1.000 & 0.581 & 0.055\\
+Kolmogorov- Smirnov & Process osa & 0.080 & NA & 0.793 & 1.000\\
+Kolmogorov- Smirnov & Process ecdf & 0.049 & NA & 0.054 & 0.044\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.724 & 1.000 & 0.852 & 0.553\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.990 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.071 & 1.000 & 1.000 & 1.000\\
+Autocorrelation & Pearson & 0.217 & 1.000 & 1.000 & 1.000\\
+Autocorrelation & one-step cdf & 0.054 & 0.995 & 0.331 & 0.000\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.053 & 0.993 & 0.092 & 0.000\\
+Autocorrelation & MCMC & 0.048 & 1.000 & 0.027 & 0.120\\
+Autocorrelation & Process osa & 0.051 & NA & 0.237 & 0.000\\
+Autocorrelation & Process ecdf & 0.051 & NA & 0.055 & 0.052\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.486 & 0.920 & 0.091 & 0.100\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Not Rotated & 1.000 & 0.976 & 0.992 & 1.000\\
+Autocorrelation & Conditional ecdf, Rotated & 0.045 & 0.933 & 0.585 & 0.903\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:randomwalk-results-glmm-est}GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Gamma - Normal & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.619 & 0.911 & 0.001 & 1.000\\
+Anderson-Darling & one-step cdf & 0.115 & 0.830 & 0.289 & 0.025\\
+Anderson-Darling & one-step Generic & 0.039 & 0.886 & 0.020 & 0.020\\
+Anderson-Darling & MCMC & 0.043 & 0.841 & 0.057 & 0.051\\
+Anderson-Darling & Process osa & 0.069 & NA & 0.155 & 0.954\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.111 & NA & 0.813 & 0.162\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.148 & 0.890 & 0.974 & 0.353\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.307 & 0.869 & 0.457 & 0.366\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.001 & 0.909 & 0.238 & 0.073\\
+Kolmogorov- Smirnov & Pearson & 0.878 & 0.986 & 0.982 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.115 & 0.958 & 0.797 & 0.002\\
+Kolmogorov- Smirnov & one-step Generic & 0.000 & 0.965 & 0.795 & 0.002\\
+Kolmogorov- Smirnov & MCMC & 0.037 & 0.958 & 0.086 & 0.047\\
+Kolmogorov- Smirnov & Process osa & 0.088 & NA & 0.386 & 1.000\\
+Kolmogorov- Smirnov & Process ecdf & 0.006 & NA & 0.730 & 0.829\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.658 & 0.945 & 0.608 & 0.316\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.995 & 0.954 & 0.999 & 0.990\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.878 & 0.950 & 0.977 & 0.022\\
+Lilliefors & Pearson & 0.993 & 0.983 & 0.966 & 1.000\\
+Lilliefors & one-step cdf & 0.184 & 0.779 & 0.956 & 0.126\\
+\addlinespace
+Lilliefors & one-step Generic & 0.049 & 0.779 & 0.961 & 0.123\\
+Lilliefors & MCMC & 0.036 & 0.779 & 0.162 & 0.048\\
+Lilliefors & Process osa & 0.055 & NA & 0.675 & 0.090\\
+Lilliefors & Process ecdf & 0.108 & NA & 0.983 & 0.396\\
+Lilliefors & Unconditional ecdf, Rotated & 0.596 & 0.791 & 0.983 & 0.148\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Not Rotated & 0.651 & 0.865 & 0.957 & 0.529\\
+Lilliefors & Conditional ecdf, Rotated & 0.053 & 0.800 & 0.697 & 0.115\\
+Autocorrelation & Pearson & 0.005 & 1.000 & 0.021 & 0.034\\
+Autocorrelation & one-step cdf & 0.001 & 1.000 & 0.107 & 0.004\\
+Autocorrelation & one-step Generic & 0.000 & 1.000 & 0.122 & 0.005\\
+\addlinespace
+Autocorrelation & MCMC & 0.045 & 1.000 & 0.087 & 0.033\\
+Autocorrelation & Process osa & 0.008 & NA & 0.208 & 0.073\\
+Autocorrelation & Process ecdf & 0.345 & NA & 0.530 & 0.991\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.400 & 0.882 & 0.180 & 0.041\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 1.000 & 0.999 & 1.000 & 0.997\\
+\addlinespace
+Autocorrelation & Conditional ecdf, Rotated & 0.000 & 0.880 & 0.035 & 0.000\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Spatial}\label{spatial}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:spatial-results-lmm-theor}LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.044 & 0.999 & 1.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.009 & 0.999 & 1.000 & 0.883\\
+Anderson-Darling & one-step Generic & 0.011 & 0.999 & 1.000 & 0.778\\
+Anderson-Darling & one-step Gaussian & 0.011 & 0.999 & 1.000 & 0.889\\
+Anderson-Darling & full Gaussian & 0.011 & 0.999 & 1.000 & 0.889\\
+\addlinespace
+Anderson-Darling & MCMC & 0.050 & 0.999 & 1.000 & 0.761\\
+Anderson-Darling & Process osa & 0.890 & NA & 1.000 & 0.982\\
+Anderson-Darling & Process ecdf & 0.136 & NA & 0.149 & 0.124\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.225 & 1.000 & 1.000 & 0.974\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.762 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.338 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Pearson & 0.046 & 0.992 & 0.977 & 1.000\\
+Kolmogorov- Smirnov & one-step cdf & 0.012 & 0.992 & 0.978 & 0.536\\
+Kolmogorov- Smirnov & one-step Generic & 0.012 & 0.992 & 0.973 & 0.538\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.012 & 0.992 & 0.973 & 0.538\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.012 & 0.992 & 0.973 & 0.538\\
+Kolmogorov- Smirnov & MCMC & 0.038 & 0.992 & 0.948 & 0.487\\
+Kolmogorov- Smirnov & Process osa & 0.455 & NA & 0.998 & 0.830\\
+Kolmogorov- Smirnov & Process ecdf & 0.055 & NA & 0.054 & 0.044\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.016 & 0.996 & 0.992 & 0.649\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.687 & 0.992 & 0.901 & 1.000\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.050 & 0.998 & 0.998 & 1.000\\
+Autocorrelation & Pearson & 0.059 & 0.998 & 0.148 & 0.958\\
+Autocorrelation & one-step cdf & 0.050 & 0.998 & 0.027 & 0.175\\
+Autocorrelation & one-step Generic & 0.050 & 0.998 & 0.012 & 0.334\\
+\addlinespace
+Autocorrelation & one-step Gaussian & 0.050 & 0.998 & 0.011 & 0.314\\
+Autocorrelation & full Gaussian & 0.050 & 0.998 & 0.011 & 0.314\\
+Autocorrelation & MCMC & 0.043 & 0.998 & 0.001 & 0.147\\
+Autocorrelation & Process osa & 0.069 & NA & 0.106 & 0.255\\
+Autocorrelation & Process ecdf & 0.081 & NA & 0.097 & 0.101\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Rotated & 0.045 & 0.996 & 0.013 & 0.130\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.999 & 0.998 & 0.923 & 0.982\\
+Autocorrelation & Conditional ecdf, Rotated & 0.062 & 0.995 & 0.055 & 0.363\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:spatial-results-lmm-est}LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.002 & 0.033 & 0.054 & 0.197\\
+Anderson-Darling & one-step cdf & 0.038 & 0.021 & 0.055 & 0.181\\
+Anderson-Darling & one-step Generic & 0.043 & 0.037 & NA & NA\\
+Anderson-Darling & one-step Gaussian & 0.041 & 0.033 & 0.055 & 0.189\\
+Anderson-Darling & full Gaussian & 0.042 & 0.040 & 0.055 & 0.188\\
+\addlinespace
+Anderson-Darling & MCMC & 0.053 & 0.035 & 0.062 & 0.222\\
+Anderson-Darling & Process osa & 0.477 & NA & 0.767 & 0.774\\
+Anderson-Darling & Process ecdf & 0.006 & NA & 0.000 & 0.078\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.304 & 0.256 & 0.999 & 0.976\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.111 & 0.137 & 0.992 & 0.965\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.025 & 0.253 & 0.995 & 0.880\\
+Kolmogorov- Smirnov & Pearson & 0.139 & 0.004 & 0.985 & 0.935\\
+Kolmogorov- Smirnov & one-step cdf & 0.019 & 0.004 & 0.982 & 0.871\\
+Kolmogorov- Smirnov & one-step Generic & 0.013 & 0.004 & NA & NA\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.013 & 0.004 & 0.982 & 0.868\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.013 & 0.004 & 0.981 & 0.896\\
+Kolmogorov- Smirnov & MCMC & 0.039 & 0.004 & 0.983 & 0.846\\
+Kolmogorov- Smirnov & Process osa & 0.469 & NA & 0.671 & 0.708\\
+Kolmogorov- Smirnov & Process ecdf & 0.575 & NA & 1.000 & 0.954\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.026 & 0.002 & 0.931 & 0.851\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.329 & 0.004 & 0.983 & 0.939\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.090 & 0.007 & 0.925 & 0.925\\
+Lilliefors & Pearson & 0.054 & 0.124 & 0.999 & 0.916\\
+Lilliefors & one-step cdf & 0.054 & 0.124 & 0.999 & 0.943\\
+Lilliefors & one-step Generic & 0.048 & 0.122 & NA & NA\\
+\addlinespace
+Lilliefors & one-step Gaussian & 0.048 & 0.124 & 0.999 & 0.947\\
+Lilliefors & full Gaussian & 0.048 & 0.124 & 0.998 & 0.954\\
+Lilliefors & MCMC & 0.067 & 0.124 & 0.999 & 0.860\\
+Lilliefors & Process osa & 0.055 & NA & 0.527 & 0.586\\
+Lilliefors & Process ecdf & 0.117 & NA & 0.072 & 0.187\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Rotated & 0.145 & 0.191 & 1.000 & 0.971\\
+Lilliefors & Unconditional ecdf, Not Rotated & 0.153 & 0.168 & 1.000 & 0.982\\
+Lilliefors & Conditional ecdf, Rotated & 0.076 & 0.184 & 1.000 & 0.925\\
+Autocorrelation & Pearson & 0.004 & 0.998 & 0.753 & 0.854\\
+Autocorrelation & one-step cdf & 0.045 & 0.998 & 0.737 & 0.859\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.046 & 0.998 & NA & NA\\
+Autocorrelation & one-step Gaussian & 0.046 & 0.998 & 0.738 & 0.861\\
+Autocorrelation & full Gaussian & 0.046 & 0.998 & 0.758 & 0.880\\
+Autocorrelation & MCMC & 0.038 & 0.998 & 0.753 & 0.864\\
+Autocorrelation & Process osa & 0.048 & NA & 0.137 & 0.120\\
+\addlinespace
+Autocorrelation & Process ecdf & 0.249 & NA & 0.050 & 0.077\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.039 & 0.998 & 0.826 & 0.851\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.998 & 0.998 & 0.864 & 0.982\\
+Autocorrelation & Conditional ecdf, Rotated & 0.004 & 0.998 & 0.826 & 0.849\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:spatial-results-glmm-theor}GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.099 & 0.995 & 1.000 & 0.099\\
+Anderson-Darling & one-step cdf & 0.040 & 0.991 & 1.000 & 0.140\\
+Anderson-Darling & one-step Generic & 0.037 & 0.991 & 1.000 & 0.130\\
+Anderson-Darling & MCMC & 0.060 & 0.991 & 1.000 & 0.082\\
+Anderson-Darling & Process osa & 0.880 & NA & 1.000 & 0.924\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.161 & NA & 0.139 & 1.000\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.197 & 1.000 & 0.966 & 0.392\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.541 & 0.998 & 1.000 & 0.550\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.325 & 1.000 & 1.000 & 0.344\\
+Kolmogorov- Smirnov & Pearson & 0.085 & 0.979 & 1.000 & 0.085\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.040 & 0.916 & 1.000 & 0.084\\
+Kolmogorov- Smirnov & one-step Generic & 0.037 & 0.916 & 1.000 & 0.083\\
+Kolmogorov- Smirnov & MCMC & 0.044 & 0.912 & 0.986 & 0.061\\
+Kolmogorov- Smirnov & Process osa & 0.447 & NA & 0.928 & 0.482\\
+Kolmogorov- Smirnov & Process ecdf & 0.060 & NA & 0.061 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.062 & 0.944 & 0.812 & 0.128\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.469 & 0.911 & 1.000 & 0.467\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.064 & 0.938 & 1.000 & 0.074\\
+Autocorrelation & Pearson & 0.064 & 0.988 & 0.094 & 0.064\\
+Autocorrelation & one-step cdf & 0.055 & 0.990 & 0.000 & 0.620\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.055 & 0.989 & 0.001 & 0.618\\
+Autocorrelation & MCMC & 0.071 & 0.988 & 0.000 & 0.265\\
+Autocorrelation & Process osa & 0.070 & NA & 0.045 & 0.059\\
+Autocorrelation & Process ecdf & 0.077 & NA & 0.085 & 0.050\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.020 & 0.975 & 0.003 & 0.518\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.986 & 0.984 & 0.588 & 0.988\\
+Autocorrelation & Conditional ecdf, Rotated & 0.053 & 0.978 & 0.047 & 0.064\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:spatial-results-glmm-est}GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.005 & 0.829 & 0.007 & 0.003\\
+Anderson-Darling & one-step cdf & 0.027 & 0.751 & 0.221 & 0.049\\
+Anderson-Darling & one-step Generic & 0.036 & 0.759 & 0.129 & 0.038\\
+Anderson-Darling & MCMC & 0.049 & 0.753 & 0.096 & 0.045\\
+Anderson-Darling & Process osa & 0.488 & NA & 0.520 & 0.505\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.005 & NA & 0.047 & 0.006\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.237 & 0.996 & 0.041 & 0.301\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.094 & 0.981 & 0.145 & 0.079\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.047 & 0.990 & 0.008 & 0.047\\
+Kolmogorov- Smirnov & Pearson & 0.253 & 0.984 & 1.000 & 0.555\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.006 & 0.820 & 0.931 & 0.001\\
+Kolmogorov- Smirnov & one-step Generic & 0.007 & 0.820 & 0.745 & 0.001\\
+Kolmogorov- Smirnov & MCMC & 0.038 & 0.820 & 0.089 & 0.022\\
+Kolmogorov- Smirnov & Process osa & 0.471 & NA & 0.866 & 0.476\\
+Kolmogorov- Smirnov & Process ecdf & 0.658 & NA & 0.442 & 0.997\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.018 & 0.872 & 0.131 & 0.002\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.063 & 0.814 & 0.807 & 0.010\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.086 & 0.880 & 0.999 & 0.366\\
+Lilliefors & Pearson & 0.062 & 0.972 & 1.000 & 0.129\\
+Lilliefors & one-step cdf & 0.047 & 0.309 & 0.996 & 0.044\\
+\addlinespace
+Lilliefors & one-step Generic & 0.047 & 0.270 & 0.994 & 0.039\\
+Lilliefors & MCMC & 0.046 & 0.318 & 0.074 & 0.042\\
+Lilliefors & Process osa & 0.054 & NA & 0.738 & 0.044\\
+Lilliefors & Process ecdf & 0.217 & NA & 0.941 & 0.793\\
+Lilliefors & Unconditional ecdf, Rotated & 0.124 & 0.822 & 0.746 & 0.147\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Not Rotated & 0.096 & 0.694 & 0.998 & 0.081\\
+Lilliefors & Conditional ecdf, Rotated & 0.172 & 0.840 & 1.000 & 0.267\\
+Autocorrelation & Pearson & 0.001 & 0.988 & 0.001 & 0.348\\
+Autocorrelation & one-step cdf & 0.079 & 0.990 & 0.009 & 0.829\\
+Autocorrelation & one-step Generic & 0.079 & 0.989 & 0.008 & 0.824\\
+\addlinespace
+Autocorrelation & MCMC & 0.062 & 0.989 & 0.024 & 0.298\\
+Autocorrelation & Process osa & 0.063 & NA & 0.032 & 0.050\\
+Autocorrelation & Process ecdf & 0.480 & NA & 0.046 & 0.060\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.050 & 0.984 & 0.081 & 0.744\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.990 & 0.990 & 0.234 & 0.990\\
+\addlinespace
+Autocorrelation & Conditional ecdf, Rotated & 0.001 & 0.986 & 0.003 & 0.317\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Phylogenetic}\label{phylogenetic}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:phylo-results-lmm-theor}LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.055 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.052 & 1.000 & 0.980 & 0.989\\
+Anderson-Darling & one-step Generic & 0.047 & 1.000 & 0.924 & 0.937\\
+Anderson-Darling & one-step Gaussian & 0.047 & 1.000 & 0.986 & 0.994\\
+Anderson-Darling & full Gaussian & 0.047 & 1.000 & 0.986 & 0.994\\
+\addlinespace
+Anderson-Darling & MCMC & 0.042 & 1.000 & 0.916 & 0.905\\
+Anderson-Darling & Process osa & 0.040 & NA & 0.957 & 0.964\\
+Anderson-Darling & Process ecdf & 0.333 & NA & 0.346 & 0.343\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.335 & 1.000 & 0.997 & 0.999\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.759 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.327 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Pearson & 0.047 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & one-step cdf & 0.043 & 1.000 & 0.738 & 0.750\\
+Kolmogorov- Smirnov & one-step Generic & 0.042 & 1.000 & 0.739 & 0.752\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.042 & 1.000 & 0.740 & 0.752\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.042 & 1.000 & 0.740 & 0.752\\
+Kolmogorov- Smirnov & MCMC & 0.042 & 1.000 & 0.758 & 0.737\\
+Kolmogorov- Smirnov & Process osa & 0.041 & NA & 0.708 & 0.712\\
+Kolmogorov- Smirnov & Process ecdf & 0.062 & NA & 0.051 & 0.053\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.052 & 1.000 & 0.835 & 0.840\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.679 & 1.000 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.058 & 1.000 & 1.000 & 1.000\\
+Autocorrelation & Pearson & 0.045 & 0.999 & 0.850 & 0.872\\
+Autocorrelation & one-step cdf & 0.041 & 0.999 & 0.622 & 0.621\\
+Autocorrelation & one-step Generic & 0.042 & 0.999 & 0.321 & 0.326\\
+\addlinespace
+Autocorrelation & one-step Gaussian & 0.042 & 0.999 & 0.434 & 0.442\\
+Autocorrelation & full Gaussian & 0.042 & 0.999 & 0.434 & 0.442\\
+Autocorrelation & MCMC & 0.051 & 0.999 & 0.337 & 0.329\\
+Autocorrelation & Process osa & 0.050 & NA & 0.457 & 0.450\\
+Autocorrelation & Process ecdf & 0.048 & NA & 0.052 & 0.052\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Rotated & 0.045 & 0.992 & 0.093 & 0.087\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.999 & 0.997 & 0.979 & 0.983\\
+Autocorrelation & Conditional ecdf, Rotated & 0.049 & 0.996 & 0.408 & 0.400\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:phylo-results-lmm-est}LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.000 & 0.034 & 0.221 & 0.201\\
+Anderson-Darling & one-step cdf & 0.068 & 0.038 & 0.610 & 0.610\\
+Anderson-Darling & one-step Generic & 0.037 & 0.034 & 0.016 & 0.006\\
+Anderson-Darling & one-step Gaussian & 0.029 & 0.029 & 0.447 & 0.430\\
+Anderson-Darling & full Gaussian & 0.028 & 0.028 & 0.451 & 0.436\\
+\addlinespace
+Anderson-Darling & MCMC & 0.038 & 0.038 & 0.216 & 0.215\\
+Anderson-Darling & Process osa & 0.044 & NA & 0.237 & 0.231\\
+Anderson-Darling & Process ecdf & 0.051 & NA & 0.582 & 0.624\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.290 & 0.293 & 0.999 & 1.000\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.261 & 0.165 & 0.967 & 0.963\\
+\addlinespace
+Anderson-Darling & Conditional ecdf, Rotated & 0.004 & 0.293 & 0.538 & 0.504\\
+Kolmogorov- Smirnov & Pearson & 0.638 & 0.005 & 0.991 & 0.993\\
+Kolmogorov- Smirnov & one-step cdf & 0.046 & 0.005 & 0.979 & 0.972\\
+Kolmogorov- Smirnov & one-step Generic & 0.013 & 0.005 & 0.987 & 0.981\\
+Kolmogorov- Smirnov & one-step Gaussian & 0.013 & 0.005 & 0.987 & 0.981\\
+\addlinespace
+Kolmogorov- Smirnov & full Gaussian & 0.013 & 0.005 & 0.986 & 0.980\\
+Kolmogorov- Smirnov & MCMC & 0.043 & 0.005 & 0.446 & 0.416\\
+Kolmogorov- Smirnov & Process osa & 0.012 & NA & 0.528 & 0.553\\
+Kolmogorov- Smirnov & Process ecdf & 0.166 & NA & 0.995 & 0.996\\
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.014 & 0.007 & 0.973 & 0.969\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.536 & 0.004 & 0.996 & 0.995\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.538 & 0.006 & 0.989 & 0.986\\
+Lilliefors & Pearson & 0.049 & 0.122 & 0.995 & 0.994\\
+Lilliefors & one-step cdf & 0.075 & 0.122 & 0.987 & 0.987\\
+Lilliefors & one-step Generic & 0.042 & 0.122 & 0.993 & 0.991\\
+\addlinespace
+Lilliefors & one-step Gaussian & 0.042 & 0.122 & 0.997 & 0.995\\
+Lilliefors & full Gaussian & 0.042 & 0.122 & 0.997 & 0.995\\
+Lilliefors & MCMC & 0.044 & 0.122 & 0.524 & 0.474\\
+Lilliefors & Process osa & 0.042 & NA & 0.584 & 0.624\\
+Lilliefors & Process ecdf & 0.093 & NA & 0.733 & 0.759\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Rotated & 0.154 & 0.220 & 0.998 & 0.999\\
+Lilliefors & Unconditional ecdf, Not Rotated & 0.172 & 0.206 & 0.998 & 1.000\\
+Lilliefors & Conditional ecdf, Rotated & 0.059 & 0.230 & 0.595 & 0.577\\
+Autocorrelation & Pearson & 0.935 & 0.999 & 0.798 & 0.805\\
+Autocorrelation & one-step cdf & 0.019 & 0.999 & 0.391 & 0.387\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.021 & 0.999 & 0.473 & 0.478\\
+Autocorrelation & one-step Gaussian & 0.021 & 0.999 & 0.484 & 0.488\\
+Autocorrelation & full Gaussian & 0.021 & 0.999 & 0.484 & 0.485\\
+Autocorrelation & MCMC & 0.035 & 0.999 & 0.292 & 0.278\\
+Autocorrelation & Process osa & 0.036 & NA & 0.244 & 0.265\\
+\addlinespace
+Autocorrelation & Process ecdf & 0.161 & NA & 0.226 & 0.216\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.021 & 0.999 & 0.357 & 0.344\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 1.000 & 0.999 & 0.972 & 0.977\\
+Autocorrelation & Conditional ecdf, Rotated & 0.883 & 0.999 & 0.369 & 0.339\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:phylo-results-glmm-theor}GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 1.000 & 1.000 & 1.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.053 & 0.991 & 1.000 & 0.339\\
+Anderson-Darling & one-step Generic & 0.035 & 0.985 & 0.999 & 0.330\\
+Anderson-Darling & MCMC & 0.067 & 0.989 & 0.748 & 0.149\\
+Anderson-Darling & Process osa & 0.040 & NA & 0.989 & 0.087\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.334 & NA & 0.330 & 0.358\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.671 & 0.999 & 0.711 & 0.561\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.603 & 0.999 & 0.925 & 0.945\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.351 & 0.999 & 1.000 & 1.000\\
+Kolmogorov- Smirnov & Pearson & 1.000 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.049 & 0.849 & 0.992 & 0.339\\
+Kolmogorov- Smirnov & one-step Generic & 0.037 & 0.844 & 0.986 & 0.330\\
+Kolmogorov- Smirnov & MCMC & 0.055 & 0.848 & 0.545 & 0.158\\
+Kolmogorov- Smirnov & Process osa & 0.042 & NA & 0.848 & 0.088\\
+Kolmogorov- Smirnov & Process ecdf & 0.051 & NA & 0.048 & 0.055\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.588 & 0.972 & 0.644 & 0.489\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.549 & 0.843 & 0.844 & 0.925\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.161 & 0.975 & 1.000 & 0.992\\
+Autocorrelation & Pearson & 0.211 & 0.670 & 0.211 & 0.622\\
+Autocorrelation & one-step cdf & 0.063 & 0.895 & 0.436 & 0.208\\
+\addlinespace
+Autocorrelation & one-step Generic & 0.054 & 0.903 & 0.428 & 0.222\\
+Autocorrelation & MCMC & 0.044 & 0.904 & 0.315 & 0.054\\
+Autocorrelation & Process osa & 0.044 & NA & 0.236 & 0.046\\
+Autocorrelation & Process ecdf & 0.045 & NA & 0.052 & 0.047\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.070 & 0.460 & 0.090 & 0.071\\
+\addlinespace
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.874 & 0.880 & 0.891 & 0.205\\
+Autocorrelation & Conditional ecdf, Rotated & 0.042 & 0.460 & 0.060 & 0.188\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:phylo-results-glmm-est}GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).}
+\centering
+\begin{tabular}[t]{llrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Type I Error} & \multicolumn{3}{c}{Power} \\
+\cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-6}
+test & method & Correct & A: iid & B: Misp Data & C: Misp Cov\\
+\midrule
+Anderson-Darling & Pearson & 0.999 & 1.000 & 0.000 & 1.000\\
+Anderson-Darling & one-step cdf & 0.043 & 0.013 & 0.422 & 0.025\\
+Anderson-Darling & one-step Generic & 0.027 & 0.011 & 0.053 & 0.031\\
+Anderson-Darling & MCMC & 0.030 & 0.011 & 0.076 & 0.044\\
+Anderson-Darling & Process osa & 0.050 & NA & 0.041 & 0.075\\
+\addlinespace
+Anderson-Darling & Process ecdf & 0.007 & NA & 0.236 & 0.000\\
+Anderson-Darling & Unconditional ecdf, Rotated & 0.260 & 0.835 & 0.005 & 0.259\\
+Anderson-Darling & Unconditional ecdf, Not Rotated & 0.179 & 0.633 & 0.048 & 0.121\\
+Anderson-Darling & Conditional ecdf, Rotated & 0.045 & 0.811 & 0.008 & 0.181\\
+Kolmogorov- Smirnov & Pearson & 1.000 & 1.000 & 1.000 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & one-step cdf & 0.002 & 0.330 & 0.814 & 0.000\\
+Kolmogorov- Smirnov & one-step Generic & 0.005 & 0.524 & 0.006 & 0.008\\
+Kolmogorov- Smirnov & MCMC & 0.024 & 0.328 & 0.051 & 0.009\\
+Kolmogorov- Smirnov & Process osa & 0.029 & NA & 0.016 & 0.066\\
+Kolmogorov- Smirnov & Process ecdf & 0.980 & NA & 0.042 & 1.000\\
+\addlinespace
+Kolmogorov- Smirnov & Unconditional ecdf, Rotated & 0.397 & 0.528 & 0.863 & 0.097\\
+Kolmogorov- Smirnov & Unconditional ecdf, Not Rotated & 0.275 & 0.322 & 0.907 & 0.060\\
+Kolmogorov- Smirnov & Conditional ecdf, Rotated & 0.055 & 0.513 & 1.000 & 0.012\\
+Lilliefors & Pearson & 1.000 & 1.000 & 0.992 & 1.000\\
+Lilliefors & one-step cdf & 0.037 & 0.623 & 0.620 & 0.038\\
+\addlinespace
+Lilliefors & one-step Generic & 0.039 & 0.647 & 0.121 & 0.059\\
+Lilliefors & MCMC & 0.053 & 0.634 & 0.051 & 0.046\\
+Lilliefors & Process osa & 0.066 & NA & 0.103 & 0.076\\
+Lilliefors & Process ecdf & 0.661 & NA & 0.273 & 0.550\\
+Lilliefors & Unconditional ecdf, Rotated & 0.443 & 0.792 & 0.267 & 0.185\\
+\addlinespace
+Lilliefors & Unconditional ecdf, Not Rotated & 0.087 & 0.772 & 0.699 & 0.075\\
+Lilliefors & Conditional ecdf, Rotated & 0.132 & 0.776 & 0.989 & 0.112\\
+Autocorrelation & Pearson & 0.214 & 0.670 & 0.899 & 0.057\\
+Autocorrelation & one-step cdf & 0.047 & 0.890 & 0.498 & 0.029\\
+Autocorrelation & one-step Generic & 0.044 & 0.884 & 0.514 & 0.024\\
+\addlinespace
+Autocorrelation & MCMC & 0.038 & 0.884 & 0.077 & 0.040\\
+Autocorrelation & Process osa & 0.049 & NA & 0.344 & 0.076\\
+Autocorrelation & Process ecdf & 0.724 & NA & 0.318 & 0.663\\
+Autocorrelation & Unconditional ecdf, Rotated & 0.067 & 0.573 & 0.320 & 0.039\\
+Autocorrelation & Unconditional ecdf, Not Rotated & 0.885 & 0.889 & 0.833 & 0.253\\
+\addlinespace
+Autocorrelation & Conditional ecdf, Rotated & 0.100 & 0.566 & 0.832 & 0.042\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\newpage
+
+\input{"tables/tbl-1.tex"}
+
+\end{document}
