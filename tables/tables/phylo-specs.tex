@@ -163,7 +163,7 @@
   &&
      {$\!\begin{aligned}
     tree &\sim randomTree(n)\\
-    \Sigma &= OU(tree, a = 1, r = -2, \sigma^2_{u})\\
+    \Sigma &= EB(tree, a = 1, r = -2, \sigma^2_{u})\\
     u^{'} &\sim MVNORM(\Sigma)\\
     \eta^{'} &= exp(\beta_{0} + u^{'}) \\
     y^{'} &\sim NegBinom(\mu = \eta^{'}, size = \theta)\\
