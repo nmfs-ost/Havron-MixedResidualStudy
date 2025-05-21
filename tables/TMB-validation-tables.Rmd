@@ -40,7 +40,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Conditional ecdf, Not Rotated',  
+   'ecdf',  
    'Pearson'
 )
 
@@ -215,12 +215,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated', 
-   'Process ecdf',
-   'Process osa',
+   'ecdf',
    'Pearson'
 )
 
@@ -267,11 +262,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',  
-   'Process ecdf',
+   'ecdf',
    'Process osa',
    'Pearson'
 )
@@ -321,12 +312,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated', 
-   'Process ecdf',
-   'Process osa',
+   'ecdf',
    'Pearson'
 )
 
@@ -369,12 +355,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',   
-   'Process ecdf',
-   'Process osa',
+   'ecdf',
    'Pearson'
 )
 
@@ -420,12 +401,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated',  
-   'Process ecdf',
-   'Process osa',
+   'ecdf',
    'Pearson'
 )
 
@@ -468,12 +444,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'Unconditional ecdf, Rotated',
-   'Unconditional ecdf, Not Rotated',
-   'Conditional ecdf, Rotated',  
-   'Conditional ecdf, Not Rotated', 
-   'Process ecdf',
-   'Process osa',
+   'ecdf',
    'Pearson'
 )
 

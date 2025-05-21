@@ -18,7 +18,3 @@ output: html_document
 ![](figures/TMB-validation-tables_Page_12.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_13.jpg){width=100%}
 ![](figures/TMB-validation-tables_Page_14.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_15.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_16.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_17.jpg){width=100%}
-![](figures/TMB-validation-tables_Page_18.jpg){width=100%}
