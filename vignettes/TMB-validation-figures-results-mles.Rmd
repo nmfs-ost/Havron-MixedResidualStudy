@@ -27,7 +27,9 @@ mles$misp <- factor(mles$misp,
                       "ln-error",
                       "missre",
                       "mu0",
-                      "mispre"
+                      "mispre",
+                      "aniso",
+                      "identity-log"
                     ),
                     labels = c(
                       "Correct", 
@@ -38,9 +40,11 @@ mles$misp <- factor(mles$misp,
                       "Missing Covariate",
                       "Pois-ZIP",
                       "Lognormal Error",
-                      "Missing RE",
+                      "iid",
                       "Missing Drift",
-                      "Miss-specified RE"
+                      "Miss-specified RE",
+                      "Anisotrophic",
+                      "Identity-Log"
                     )
             )
 mles$par[mles$model == 'simpleGLMM' & mles$type == 'LMM' & mles$par == 'beta'] <- "beta_1"
@@ -55,7 +59,8 @@ mles$par <- factor(mles$par,
                      "ln_sig_y",  
                      "ln_sig_u", 
                      "ln_kappa",
-                     "ln_tau"
+                     "ln_tau",
+                     "theta"
                    ),
                    labels = c(
                      expression(mu),
@@ -66,7 +71,8 @@ mles$par <- factor(mles$par,
                      expression("ln("~sigma[y]~")"),  
                      expression("ln("~sigma[u]~")"), 
                      expression("ln("~kappa~")"), 
-                     expression("ln("~tau~")")
+                     expression("ln("~tau~")"),
+                     expression(theta)
                    ))
  
 ```
@@ -75,21 +81,6 @@ mles$par <- factor(mles$par,
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear model when the model is correctly specified across 1000 simulations."}
 
 mle.df <- dplyr::filter(mles, model == 'linmod')
-
-plot.mles(mle.df) 
-```
-
-## Mixed Model
-
-### LMM
-```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the linear mixed model with a uniform covariate when the model is correctly specified across 1000 simulations."}
-mle.df <- dplyr::filter(mles, model == 'simpleGLMM' & type == 'LMM')
-plot.mles(mle.df)
-```
-
-### GLMM
-```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the generalized linear mixed model with a negative binomial distribution when the model is correctly specified across 1000 simulations."}
-mle.df <- dplyr::filter(mles, model == 'simpleGLMM' & type == 'GLMM')
 
 plot.mles(mle.df) 
 ```
@@ -127,3 +118,19 @@ mle.df <- dplyr::filter(mles, model == 'spatial' & type == 'GLMM')
 
 plot.mles(mle.df)
 ```
+
+
+## Phylo
+### LMM
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the phylogenetic linear mixed model when the model is correctly specified across 1000 simulations."}
+mle.df <- dplyr::filter(mles, model == 'phylo' & type == 'LMM')
+
+plot.mles(mle.df) 
+```
+
+
+### GLMM
+```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the phylogenetic model when the model is correctly specified across 1000 simulations."}
+mle.df <- dplyr::filter(mles, model == 'phylo' & type == 'GLMM')
+
+plot.mles(mle.df)
