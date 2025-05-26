@@ -263,7 +263,8 @@ pvals$misp.type <- factor(pvals$misp,
                             "missunifcov",
                             "pois-zip",
                             "ln-error",
-                            "identity-log"
+                            "identity-log",
+                            "misscov"
                           ),
                           label = c(
                             "Correct",
@@ -273,6 +274,7 @@ pvals$misp.type <- factor(pvals$misp,
                             "Misp. Data Model",
                             "Misp. RE Model",
                             "Misp. RE Model",
+                            "Misp. Data Model",
                             "Misp. Data Model",
                             "Misp. Data Model",
                             "Misp. Data Model",
@@ -327,7 +329,7 @@ plot.mles <- function(df){
       geom_hline(aes(yintercept = 0), linetype = "dashed") +
       facet_grid(par~type, scales = 'free_y',
                  labeller = label_parsed) +
-      theme_bw()
+      theme_bw() + xlab("mis-specification")
   return(p)
 }
 
@@ -824,9 +826,40 @@ plot_ss_t1err_by_dim <- function(df){
 }
 
 plot_ss_pow_by_dim <- function(df){
+  df$method <- factor(df$method,
+                       level = c(
+                         'pears',
+                         'cdf',
+                         'gen',
+                         'osg',
+                         'fg',
+                         'mcmc',
+                         'process_osa',
+                         'process_ecdf',
+                         'uncond',
+                         'uncond_nrot',
+                         'cond',
+                         'cond_nrot'),
+                       label = c(
+                         'Pearson',
+                         'one-step cdf',
+                         'one-step Generic',
+                         'one-step Gaussian',
+                         'full Gaussian',
+                         'MCMC',
+                         'Process osa',
+                         'Process ecdf',
+                         "Unconditional ecdf, Rotated",
+                         "Unconditional ecdf, Not Rotated",
+                         "Conditional ecdf, Rotated",
+                         "ecdf"
+                       ))
 
   p <- df %>%
     filter(version == "h1") %>%
+    filter(method != "Pearson" & method != "Unconditional ecdf, Rotated" &
+             method != "Unconditional ecdf, Not Rotated" &
+             method != "Conditional ecdf, Rotated") %>%
     group_by(nobs, method, model, type) %>%
     summarise(power = sum(pvalue<=0.05)/sum(pvalue>=0)) %>%
     ggplot(aes(x = nobs, y = power, fill = method, color = method)) +
@@ -837,7 +870,7 @@ plot_ss_pow_by_dim <- function(df){
       facet_grid(model~type, labeller = label_wrap_gen(14)) +
       theme_bw() +
       theme(legend.position = "bottom") +
-      guides(fill=guide_legend(ncol=3))
+      guides(fill=guide_legend(ncol=3)) + facet_wrap(~method)
 
   print(p)
 }

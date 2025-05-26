@@ -156,5 +156,6 @@ df.corr %>% dplyr::filter(., type == "GLMM"  ) %>%
 
 ## Power by Sample summarize
 ```{r, ss-rw-mispre-glmm, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 6, caption = "Power by Sample Size for the GLMM randomwalk model with mis-specified covariance structure."}
+results.randomwalk.lmm$pval %>% plot_ss_pow_by_dim()
 results.randomwalk.glmm$pval %>% plot_ss_pow_by_dim()
 ```

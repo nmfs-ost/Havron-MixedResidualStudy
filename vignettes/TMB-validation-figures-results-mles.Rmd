@@ -29,7 +29,8 @@ mles$misp <- factor(mles$misp,
                       "mu0",
                       "mispre",
                       "aniso",
-                      "identity-log"
+                      "identity-log",
+                      "misscov"
                     ),
                     labels = c(
                       "Correct", 
@@ -44,36 +45,37 @@ mles$misp <- factor(mles$misp,
                       "Missing Drift",
                       "Miss-specified RE",
                       "Anisotrophic",
-                      "Identity-Log"
+                      "Identity-Log",
+                      "Missing Covariate"
                     )
             )
 mles$par[mles$model == 'simpleGLMM' & mles$type == 'LMM' & mles$par == 'beta'] <- "beta_1"
-
-mles$par <- factor(mles$par,
-                   levels = c(
-                     "mu",
-                     "beta", 
-                     "beta_1", 
-                     "beta_2",   
-                     "theta",
-                     "ln_sig_y",  
-                     "ln_sig_u", 
-                     "ln_kappa",
-                     "ln_tau",
-                     "theta"
-                   ),
-                   labels = c(
-                     expression(mu),
-                     expression(beta[0]), 
-                     expression(beta[0]), 
-                     expression(beta[1]),   
-                     "size",
-                     expression("ln("~sigma[y]~")"),  
-                     expression("ln("~sigma[u]~")"), 
-                     expression("ln("~kappa~")"), 
-                     expression("ln("~tau~")"),
-                     expression(theta)
-                   ))
+# 
+# mles$par <- factor(mles$par,
+#                    levels = c(
+#                      "mu",
+#                      "beta", 
+#                      "beta_1", 
+#                      "beta_2",   
+#                      "theta",
+#                      "ln_sig_y",  
+#                      "ln_sig_u", 
+#                      "ln_kappa",
+#                      "ln_tau",
+#                      "theta"
+#                    ),
+#                    labels = c(
+#                      expression(mu),
+#                      expression(beta[0]), 
+#                      expression(beta[0]), 
+#                      expression(beta[1]),   
+#                      "size",
+#                      expression("ln("~sigma[y]~")"),  
+#                      expression("ln("~sigma[u]~")"), 
+#                      expression("ln("~kappa~")"), 
+#                      expression("ln("~tau~")"),
+#                      expression(theta)
+#                    ))
  
 ```
 
@@ -132,5 +134,7 @@ plot.mles(mle.df)
 ### GLMM
 ```{r, echo = FALSE, fig.cap = "Bias in parameter estimates for the phylogenetic model when the model is correctly specified across 1000 simulations."}
 mle.df <- dplyr::filter(mles, model == 'phylo' & type == 'GLMM')
-
+mle.df[mle.df$par=="beta",]$par <- "beta_1"
 plot.mles(mle.df)
+mean(mle.df[mle.df$par=="beta_1" & mle.df$misp == "misscov",]$mle)
+```
