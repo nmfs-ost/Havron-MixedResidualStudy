@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   TMB-validation-figures-methods: TMB-validation-figures-methods.html
@@ -9,4 +9,4 @@ articles:
   TMB-validation-figures-results-spatial: TMB-validation-figures-results-spatial.html
   TMB-validation-tables-methods: TMB-validation-tables-methods.html
   TMB-validation-tables: TMB-validation-tables.html
-last_built: 2025-05-21T16:52Z
+last_built: 2025-05-26T19:12Z
