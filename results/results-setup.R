@@ -244,10 +244,10 @@ pvals$method <- factor(pvals$method,
                         'MCMC',
                         'Process osa',
                         'Process ecdf',
-                        "Unconditional ecdf, Rotated",
+                        "Unconditional ecdf",
                         "Unconditional ecdf, Not Rotated",
                         "Conditional ecdf, Rotated",
-                        "ecdf"
+                        "Conditional ecdf"
                       ))
 pvals$misp.type <- factor(pvals$misp,
                           level = c(

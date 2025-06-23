@@ -215,7 +215,8 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
+   'Conditional ecdf',
+   'Unconditional ecdf',
    'Pearson'
 )
 
@@ -244,13 +245,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
                     "C: Missing Drift"))
 
 tbl.err.pow(pval.df.true, 
-        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ```{r, randomwalk-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 
@@ -262,8 +263,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
-   'Process osa',
+   'Conditional ecdf',
    'Pearson'
 )
 
@@ -298,7 +298,7 @@ tbl.err.pow(pval.df.true,
 ```{r, randomwalk-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est,
-        caption = "GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "GLMM Temporal Correlation Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 
@@ -312,7 +312,8 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
+   'Conditional ecdf',
+   'Unconditional ecdf',
    'Pearson'
 )
 
@@ -339,13 +340,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ```{r, spatial-results-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 
@@ -355,7 +356,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
+   'Conditional ecdf',
    'Pearson'
 )
 
@@ -382,13 +383,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
 
 
 tbl.err.pow(pval.df.true,
-        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ```{r, spatial-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est,
-        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "GLMM Spatial Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ## Phylogenetic
@@ -401,7 +402,8 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
+   'Conditional ecdf',
+   'Unconditional ecdf',
    'Pearson'
 )
 
@@ -428,13 +430,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
   
 
 tbl.err.pow(pval.df.true, 
-        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right, test type and method (top to bottom).")
 ```
 
 ```{r, phylo-results-lmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est, 
-        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "LMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 
@@ -444,7 +446,7 @@ res.methods <- c(
    'one-step Generic',
    'one-step cdf',
    'MCMC',
-   'ecdf',
+   'Conditional ecdf',
    'Pearson'
 )
 
@@ -471,13 +473,13 @@ pval.df.est$misp <- factor(pval.df.est$misp,
 
 
 tbl.err.pow(pval.df.true,
-        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for theoretical residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ```{r, phylo-results-glmm-est, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 
 tbl.err.pow(pval.df.est,
-        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right) and residual type (top to bottom).")
+        caption = "GLMM Phylogenetic Model. Type I error rates and Power evaluated for each analytical and simulation method for estimated residuals. Results are partitioned out by model mis-specification (from left to right), test type and method (top to bottom).")
 ```
 
 ```{=tex}
