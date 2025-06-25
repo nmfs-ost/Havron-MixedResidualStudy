@@ -40,6 +40,8 @@ navbar:
         href: articles/TMB-validation-figures-results-randomwalk.html
       - text: Figures-Results-Spatial
         href: articles/TMB-validation-figures-results-spatial.html
+      - text: Figures-Results-Phylogenetic
+        href: articles/TMB-validation-figures-results-phylo.html
 
 
 

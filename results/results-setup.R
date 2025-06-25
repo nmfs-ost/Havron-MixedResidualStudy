@@ -367,7 +367,7 @@ filter.all <- function(df, mod, type_, method.vec){
 }
 
 plot.pval.hist <- function(df, doTrue){
-  no.misp <- sum(unique(df$misp) != "A: Correct")
+  no.misp <- sum(levels(df$misp) != "A: Correct")
   p <- ggplot(df, aes(pvalue, fill = misp, color=misp))
   if(no.misp == 1){
     p <- p + facet_grid2(method ~ misp, labeller = label_wrap_gen(12),

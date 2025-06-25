@@ -26,13 +26,11 @@ res.methods <- c(
    'full Gaussian',
    'one-step Gaussian',
    'one-step Generic',
-   'cdf',
+   'one-step cdf',
    'MCMC',
    'Pearson',
-   "Unconditional ecdf, Not Rotated", 
-   "Conditional ecdf, Not Rotated",
-   "Unconditional ecdf, Rotated", 
-   "Conditional ecdf, Rotated"
+   "Unconditional ecdf", 
+   "Conditional ecdf"
 )
 
 pval.df <- filter.true(df = pvals, 
@@ -217,12 +215,10 @@ pval.df <- filter.true(df = pvals,
 
 pval.df$misp <- factor(pval.df$misp,
         levels = c( "correct",
-                    "aniso",
                      "missre", 
                      "pois-zip", 
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
-                    "D: Misp. RE",
                     "B: Miss RE",
                     "C: Zip-Pois",
                     "D: Misp. RE" ))
@@ -242,12 +238,10 @@ pval.df <- filter.true(df = pvals,
 
 pval.df$misp <- factor(pval.df$misp,
            levels = c( "correct", 
-                      "aniso",
                      "missre", 
                      "pois-zip", 
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
-                    "D: Misp. RE",
                     "B: Miss RE",
                     "C: Zip-Pois",
                     "D: Misp. RE" ))
@@ -269,12 +263,10 @@ pval.df$misp <- factor(pval.df$misp,
            levels = c( "correct", 
                      "missre", 
                      "pois-zip",
-                     "aniso",
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
-                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, TRUE)
@@ -298,12 +290,10 @@ pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
-                     "aniso",
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
-                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -323,12 +313,10 @@ pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
-                     "aniso",
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
-                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -350,12 +338,10 @@ pval.df$misp <- factor(pval.df$misp,
          levels = c( "correct", 
                      "missre", 
                      "pois-zip",
-                     "aniso",
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
-                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
@@ -375,12 +361,10 @@ pval.df$misp <- factor(pval.df$misp,
           levels = c( "correct", 
                      "missre", 
                      "pois-zip", 
-                     "aniso",
-                     "mispre"),
+                     "aniso"),
          labels = c("A: Correct",
                     "B: Miss RE",
                     "C: Zip-Pois",
-                    "D: Misp. RE",
                     "D: Misp. RE" ))
 
 plot.pval.hist(pval.df, FALSE)
