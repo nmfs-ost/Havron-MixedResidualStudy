@@ -120,7 +120,7 @@
             
       
 
-      <div class="hidden name"><code>TMB-validation-figures-results-randomwalk.Rmd</code></div>
+      <div class="hidden name"><code>TMB-validation-figures-results-phylo.Rmd</code></div>
 
     </div>
 
@@ -128,7 +128,7 @@
     
 <p><br></p>
 <div class="section level2">
-<h2 id="temporal-covariance-structure">Temporal Covariance Structure<a class="anchor" aria-label="anchor" href="#temporal-covariance-structure"></a>
+<h2 id="phylogenetic-covariance-structure">Phylogenetic Covariance Structure<a class="anchor" aria-label="anchor" href="#phylogenetic-covariance-structure"></a>
 </h2>
 <div class="section level3">
 <h3 id="linear-mixed-model">Linear Mixed Model<a class="anchor" aria-label="anchor" href="#linear-mixed-model"></a>
@@ -140,12 +140,12 @@
 <h5 id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov-test"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-true-ks-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-true-ks-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of theoretical p-values under the
 correct (A) and mis-specified (B-D) models evaluated under the
 Kolmogorov-Smirnov Test for each method when true parameters are known.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Log-linked data fit to Normal (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
@@ -153,26 +153,25 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="anderson-darling-test">Anderson-Darling Test<a class="anchor" aria-label="anchor" href="#anderson-darling-test"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-true-ad-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-true-ad-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B),, Log-linked data fit to Normal (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of theoretical p-values under the
 correct (A) and mis-specified (B-D) models evaluated under the
 Anderson-Darling Test for each method when true parameters are known.
-Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Mis-specification are, from left to right: Missing Random Effect (B),,
+Log-linked data fit to Normal (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
 <div class="section level5">
-<h5 id="autocorrelation-test">Autocorrelation Test<a class="anchor" aria-label="anchor" href="#autocorrelation-test"></a>
+<h5 id="phylogenetic-autocorrelation-test">Phylogenetic Autocorrelation Test<a class="anchor" aria-label="anchor" href="#phylogenetic-autocorrelation-test"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-true-auto-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-true-sp-1.png" alt="Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Moran's I Phylogenetic Correlation Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of theoretical p-values under the
-correct (A) and mis-specified (B-D) models evaluated under the
-Durbin-Watson test for autocorrelation for each method when true
-parameters are known. Mis-specification are, from left to right: Missing
-Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect
-(D).
+correct (A) and mis-specified (B-D) models evaluated under the Moran’s I
+Phylogenetic Correlation Test for each method when true parameters are
+known. Mis-specification are, from left to right: Missing Random Effect
+(B), Log-linked data fit to Normal (C), Mis-specified Random Effect (D).
 </p>
 </div>
 <p><br></p>
@@ -185,12 +184,12 @@ Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect
 <h5 id="kolmogorov-smirnov">Kolmogorov-Smirnov<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-est-ks-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-est-ks-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of estimated p-values under the correct
 (A) and mis-specified (B-D) models evaluated under the
 Kolmogorov-Smirnov Test for each method when parameters are estimated.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Log-linked data fit to Normal (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
@@ -198,12 +197,12 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="lilliefors">Lilliefors<a class="anchor" aria-label="anchor" href="#lilliefors"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-est-lf-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-est-lf-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal  (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of estimated p-values under the correct
 (A) and mis-specified (B-D) models evaluated under the Lilliefors Test
 for each method when parameters are estimated. Mis-specification are,
-from left to right: Missing Random Effect (B), Missing Drift Term (C),
-Mis-specified Random Effect (D).
+from left to right: Missing Random Effect (B), Log-linked data fit to
+Normal (C), Mis-specified Random Effect (D).
 </p>
 </div>
 <p><br></p>
@@ -212,25 +211,26 @@ Mis-specified Random Effect (D).
 <h5 id="anderson-darling-test-1">Anderson-Darling Test<a class="anchor" aria-label="anchor" href="#anderson-darling-test-1"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-est-ad-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-est-ad-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal (C),Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of estimated p-values under the correct
 (A) and mis-specified (B-D) models evaluated under the Anderson-Darling
 Test for each method when parameters are estimated. Mis-specification
-are, from left to right: Missing Random Effect (B), Missing Drift Term
-(C), Mis-specified Random Effect (D).
+are, from left to right: Missing Random Effect (B), Log-linked data fit
+to Normal (C),Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
 <div class="section level5">
-<h5 id="autocorrelation-test-1">Autocorrelation Test<a class="anchor" aria-label="anchor" href="#autocorrelation-test-1"></a>
+<h5 id="phylogenetic-autocorrelation-test-1">Phylogenetic Autocorrelation Test<a class="anchor" aria-label="anchor" href="#phylogenetic-autocorrelation-test-1"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-LMM-est-auto-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-LMM-est-sp-1.png" alt="Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Moran's I phylogenetic autocorrelation test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Log-linked data fit to Normal (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Linear Mixed Model. Distribution of estimated p-values under the correct
-(A) and mis-specified (B-D) models evaluated under the Durbin-Watson
-test for autocorrelation for each method when parameters are estimated.
-Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+(A) and mis-specified (B-D) models evaluated under the Moran’s I
+phylogenetic autocorrelation test for each method when parameters are
+estimated. Mis-specification are, from left to right: Missing Random
+Effect (B), Log-linked data fit to Normal (C), Mis-specified Random
+Effect (D).
 </p>
 </div>
 <p><br></p>
@@ -247,12 +247,12 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="kolmogorov-smirnov-test-1">Kolmogorov-Smirnov Test<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov-test-1"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-true-ks-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-true-ks-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of theoretical p-values
 under the correct (A) and mis-specified (B-D) models evaluated under the
 Kolmogorov-Smirnov Test for each method when true parameters are known.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Missing Covariate (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
@@ -260,21 +260,25 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="anderson-darling-test-2">Anderson-Darling Test<a class="anchor" aria-label="anchor" href="#anderson-darling-test-2"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-true-ad-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-true-ad-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of theoretical p-values
 under the correct (A) and mis-specified (B-D) models evaluated under the
 Anderson-Darling Test for each method when true parameters are known.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Missing Covariate (C), Mis-specified Random Effect (D).
 </p>
 </div>
+</div>
+<div class="section level5">
+<h5 id="phylogenetic-autocorrelation-test-2">Phylogenetic Autocorrelation Test<a class="anchor" aria-label="anchor" href="#phylogenetic-autocorrelation-test-2"></a>
+</h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-true-auto-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-true-sp-1.png" alt="Generalized Linear Mixed Model. Distribution of theoretical p-values under the correct (A) and mis-specified (B-D) models evaluated under the Moran's I Phylogenetic Correlation Test for each method when true parameters are known. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C),  Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of theoretical p-values
 under the correct (A) and mis-specified (B-D) models evaluated under the
-Durbin-Watson test for autocorrelation for each method when true
+Moran’s I Phylogenetic Correlation Test for each method when true
 parameters are known. Mis-specification are, from left to right: Missing
-Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect
+Random Effect (B), Missing Covariate (C), Mis-specified Random Effect
 (D).
 </p>
 </div>
@@ -288,12 +292,12 @@ Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect
 <h5 id="kolmogorov-smirnov-1">Kolmogorov-Smirnov<a class="anchor" aria-label="anchor" href="#kolmogorov-smirnov-1"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-est-ks-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-est-ks-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Kolmogorov-Smirnov Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of estimated p-values under
 the correct (A) and mis-specified (B-D) models evaluated under the
 Kolmogorov-Smirnov Test for each method when parameters are estimated.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Missing Covariate (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
@@ -301,12 +305,12 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="lilliefors-1">Lilliefors<a class="anchor" aria-label="anchor" href="#lilliefors-1"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-est-lf-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-est-lf-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Lilliefors Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of estimated p-values under
 the correct (A) and mis-specified (B-D) models evaluated under the
 Lilliefors Test for each method when parameters are estimated.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Missing Covariate (C), Mis-specified Random Effect (D).
 </p>
 </div>
 <p><br></p>
@@ -315,25 +319,26 @@ Missing Drift Term (C), Mis-specified Random Effect (D).
 <h5 id="anderson-darling-test-3">Anderson-Darling Test<a class="anchor" aria-label="anchor" href="#anderson-darling-test-3"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-est-ad-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-est-ad-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Anderson-Darling Test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of estimated p-values under
 the correct (A) and mis-specified (B-D) models evaluated under the
 Anderson-Darling Test for each method when parameters are estimated.
 Mis-specification are, from left to right: Missing Random Effect (B),
-Missing Drift Term (C), Mis-specified Random Effect (D).
+Missing Covariate (C), Mis-specified Random Effect (D).
 </p>
 </div>
 </div>
 <div class="section level5">
-<h5 id="autocorrelation-test-2">Autocorrelation Test<a class="anchor" aria-label="anchor" href="#autocorrelation-test-2"></a>
+<h5 id="phylogenetic-autocorrelation-test-3">Phylogenetic Autocorrelation Test<a class="anchor" aria-label="anchor" href="#phylogenetic-autocorrelation-test-3"></a>
 </h5>
 <div class="figure">
-<img src="TMB-validation-figures-results-randomwalk_files/figure-html/randomwalk-results-GLMM-est-auto-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Durbin-Watson test for autocorrelation for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
+<img src="TMB-validation-figures-results-phylo_files/figure-html/phylo-results-GLMM-est-sp-1.png" alt="Generalized Linear Mixed Model. Distribution of estimated p-values under the correct (A) and mis-specified (B-D) models evaluated under the Moran's I phylogenetic autocorrelation test for each method when parameters are estimated. Mis-specification are, from left to right: Missing Random Effect (B), Missing Covariate (C), Mis-specified Random Effect (D)." width="700"><p class="caption">
 Generalized Linear Mixed Model. Distribution of estimated p-values under
 the correct (A) and mis-specified (B-D) models evaluated under the
-Durbin-Watson test for autocorrelation for each method when parameters
-are estimated. Mis-specification are, from left to right: Missing Random
-Effect (B), Missing Drift Term (C), Mis-specified Random Effect (D).
+Moran’s I phylogenetic autocorrelation test for each method when
+parameters are estimated. Mis-specification are, from left to right:
+Missing Random Effect (B), Missing Covariate (C), Mis-specified Random
+Effect (D).
 </p>
 </div>
 </div>
