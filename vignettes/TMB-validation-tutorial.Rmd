@@ -104,21 +104,31 @@ ggplot2::ggplot(d, ggplot2::aes(x,y,fill = N)) + ggplot2::geom_raster()
 Data are discrete, so need to set discrete = TRUE
 
 #### cdf
-```{r run-cdf, echo = FALSE, eval = FALSE}
+```{r run-cdf, echo = FALSE, include = FALSE}
 osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "cdf", discrete = TRUE)
 ```
 
-```{r plot-cdf, eval = FALSE}
+```{r cdf, echo = FALSE, eval = FALSE}
+osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+                      method = "cdf", discrete = TRUE)
+```
+
+```{r plot-cdf}
 qqnorm(osa$residual);abline(0,1)
 ```
 
 ### Assumption #3: Data are not approximately normal and do not have a defined cdf
-```{r run-gen, echo = FALSE, eval = FALSE}
+```{r run-gen, echo = FALSE, include = FALSE}
 osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "oneStepGeneric", discrete = TRUE)
 ```
 
-```{r plot-gen, eval = FALSE}
+```{r gen, echo = FALSE, eval = FALSE}
+osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+                      method = "oneStepGeneric", discrete = TRUE)
+```
+
+```{r plot-gen}
 qqnorm(osa$residual);abline(0,1)
 ```
