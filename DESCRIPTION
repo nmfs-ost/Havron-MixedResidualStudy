@@ -27,6 +27,7 @@ Imports:
   rWishart
 Suggests:
   here,
+  RcppEigen,
   TMB
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
