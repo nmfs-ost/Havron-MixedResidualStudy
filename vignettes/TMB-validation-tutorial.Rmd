@@ -35,7 +35,7 @@ plot(1:length(Y), Y)
 #### Full Guassian
 ```{r run-fg-correct, echo = FALSE}
 #Correct Model
-osa <- oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
+osa <- TMB::oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
 ```
 
 ```{r plot-fg-correct}
@@ -45,7 +45,7 @@ abline(0,1)
 
 ```{r run-fg-misp, echo = FALSE}
 #Mis-specified Model
-osa <- oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
+osa <- TMB::oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
 ```
 
 ```{r plot-fg-misp}
@@ -55,7 +55,7 @@ abline(0,1)
 
 #### one-step Guassian
 ```{r run-osg, echo = FALSE}
-osa <- oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
+osa <- TMB::oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
                       method = "oneStepGaussian")
 ```
 
@@ -78,7 +78,7 @@ Data are discrete, so need to set discrete = TRUE
 
 #### cdf
 ```{r run-cdf, echo = FALSE}
-osa <- oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "cdf", discrete = TRUE)
 ```
 
@@ -88,7 +88,7 @@ qqnorm(osa$residual);abline(0,1)
 
 ### Assumption #3: Data are not approximately normal and do not have a defined cdf
 ```{r run-gen, echo = FALSE}
-osa <- oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "oneStepGeneric", discrete = TRUE)
 ```
 
