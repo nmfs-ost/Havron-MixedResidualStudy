@@ -5,6 +5,9 @@
 
 *.log
 *.aux
+*.so
+*.dll
+*.o
 
 /doc/
 

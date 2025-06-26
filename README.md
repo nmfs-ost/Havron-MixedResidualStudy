@@ -24,6 +24,8 @@ Residual Project
       Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-spatial.html)
     - [Phylogenetic
       Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-phylo.html)
+      -[OSA
+      Tutorial](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-tutorial.html)
 
 **Mixed Effects Residual Project** <br> [Repo
 Structure](https://github.com/Cole-Monnahan-NOAA/mixed_resids)

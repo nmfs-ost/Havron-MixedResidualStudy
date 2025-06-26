@@ -1,0 +1,97 @@
+---
+title: "OSA Tutorial"
+author: "Andrea Havron"
+date: "2025-06-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## One-step ahead residuals introduction
+
+Outline of methods and assumptions
+
+## Methods
+Examples will reply on two models from the [TMB example suite](https://github.com/kaskr/adcomp/tree/master/TMB/inst/examples):
+
+* [simple.cpp](https://github.com/kaskr/adcomp/blob/master/TMB/inst/examples/simple.cpp): normal linear mixed model
+* [arxar1.cpp](https://github.com/kaskr/adcomp/blob/master/TMB/inst/examples/ar1xar1.cpp): generalized linear mixed model with separable covariance on lattice with AR1 structure in each direction
+
+Examples can be run in R using: `TMB::runExample(name = "simple")` and `TMB::runExample(name = "ar1xar1")`
+
+### Assumption #1: Data and random effects are approximately normal
+
+```{r run-simple, echo = FALSE}
+path <- here::here()
+TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/examples"))
+```
+
+```{r plot-simple}
+#Plot data: 
+plot(1:length(Y), Y)
+```
+#### Full Guassian
+```{r run-fg-correct, echo = FALSE}
+#Correct Model
+osa <- oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
+```
+
+```{r plot-fg-correct}
+qqnorm(osa$residual)
+abline(0,1)
+```
+
+```{r run-fg-misp, echo = FALSE}
+#Mis-specified Model
+osa <- oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
+```
+
+```{r plot-fg-misp}
+qqnorm(osa$residual)
+abline(0,1)
+```
+
+#### one-step Guassian
+```{r run-osg, echo = FALSE}
+osa <- oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
+                      method = "oneStepGaussian")
+```
+
+```{r plot-osg}
+qqnorm(osa$residual)
+abline(0,1)
+```
+
+### Assumption #2: Data are not approximately normal but have a defined cdf
+```{r run-ar1xar1, echo = FALSE}
+TMB::runExample(name = "ar1xar1")
+```
+
+```{r plor-ar1xar1}
+#Plot data: 
+ggplot2::ggplot(d, ggplot2::aes(x,y,fill = N)) + ggplot2::geom_raster()
+```
+
+Data are discrete, so need to set discrete = TRUE
+
+#### cdf
+```{r run-cdf, echo = FALSE}
+osa <- oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+                      method = "cdf", discrete = TRUE)
+```
+
+```{r plot-cdf}
+qqnorm(osa$residual);abline(0,1)
+```
+
+### Assumption #3: Data are not approximately normal and do not have a defined cdf
+```{r run-gen, echo = FALSE}
+osa <- oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
+                      method = "oneStepGeneric", discrete = TRUE)
+```
+
+```{r plot-gen}
+qqnorm(osa$residual);abline(0,1)
+```

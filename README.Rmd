@@ -31,6 +31,7 @@ Pkgdown site for organizing figures and tables for the Mixed Effects Residual Pr
     - [Temporal Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-randomwalk.html)
     - [Spatial Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-spatial.html)
     - [Phylogenetic Results](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-figures-results-phylo.html)
+  -[OSA Tutorial](https://nmfs-ost.github.io/Havron-MixedResidualStudy/articles/TMB-validation-tutorial.html)
 
 
 

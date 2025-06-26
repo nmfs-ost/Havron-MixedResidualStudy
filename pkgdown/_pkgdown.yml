@@ -42,6 +42,8 @@ navbar:
         href: articles/TMB-validation-figures-results-spatial.html
       - text: Figures-Results-Phylogenetic
         href: articles/TMB-validation-figures-results-phylo.html
+      - text: OSA Tutorial
+        href: articles/TMB-validation-tutorial.html
 
 
 
