@@ -28,22 +28,39 @@ path <- here::here()
 TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/examples"))
 ```
 
+```{r simple, eval = FALSE}
+path <- here::here()
+TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/examples"))
+```
+
 ```{r plot-simple}
 #Plot data: 
 plot(1:length(Y), Y)
 ```
+
 #### Full Guassian
-```{r run-fg-correct, echo = FALSE}
+```{r run-fg-correct, echo = FALSE, include = FALSE}
 #Correct Model
 osa <- TMB::oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
 ```
+
+```{r fg-correct, eval = FALSE}
+#Correct Model
+osa <- TMB::oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
+```
+
 
 ```{r plot-fg-correct}
 qqnorm(osa$residual)
 abline(0,1)
 ```
 
-```{r run-fg-misp, echo = FALSE}
+```{r run-fg-misp, echo = FALSE, include = FALSE}
+#Mis-specified Model
+osa <- TMB::oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
+```
+
+```{r fg-misp, eval = FALSE}
 #Mis-specified Model
 osa <- TMB::oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
 ```
@@ -59,17 +76,27 @@ osa <- TMB::oneStepPredict(obj1, observation.name = "y", data.term.indicator = "
                       method = "oneStepGaussian")
 ```
 
+```{r osg, eval = FALSE}
+osa <- TMB::oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
+                      method = "oneStepGaussian")
+```
+
+
 ```{r plot-osg}
 qqnorm(osa$residual)
 abline(0,1)
 ```
 
 ### Assumption #2: Data are not approximately normal but have a defined cdf
-```{r run-ar1xar1, echo = FALSE, eval = FALSE}
+```{r run-ar1xar1, echo = FALSE, include = FALSE}
 TMB::runExample(name = "ar1xar1")
 ```
 
-```{r plor-ar1xar1, eval = FALSE}
+```{r ar1xar1, echo = FALSE, eval = FALSE}
+TMB::runExample(name = "ar1xar1")
+```
+
+```{r plor-ar1xar1}
 #Plot data: 
 ggplot2::ggplot(d, ggplot2::aes(x,y,fill = N)) + ggplot2::geom_raster()
 ```
