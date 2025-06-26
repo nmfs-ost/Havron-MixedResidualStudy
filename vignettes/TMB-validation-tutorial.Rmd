@@ -23,7 +23,7 @@ Examples can be run in R using: `TMB::runExample(name = "simple")` and `TMB::run
 
 ### Assumption #1: Data and random effects are approximately normal
 
-```{r run-simple, echo = FALSE}
+```{r run-simple, echo = FALSE, message = FALSE}
 path <- here::here()
 TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/examples"))
 ```
@@ -33,7 +33,7 @@ TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/exa
 plot(1:length(Y), Y)
 ```
 #### Full Guassian
-```{r run-fg-correct, echo = FALSE}
+```{r run-fg-correct, echo = FALSE, message = FALSE}
 #Correct Model
 osa <- TMB::oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
 ```
@@ -43,7 +43,7 @@ qqnorm(osa$residual)
 abline(0,1)
 ```
 
-```{r run-fg-misp, echo = FALSE}
+```{r run-fg-misp, echo = FALSE, message = FALSE}
 #Mis-specified Model
 osa <- TMB::oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
 ```
@@ -54,7 +54,7 @@ abline(0,1)
 ```
 
 #### one-step Guassian
-```{r run-osg, echo = FALSE}
+```{r run-osg, echo = FALSE, message = FALSE}
 osa <- TMB::oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
                       method = "oneStepGaussian")
 ```
@@ -65,11 +65,11 @@ abline(0,1)
 ```
 
 ### Assumption #2: Data are not approximately normal but have a defined cdf
-```{r run-ar1xar1, echo = FALSE}
+```{r run-ar1xar1, echo = FALSE, eval = FALSE}
 TMB::runExample(name = "ar1xar1")
 ```
 
-```{r plor-ar1xar1}
+```{r plor-ar1xar1, eval = FALSE}
 #Plot data: 
 ggplot2::ggplot(d, ggplot2::aes(x,y,fill = N)) + ggplot2::geom_raster()
 ```
@@ -77,21 +77,21 @@ ggplot2::ggplot(d, ggplot2::aes(x,y,fill = N)) + ggplot2::geom_raster()
 Data are discrete, so need to set discrete = TRUE
 
 #### cdf
-```{r run-cdf, echo = FALSE}
+```{r run-cdf, echo = FALSE, eval = FALSE}
 osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "cdf", discrete = TRUE)
 ```
 
-```{r plot-cdf}
+```{r plot-cdf, eval = FALSE}
 qqnorm(osa$residual);abline(0,1)
 ```
 
 ### Assumption #3: Data are not approximately normal and do not have a defined cdf
-```{r run-gen, echo = FALSE}
+```{r run-gen, echo = FALSE, eval = FALSE}
 osa <- TMB::oneStepPredict(obj, observation.name = "N", data.term.indicator = "keep",
                       method = "oneStepGeneric", discrete = TRUE)
 ```
 
-```{r plot-gen}
+```{r plot-gen, eval = FALSE}
 qqnorm(osa$residual);abline(0,1)
 ```
