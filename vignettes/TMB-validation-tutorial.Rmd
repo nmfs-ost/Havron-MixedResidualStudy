@@ -23,7 +23,7 @@ Examples can be run in R using: `TMB::runExample(name = "simple")` and `TMB::run
 
 ### Assumption #1: Data and random effects are approximately normal
 
-```{r run-simple, echo = FALSE, message = FALSE}
+```{r run-simple, echo = FALSE, include = FALSE, message = FALSE}
 path <- here::here()
 TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/examples"))
 ```
@@ -33,7 +33,7 @@ TMB::runExample(name = "randomwalkvalidation", exfolder = paste0(path,"/inst/exa
 plot(1:length(Y), Y)
 ```
 #### Full Guassian
-```{r run-fg-correct, echo = FALSE, message = FALSE}
+```{r run-fg-correct, echo = FALSE}
 #Correct Model
 osa <- TMB::oneStepPredict(obj1, observation.name = "y", method = "fullGaussian")
 ```
@@ -43,7 +43,7 @@ qqnorm(osa$residual)
 abline(0,1)
 ```
 
-```{r run-fg-misp, echo = FALSE, message = FALSE}
+```{r run-fg-misp, echo = FALSE}
 #Mis-specified Model
 osa <- TMB::oneStepPredict(obj0, observation.name = "y", method = "fullGaussian")
 ```
@@ -54,7 +54,7 @@ abline(0,1)
 ```
 
 #### one-step Guassian
-```{r run-osg, echo = FALSE, message = FALSE}
+```{r run-osg, echo = FALSE, message = FALSE, include = FALSE}
 osa <- TMB::oneStepPredict(obj1, observation.name = "y", data.term.indicator = "keep", 
                       method = "oneStepGaussian")
 ```
